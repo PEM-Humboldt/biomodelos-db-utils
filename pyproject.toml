@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "biomodelos-utils"
+version = "0.1.0"
+description = "BioModelos database utilities."
+license = "MIT"
+authors = [
+    "Erika Suarez-Valencia <esuarez@humboldt.org.co>",
+    "Marcelo Villa-Piñeros <mvilla@humboldt.org.co>"
+]
+repository = "https://github.com/PEM-Humboldt/biomodelos-db-utils"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "^7.1.2"
+pandas = "^1.2.4"
+pymongo = "^3.11.2"
+
+[tool.poetry.dev-dependencies]
+black = "^21.4b2"
+ipython = "^7.22.0"
+pytest = "^6.2.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
