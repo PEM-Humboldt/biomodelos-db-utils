@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "biomodelos-utils"
+name = "bmdbutils"
 version = "0.1.0"
 description = "BioModelos database utilities."
 license = "MIT"
