@@ -1,5 +1,5 @@
 """
-CLI entry point.
+bmdbutils CLI entry point.
 """
 
 import click

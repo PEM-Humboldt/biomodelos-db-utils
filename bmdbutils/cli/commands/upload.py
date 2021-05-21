@@ -1,5 +1,5 @@
 """
-$ bmbdutils upload
+$ bmdbutils upload
 """
 import click
 
