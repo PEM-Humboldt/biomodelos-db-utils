@@ -48,5 +48,5 @@ def upsert(biomodelos, geoserver, models_info, models_folder):
                 model_id=row.model_id, layer=f"{ws_name}:{row.model_id}"
             )
         except Exception as e:
-            print("Error:", e)
+            click.secho(str(e), fg="red")
             return
