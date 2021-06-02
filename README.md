@@ -33,7 +33,7 @@ Ejecute el comando `bmdbutils` para ver los subcomandos disponibles y la ayuda d
 ## Cómo contribuir
 
 ### Configuración del entorno de desarrollo
-Para el desarrollo se utiliza `poetry`, un auxiliar de empaquetado y gestor de dependencias. Antes de continuar debe [instalarlo](https://python-poetry.org/docs/#installation).
+Para el desarrollo se requiere [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html), que se encarga de crear el ambiente de desarrollo, instalar dependencias base (para no tener que instalar librerías del sistema operativo) e instalar poetry, gestor de empaquetado y manejador de las demás dependencias.
 
 En primer lugar, es necesario clonar este repositorio localmente. Para esto, ejecute:
 
@@ -41,23 +41,41 @@ En primer lugar, es necesario clonar este repositorio localmente. Para esto, eje
 git clone https://github.com/PEM-Humboldt/biomodelos-db-utils.git
 ```
 
-Luego, ubíquese dentro de del directorio del proyecto:
+Luego, ubíquese dentro del directorio del proyecto:
 
 ```
 cd biomodelos-db-utils
 ```
 
-e instale todas las dependencias necesarias:
+y restaure el ambiente de conda:
+
+```
+conda env create --file condaenv.yml
+```
+
+después, active el ambiente recién restaurado
+
+```
+conda activate bm-db-utils
+```
+
+e instale el resto de dependencias necesarias:
 
 ```
 poetry install
 ```
 
-El entorno de desarrollo está listo y todas las dependencias necesarias están instaladas. En caso de necesitar agregar nuevas dependencias, ejecute:
+### Tips
+En caso de necesitar agregar nuevas dependencias, ejecute:
 
 ```
 poetry add <dependencia>
 poetry update
 ```
 
-Es recomendable familiarizarse con la [documentación](https://python-poetry.org/docs/) de `poetry`.
+Para ejecutar bmdbutils sin tener que instalar como usuario final ejecute
+```
+poetry run bmdbutils
+```
+
+Es recomendable familiarizarse con la [documentación](https://python-poetry.org/docs/) de `poetry` y de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).

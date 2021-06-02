@@ -14,7 +14,6 @@ python = "^3.8"
 click = "^7.1.2"
 pandas = "^1.2.4"
 pymongo = "^3.11.2"
-GDAL = "~3.2"
 geoserver-rest = {git = "https://github.com/erikasv/geoserver-rest.git"}
 appdirs = "^1.4.4"
 
