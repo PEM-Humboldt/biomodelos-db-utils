@@ -1,5 +1,5 @@
 """
-$ bmdbutils geoserver setup
+$ bmdbutils setup
 """
 import configparser
 import os
@@ -8,13 +8,13 @@ import appdirs
 import click
 
 
-@click.command(short_help="Setup BioModelos API and database config values")
+@click.command(short_help="Configura el API de BioModelos y la base de datos.")
 @click.option(
     "--url",
     type=str,
     default="http://192.168.11.105:4000",
     show_default=True,
-    help="BioMobelos API url (including port number)",
+    help="URL del API de BioMobelos (incluyendo el número del puerto)",
 )
 def setup(url):
     config = configparser.ConfigParser()

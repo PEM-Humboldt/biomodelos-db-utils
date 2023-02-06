@@ -21,8 +21,8 @@ def main(ctx):
         config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos"))
         if len(config.sections()) <= 0 or not "API" in config.sections():
             click.echo(
-                "BioModelos is misconfigured or hasn't been configured yet. "
-                "You must execute 'bmdbutils setup'"
+                "BioModelos no ha sido configurado o la configuración es erronea. "
+                "Primero ejecute 'bmdbutils setup'"
             )
             return
 
