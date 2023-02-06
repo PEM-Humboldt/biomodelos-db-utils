@@ -5,7 +5,22 @@ Utilitarios para BioModelos
 ## Prerrequisitos
 * [Python](https://www.python.org/downloads/) (v. 3.8+)
 
+## Previo a la instalación
+
+Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta sin afectar su ambiente general, para esto:
+
+> 1. Cree el ambiente:
+> `python3 -m venv bmdbutils`
+> 2. Active el ambiente:
+> `source bmdbutils/bin/activate`
+
 ## Instalación
+
+Si está usando una versión de Python >= 3.10, primero instale setuptools versión 58:
+
+```
+pip install setuptools==58
+```
 
 Puede instalar `bmdbutils` ejecutando el siguiente comando:
 
