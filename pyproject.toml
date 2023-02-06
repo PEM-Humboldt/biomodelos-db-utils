@@ -10,13 +10,15 @@ authors = [
 repository = "https://github.com/PEM-Humboldt/biomodelos-db-utils"
 
 [tool.poetry.dependencies]
+setuptools = "58"
 python = "^3.8"
 click = "^7.1.2"
 pandas = "^1.2.4"
 pymongo = "^3.11.2"
+GDAL = "3.2.2"
 geoserver-rest = {git = "https://github.com/erikasv/geoserver-rest.git"}
 appdirs = "^1.4.4"
-GDAL = "3.2.2"
+pycurl = "7.45.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.4b2"
