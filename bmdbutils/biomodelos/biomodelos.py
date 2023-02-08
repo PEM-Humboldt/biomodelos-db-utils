@@ -34,3 +34,16 @@ class Biomodelos:
             """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
         ratings = pd.read_sql_query(query, cnx)
         return ratings
+
+    def query_editions(self, tax_ids, init_date, end_date):
+        cnx = create_engine('postgresql://{username}:{password}@{addr}:{port}/{dbname}'.format(
+            username=self.pg_user, password=quote_plus(self.pg_pass), addr=self.pg_addr, port=self.pg_port, dbname=self.pg_db))
+        query = """SELECT ul.user_id, u.name, ul.species_id, ul."newModel", ul.threshold, ul.final, ul."geoJSON", ul.created_at, ul.updated_at
+            FROM users_layers AS ul
+            JOIN users AS u ON u.id = ul.user_id
+            WHERE ul.created_at > '{init_date}'
+            AND ul.created_at <= '{end_date}'
+            AND ul.species_id IN ({tax_ids})
+            """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
+        editions = pd.read_sql_query(query, cnx)
+        return editions

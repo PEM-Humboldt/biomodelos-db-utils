@@ -45,6 +45,30 @@ def clean_tax_list(tax_ids=list()):
         list of valid tax ids
     """
     clean_list = list(
-        map(lambda id: id.strip().replace(' ', ''), tax_ids.split(',')))
-    tax_list = filter(lambda id: int(id), clean_list)
+        map(lambda id: id.replace(' ', ''), tax_ids.split(',')))
+
+    def is_int(num):
+        try:
+            int(num)
+            return True
+        except:
+            return False
+    tax_list = filter(is_int, clean_list)
     return tax_list
+
+
+def clean_str(raw_str=""):
+    """
+    Clean special character for some strings
+
+    Parameters
+    ----------
+    raw_str : str
+              raw string
+
+    Returns
+    -------
+    str
+        string without some characters
+    """
+    return raw_str.replace(':', '').replace('.', '').replace(' ', '').replace('%', '')
