@@ -8,6 +8,7 @@ from csv import writer
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
+from bmdbutils._helpers import clean_date_range, clean_tax_list
 
 pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
@@ -38,17 +39,8 @@ def ratings(biomodelos, tax_ids, init_date, end_date, out_folder):
 
     Por defecto traerá todas las calificaciones asignadas en los últimos 30 días.
     """
-    end_date = end_date.date()
-    if not init_date:
-        init_date = end_date - timedelta(days=30)
-    else:
-        init_date = init_date.date()
-
-    if not tax_ids:
-        tax_ids = list()
-    else:
-        tax_ids = list(
-            map(lambda id: id.strip().replace(' ', ''), tax_ids.split(',')))
+    [init_date, end_date] = clean_date_range(init_date, end_date)
+    tax_ids = clean_tax_list(tax_ids)
 
     ratings = biomodelos.query_ratings(tax_ids, init_date, end_date)
     name = 'ratings_{init_date}_{end_date}{filtered}.csv'.format(
