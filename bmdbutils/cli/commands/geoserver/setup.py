@@ -25,7 +25,7 @@ import click
 )
 @click.option(
     "--password",
-    prompt=True,
+    prompt="Contraseña para el ususario de GeoServer",
     hide_input=True,
     help="contraseña para el ususario",
 )

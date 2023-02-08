@@ -29,7 +29,7 @@ def geoserver(ctx):
                 "Geoserver no ha sido configurado o la configuración es erronea. "
                 "Primero ejecute 'bmdbutils geoserver setup'"
             )
-            return
+            ctx.exit(0)
 
         ctx.obj = Geoserver(
             config["LOCATION"]["url"],
