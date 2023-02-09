@@ -26,11 +26,13 @@ class Biomodelos:
     def query_ratings(self, tax_ids, init_date, end_date):
         cnx = create_engine('postgresql://{username}:{password}@{addr}:{port}/{dbname}'.format(
             username=self.pg_user, password=quote_plus(self.pg_pass), addr=self.pg_addr, port=self.pg_port, dbname=self.pg_db))
-        query = """SELECT user_id, model_id, species_id, score
-            FROM ratings
-            WHERE created_at > '{init_date}'
-            AND created_at <= '{end_date}'
-            AND species_id IN ({tax_ids})
+        query = """SELECT rt.user_id, u.name, rt.model_id, rt.species_id, s.accepted_name, rt.score
+            FROM ratings as rt
+            JOIN users as u ON u.id = rt.user_id
+            JOIN species as s ON s.species_id = rt.species_id
+            WHERE rt.created_at > '{init_date}'
+            AND rt.created_at <= '{end_date}'
+            AND rt.species_id IN ({tax_ids})
             """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
         ratings = pd.read_sql_query(query, cnx)
         return ratings
