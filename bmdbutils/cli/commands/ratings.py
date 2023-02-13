@@ -38,6 +38,8 @@ def ratings(biomodelos, tax_ids, init_date, end_date, out_folder):
     especies indicadas.
 
     Por defecto traerá todas las calificaciones asignadas en los últimos 30 días.
+
+    OUT_FOLDER \t Ruta donde se creará el archivo csv con los resultados de la consulta
     """
     [init_date, end_date] = clean_date_range(init_date, end_date)
     tax_ids = clean_tax_list(tax_ids)

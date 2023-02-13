@@ -37,6 +37,9 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
     """Obtener las ediciones hechas a modelos correspondientes a las especies indicadas.
 
     Por defecto traerá todas las ediciones hechas en los últimos 30 días.
+
+    OUT_FOLDER \t Ruta donde se crearán guardarán los resultados de la consulta (un archivo
+    geojson por edición)
     """
     [init_date, end_date] = clean_date_range(init_date, end_date)
     tax_ids = clean_tax_list(tax_ids)
