@@ -16,7 +16,7 @@ Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta si
 
 ## Instalación
 
-Si está usando una versión de Python >= 3.10, primero instale setuptools versión 58:
+Si está usando una versión de Python >= 3.9, primero instale setuptools versión 58:
 
 ```
 pip install setuptools==58
