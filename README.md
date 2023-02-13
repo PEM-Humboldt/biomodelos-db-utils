@@ -4,8 +4,9 @@ Utilitarios para BioModelos
 
 ## Prerrequisitos
 * [Python](https://www.python.org/downloads/) (v. 3.8+)
+* Librerías del sistema de GDAL (si instala usando Conda no es necesario)
 
-## Previo a la instalación
+## Instalación
 
 Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta sin afectar su ambiente general, para esto:
 
@@ -13,8 +14,6 @@ Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta si
 > `python3 -m venv bmdbutils`
 > 2. Active el ambiente:
 > `source bmdbutils/bin/activate`
-
-## Instalación
 
 Si está usando una versión de Python >= 3.9, primero instale setuptools versión 58:
 
@@ -41,6 +40,31 @@ python -c "import bmdbutils"
 ```
 
 Si la instalación fue exitosa, el comando correrá sin ningún problema.
+
+### Usando Conda
+
+Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
+
+1. Instalar conda
+1. Instalar dependencias del ambiente del repositorio:
+
+    ```
+    conda env create --file condaenv.yml
+    ```
+1. Activar el ambiente recién restaurado
+
+    ```
+    conda activate bm-db-utils
+    ```
+1. Instalar la herramienta:
+
+    ```
+    pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
+    ```
+
+En este momento tendrá disponible el comando `bmdbutils`.
+
+En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
 
 ## Ejecución
 
@@ -93,4 +117,4 @@ Para ejecutar bmdbutils sin tener que instalar como usuario final ejecute
 poetry run bmdbutils
 ```
 
-Es recomendable familiarizarse con la [documentación](https://python-poetry.org/docs/) de `poetry` y de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
+Es recomendable familiarizarse con la documentación de [poetry](https://python-poetry.org/docs/) y de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
