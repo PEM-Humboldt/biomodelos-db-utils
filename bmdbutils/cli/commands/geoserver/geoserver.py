@@ -13,7 +13,7 @@ from .upsert import upsert
 
 
 @click.group(
-    short_help="Operations related with Geoserver",
+    short_help="Operaciones relacionadas con GeoServer",
 )
 @click.pass_context
 def geoserver(ctx):
@@ -26,10 +26,10 @@ def geoserver(ctx):
             or not "CREDENTIALS" in config.sections()
         ):
             click.echo(
-                "Geoserver is misconfigured or hasn't been configured yet. "
-                "You must execute 'bmdbutils geoserver setup'"
+                "Geoserver no ha sido configurado o la configuración es erronea. "
+                "Primero ejecute 'bmdbutils geoserver setup'"
             )
-            return
+            ctx.exit(0)
 
         ctx.obj = Geoserver(
             config["LOCATION"]["url"],

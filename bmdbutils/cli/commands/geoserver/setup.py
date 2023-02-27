@@ -8,26 +8,26 @@ import appdirs
 import click
 
 
-@click.command(short_help="Setup Geoserver config values")
+@click.command(short_help="Configurar GeoServer")
 @click.option(
     "--url",
     type=str,
     default="http://192.168.11.58:8181/geoserver",
     show_default=True,
-    help="Geoserver url",
+    help="URL de GeoServer",
 )
 @click.option(
     "--username",
     type=str,
     default="admin",
     show_default=True,
-    help="username to access Geoserver",
+    help="nombre de usuario para acceder a GeoServer",
 )
 @click.option(
     "--password",
-    prompt=True,
+    prompt="Contraseña para el ususario de GeoServer",
     hide_input=True,
-    help="password for username",
+    help="contraseña para el ususario",
 )
 def setup(url, username, password):
     config = configparser.ConfigParser()

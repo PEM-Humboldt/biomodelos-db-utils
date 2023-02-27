@@ -5,8 +5,8 @@ import click
 
 
 @click.command(
-    short_help="Uploads a table with models, records or species to a "
-               "MongoDB collection."
+    short_help="Cargar una tabla de modelos, registros o especies a una "
+               "colección de mongoDB [WIP]."
 )
 def upload():
     pass

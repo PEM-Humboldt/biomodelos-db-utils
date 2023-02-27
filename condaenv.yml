@@ -1,0 +1,9 @@
+name: bm-db-utils
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - poetry
+  - gdal=3.2.2
+  - pycurl
