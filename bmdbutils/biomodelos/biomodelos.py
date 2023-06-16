@@ -30,8 +30,8 @@ class Biomodelos:
             FROM ratings as rt
             JOIN users as u ON u.id = rt.user_id
             JOIN species as s ON s.species_id = rt.species_id
-            WHERE rt.created_at > '{init_date}'
-            AND rt.created_at <= '{end_date}'
+            WHERE rt.updated_at > '{init_date}'
+            AND rt.updated_at <= '{end_date}'
             AND rt.species_id IN ({tax_ids})
             """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
         ratings = pd.read_sql_query(query, cnx)
