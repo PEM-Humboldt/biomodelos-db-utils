@@ -43,8 +43,8 @@ class Biomodelos:
         query = """SELECT ul.user_id, u.name, ul.species_id, ul."newModel", ul.threshold, ul.final, ul."geoJSON", ul.created_at, ul.updated_at
             FROM users_layers AS ul
             JOIN users AS u ON u.id = ul.user_id
-            WHERE ul.created_at > '{init_date}'
-            AND ul.created_at <= '{end_date}'
+            WHERE ul.updated_at > '{init_date}'
+            AND ul.updated_at <= '{end_date}'
             AND ul.species_id IN ({tax_ids})
             """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
         editions = pd.read_sql_query(query, cnx)
