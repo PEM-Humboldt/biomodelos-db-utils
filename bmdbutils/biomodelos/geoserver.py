@@ -21,3 +21,11 @@ class Geoserver:
             path=file_path,
             workspace=workspace_name
         )
+    
+    def upsert_workspaces_rules(self, workspace: str, permission: str, role_name: str, mode: str):
+        self.geo.upsert_workspaces_rules(
+            workspacePattern=workspace,
+            permission=permission,
+            role=role_name,
+            mode=mode
+        )
