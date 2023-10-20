@@ -8,6 +8,33 @@ Utilitarios para BioModelos
 
 ## Instalación
 
+### Usando Conda
+
+Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
+
+1. Instalar conda
+1. Instalar dependencias del ambiente del repositorio:
+
+    ```
+    conda env create --file condaenv.yml
+    ```
+1. Activar el ambiente recién restaurado
+
+    ```
+    conda activate bm-db-utils
+    ```
+1. Instalar la herramienta:
+
+    ```
+    pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
+    ```
+
+En este momento tendrá disponible el comando `bmdbutils`.
+
+En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
+
+### Usando Virtualenv
+
 Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta sin afectar su ambiente general, para esto:
 
 > 1. Cree el ambiente:
@@ -40,31 +67,6 @@ python -c "import bmdbutils"
 ```
 
 Si la instalación fue exitosa, el comando correrá sin ningún problema.
-
-### Usando Conda
-
-Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
-
-1. Instalar conda
-1. Instalar dependencias del ambiente del repositorio:
-
-    ```
-    conda env create --file condaenv.yml
-    ```
-1. Activar el ambiente recién restaurado
-
-    ```
-    conda activate bm-db-utils
-    ```
-1. Instalar la herramienta:
-
-    ```
-    pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
-    ```
-
-En este momento tendrá disponible el comando `bmdbutils`.
-
-En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
 
 ## Ejecución
 
