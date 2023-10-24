@@ -2,7 +2,7 @@
 $ bmdbutils ecovars
 """
 from datetime import date
-from os import path
+from os import path, makedirs
 from csv import writer
 
 import click
@@ -42,14 +42,13 @@ def ecovars(biomodelos, tax_ids, init_date, end_date, out_folder):
     tax_ids = clean_tax_list(tax_ids)
 
     ecovars = biomodelos.query_ecovars(tax_ids, init_date, end_date)
-    name = 'ecological_variables_{init_date}_{end_date}{filtered}.csv'.format(
-        init_date=init_date, end_date=end_date, filtered='_filtered' if tax_ids else '')
-    
-    with open(path.join(out_folder, name), 'w') as outfile:
-        csv_writer = writer(outfile)
-        csv_writer.writerow(ecovars.head())
+    for index, row in ecovars.iterrows():
+        filePath = out_folder + '/ecovars_{species_id}_{user_id}_{init_date}_{end_date}.csv'.format(init_date=init_date, end_date=end_date, species_id=str(row['species_id']), user_id=str(row['user_id']))
+        if not path.exists(filePath):
+            with open(filePath, 'a+') as outfile:
+                csv_writer = writer(outfile)
+                csv_writer.writerow(ecovars.head())
 
-    with open(path.join(out_folder, name), 'a+') as outfile:
-        csv_writer = writer(outfile)
-        for index, row in ecovars.iterrows():
+        with open(filePath, 'a+') as outfile:
+            csv_writer = writer(outfile)
             csv_writer.writerow(row)
