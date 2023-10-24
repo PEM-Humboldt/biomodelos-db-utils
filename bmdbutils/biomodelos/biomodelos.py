@@ -53,7 +53,7 @@ class Biomodelos:
     def query_ecovars(self, tax_ids, init_date, end_date):
         cnx = create_engine('postgresql://{username}:{password}@{addr}:{port}/{dbname}'.format(
             username=self.pg_user, password=quote_plus(self.pg_pass), addr=self.pg_addr, port=self.pg_port, dbname=self.pg_db))
-        query = """SELECT evs.user_id, u.name username, evs.species_id, ev.name ecological_variable, evs.created_at, evs.updated_at
+        query = """SELECT evs.user_id, u.name, evs.species_id, ev.name ecological_variable, evs.created_at, evs.updated_at
             FROM eco_variables_species AS evs
             JOIN users AS u ON u.id = evs.user_id
             JOIN eco_variables AS ev ON ev.id = evs.eco_variable_id
