@@ -42,8 +42,13 @@ def ecovars(biomodelos, tax_ids, init_date, end_date, out_folder):
     tax_ids = clean_tax_list(tax_ids)
 
     ecovars = biomodelos.query_ecovars(tax_ids, init_date, end_date)
+    folder = 'ecovars_{init_date}_{end_date}'.format(
+        init_date=init_date, end_date=end_date)
+    if not path.exists(path.join(out_folder, folder)):
+        makedirs(path.join(out_folder, folder))
+
     for index, row in ecovars.iterrows():
-        filePath = out_folder + '/ecovars_{species_id}_{user_id}_{init_date}_{end_date}.csv'.format(init_date=init_date, end_date=end_date, species_id=str(row['species_id']), user_id=str(row['user_id']))
+        filePath = out_folder + '/' + folder + '/ecovars_{species_id}_{user_id}_{init_date}_{end_date}.csv'.format(init_date=init_date, end_date=end_date, species_id=str(row['species_id']), user_id=str(row['user_id']))
         if not path.exists(filePath):
             with open(filePath, 'a+') as outfile:
                 csv_writer = writer(outfile)
