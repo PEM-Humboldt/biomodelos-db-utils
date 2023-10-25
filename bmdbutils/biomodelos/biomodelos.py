@@ -49,3 +49,18 @@ class Biomodelos:
             """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
         editions = pd.read_sql_query(query, cnx)
         return editions
+    
+    def query_ecovars(self, tax_ids, init_date, end_date):
+        cnx = create_engine('postgresql://{username}:{password}@{addr}:{port}/{dbname}'.format(
+            username=self.pg_user, password=quote_plus(self.pg_pass), addr=self.pg_addr, port=self.pg_port, dbname=self.pg_db))
+        query = """SELECT evs.user_id, u.name, evs.species_id, ev.name ecological_variable, evs.created_at, evs.updated_at
+            FROM eco_variables_species AS evs
+            JOIN users AS u ON u.id = evs.user_id
+            JOIN eco_variables AS ev ON ev.id = evs.eco_variable_id
+            WHERE evs.updated_at > '{init_date}'
+            AND evs.updated_at <= '{end_date}'
+            AND evs.species_id IN ({tax_ids})
+            """.format(init_date=init_date, end_date=end_date, tax_ids=",".join(tax_ids))
+        ecovars = pd.read_sql_query(query, cnx)
+        return ecovars
+
