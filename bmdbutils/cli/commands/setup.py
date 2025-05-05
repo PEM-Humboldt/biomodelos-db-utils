@@ -14,12 +14,13 @@ import click
     type=str,
     default="http://192.168.11.105:4000",
     show_default=True,
-    help="URL del API de BioMobelos (incluyendo el número del puerto)",
+    help="URL del API de BioModelos (incluyendo el número del puerto)",
 )
 @click.option(
     "--postgres-url",
     type=str,
-    default="192.168.11.106:5432",
+    default="localhost:5436",
+    #default="192.168.11.106:5432",
     show_default=True,
     help="URL de la base de datos de PostgresSQL (incluyendo el número del puerto)",
 )
@@ -38,7 +39,6 @@ import click
 def setup(api_url, postgres_url, postgres_username, postgres_password):
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
-
     if (postgres_url != None
         and postgres_username != None
             and postgres_password != None):

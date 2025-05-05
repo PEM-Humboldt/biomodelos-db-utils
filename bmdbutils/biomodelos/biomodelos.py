@@ -11,7 +11,8 @@ class Biomodelos:
         if pg_url and pg_user and pg_pass:
             [self.pg_addr, self.pg_port] = pg_url.rsplit(':', 1)
             if not self.pg_port:
-                self.pg_port = 5432
+                self.pg_port = 5436
+                #self.pg_port = 5432
             else:
                 self.pg_port = int(self.pg_port)
             self.pg_user = pg_user
