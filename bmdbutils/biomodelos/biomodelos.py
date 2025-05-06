@@ -6,13 +6,13 @@ from sqlalchemy import create_engine
 
 
 class Biomodelos:
-    def __init__(self, api_url=None, pg_url=None, pg_user=None, pg_pass=None):
+    def __init__(self, api_url=None, mongo_url=None, pg_url=None, pg_user=None, pg_pass=None):
         self.api_url = api_url
+        self.mongo_url = mongo_url
         if pg_url and pg_user and pg_pass:
             [self.pg_addr, self.pg_port] = pg_url.rsplit(':', 1)
             if not self.pg_port:
-                self.pg_port = 5436
-                #self.pg_port = 5432
+                self.pg_port = 5432
             else:
                 self.pg_port = int(self.pg_port)
             self.pg_user = pg_user

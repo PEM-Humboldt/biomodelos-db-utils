@@ -12,15 +12,22 @@ import click
 @click.option(
     "--mongo-url",
     type=str,
-    default="localhost:27023",
+    default="192.168.11.105:27016",
     show_default=True,
-    help="URL de la base de datos de Mongo (incluyendo el número del puerto)",
+    help="URL de la base de datos Mongo (incluyendo el número del puerto)",
+)
+@click.option(
+    "--mongo-db",
+    type=str,
+    default="produccion",
+    show_default=True,
+    help="Base de datos de Mongo",
 )
 @click.option(
     "--mongo-username",
     type=str,
-    prompt="Usuario de Mongo",
-    hide_input=False,
+    default="biomodelos",
+    show_default=True,
     help="Usuario para acceder a la base de datos de Mongo",
 )
 @click.option(
@@ -29,13 +36,6 @@ import click
     prompt="Contraseña para usuario de Mongo",
     hide_input=True,
     help="Contraseña para el usuario para acceder a la base de datos de Mongo",
-)
-@click.option(
-    "--mongo-db",
-    type=str,
-    default="produccion",
-    show_default=True,
-    help="Base de datos de Mongo",
 )
 def setup(mongo_url, mongo_username, mongo_password, mongo_db):
     config = configparser.ConfigParser()

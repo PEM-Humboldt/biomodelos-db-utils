@@ -17,10 +17,16 @@ import click
     help="URL del API de BioModelos (incluyendo el número del puerto)",
 )
 @click.option(
+    "--mongo-url",
+    type=str,
+    default="192.168.11.105:27016",
+    show_default=True,
+    help="URL de la base de datos Mongo (incluyendo el número del puerto)",
+)
+@click.option(
     "--postgres-url",
     type=str,
-    default="localhost:5436",
-    #default="192.168.11.106:5432",
+    default="192.168.11.106:5432",
     show_default=True,
     help="URL de la base de datos de PostgresSQL (incluyendo el número del puerto)",
 )
@@ -36,9 +42,10 @@ import click
     hide_input=True,
     help="contraseña para el usuario para acceder a la base de datos de PostgresSQL",
 )
-def setup(api_url, postgres_url, postgres_username, postgres_password):
+def setup(api_url, mongo_url, postgres_url, postgres_username, postgres_password):
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
+    config["MONGODB"] = {"url": mongo_url}
     if (postgres_url != None
         and postgres_username != None
             and postgres_password != None):

@@ -8,7 +8,6 @@ import appdirs
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils.biomodelos.mongo import Mongo
 from .commands.mongo.mongo import mongo
 from .commands.geoserver.geoserver import geoserver
 from .commands.setup import setup
@@ -39,7 +38,7 @@ def main(ctx):
             ctx.exit(0)
         else:
             ctx.obj = Biomodelos(api_url=config["API"]["url"])
-            print(ctx.obj.api_url)
+            
     if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
         if not "POSTGRESDB" in config.sections():
             click.echo(
@@ -53,23 +52,18 @@ def main(ctx):
                 pg_user=config["POSTGRESDB"]["username"],
                 pg_pass=config["POSTGRESDB"]["password"]
             )
-            
+
     if ctx.invoked_subcommand == "mongo":
-        config = configparser.ConfigParser()
-        config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo"))
         if not "MONGODB" in config.sections():
             click.echo(
-                "La base de datos de MongoDB no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils mongo setup'"
+                "La conexión a la base de datos de Mongo no ha sido configurada correctamente. "
+                "Primero ejecute 'bmdbutils setup'"
             )
             ctx.exit(0)
         else:
-            ctx.obj = Mongo(
-                mongo_url=config["MONGODB"]["url"],
-                mongo_user=config["MONGODB"]["username"],
-                mongo_pass=config["MONGODB"]["password"],
-                mongo_db=config["MONGODB"]["db"]
-            )
+            ctx.obj = Biomodelos(mongo_url=config["MONGODB"]["url"])
+
+
     
 main.add_command(setup)
 main.add_command(geoserver)

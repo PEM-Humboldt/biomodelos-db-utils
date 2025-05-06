@@ -2,8 +2,6 @@
 $ bmdbutils validate
 """
 import click
-import configparser
-import os
 import pandas as pd
 
 @click.command(
@@ -20,7 +18,6 @@ import pandas as pd
 def validate(csv_file):
     try:
         df = pd.read_csv(csv_file)
-        print(df)
         if df.empty:
             raise ValueError("El archivo CSV está vacío.")
         if not all(df.columns.isin(['id', 'nombre', 'apellido', 'algo'])):

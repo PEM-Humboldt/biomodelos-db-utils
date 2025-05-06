@@ -11,7 +11,7 @@ class Mongo:
         if mongo_url and mongo_user and mongo_pass and mongo_db:
             [self.mongo_addr, self.mongo_port] = mongo_url.rsplit(':', 1)
             if not self.mongo_port:
-                self.mongo_port = 27023
+                self.mongo_port = 27016
             else:
                 self.mongo_port = int(self.mongo_port)
             self.mongo_user = mongo_user
@@ -21,13 +21,13 @@ class Mongo:
             
 
     def query_mongo(self):
-        mongo_url = f"mongodb://{quote_plus(self.mongo_user)}:{quote_plus(self.mongo_pass)}@{self.mongo_url}/?authMechanism=SCRAM-SHA-256&authSource={self.mongo_db}"
+        mongo_url = f"mongodb://{quote_plus(self.mongo_user)}:{quote_plus(self.mongo_pass)}@{self.mongo_url}/?authMechanism=SCRAM-SHA-1&authSource={self.mongo_db}"
         cnx = MongoClient(mongo_url)
         db = cnx[self.mongo_db]
-        collection = db["species"]
+        collection = db["records"]
         
         # Example query to find a specific document
-        prueba = collection.find({"species" : "Anthurium clavigerum"})
+        prueba = collection.find({"species" : "Hyospathe wendlandiana"})
         cnx.close()
         
         return prueba
