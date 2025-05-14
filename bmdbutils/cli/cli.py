@@ -65,7 +65,7 @@ def main(ctx):
                 "Primero ejecute 'bmdbutils mongo setup'"
             )
             ctx.exit(0)
-        
+
 
 main.add_command(setup)
 main.add_command(geoserver)

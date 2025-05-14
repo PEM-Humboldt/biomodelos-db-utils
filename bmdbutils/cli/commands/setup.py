@@ -35,9 +35,7 @@ import click
     hide_input=True,
     help="contraseña para el usuario para acceder a la base de datos de PostgresSQL",
 )
-def setup(
-    api_url, postgres_url, postgres_username, postgres_password
-):
+def setup(api_url, postgres_url, postgres_username, postgres_password):
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
     if (
