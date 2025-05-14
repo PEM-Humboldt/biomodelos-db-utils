@@ -46,7 +46,9 @@ def ratings(biomodelos, tax_ids, init_date, end_date, out_folder):
 
     ratings = biomodelos.query_ratings(tax_ids, init_date, end_date)
     name = "ratings_{init_date}_{end_date}{filtered}.csv".format(
-        init_date=init_date, end_date=end_date, filtered="_filtered" if tax_ids else ""
+        init_date=init_date,
+        end_date=end_date,
+        filtered="_filtered" if tax_ids else "",
     )
 
     with open(path.join(out_folder, name), "w") as outfile:

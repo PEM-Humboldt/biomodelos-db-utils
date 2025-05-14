@@ -19,7 +19,9 @@ from .upsert import upsert
 def geoserver(ctx):
     if ctx.invoked_subcommand != "setup":
         config = configparser.ConfigParser()
-        config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "geoserver"))
+        config.read(
+            os.path.join(appdirs.user_config_dir("bmdbutils"), "geoserver")
+        )
         if (
             len(config.sections()) <= 0
             or not "LOCATION" in config.sections()

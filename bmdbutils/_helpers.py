@@ -71,4 +71,9 @@ def clean_str(raw_str=""):
     str
         string without some characters
     """
-    return raw_str.replace(":", "").replace(".", "").replace(" ", "").replace("%", "")
+    return (
+        raw_str.replace(":", "")
+        .replace(".", "")
+        .replace(" ", "")
+        .replace("%", "")
+    )

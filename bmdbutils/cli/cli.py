@@ -20,7 +20,9 @@ from .commands.ecovars import ecovars
 @click.pass_context
 def main(ctx):
     config = configparser.ConfigParser()
-    config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos"))
+    config.read(
+        os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos")
+    )
     if ctx.invoked_subcommand != "setup":
         if len(config.sections()) <= 0:
             click.echo(

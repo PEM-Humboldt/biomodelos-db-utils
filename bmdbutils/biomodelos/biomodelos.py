@@ -7,7 +7,12 @@ from sqlalchemy import create_engine
 
 class Biomodelos:
     def __init__(
-        self, api_url=None, mongo_url=None, pg_url=None, pg_user=None, pg_pass=None
+        self,
+        api_url=None,
+        mongo_url=None,
+        pg_url=None,
+        pg_user=None,
+        pg_pass=None,
     ):
         self.api_url = api_url
         self.mongo_url = mongo_url
@@ -23,7 +28,8 @@ class Biomodelos:
 
     def update_model_layer(self, model_id, layer):
         r = requests.put(
-            f"{self.api_url}/tools/models/{model_id}/layer", data={"layer_name": layer}
+            f"{self.api_url}/tools/models/{model_id}/layer",
+            data={"layer_name": layer},
         )
 
     def query_ratings(self, tax_ids, init_date, end_date):

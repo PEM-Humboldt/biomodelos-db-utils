@@ -20,7 +20,9 @@ def get_consecutive(
     -------
 
     """
-    field_max = collection.find_one(sort=[(field, pymongo.DESCENDING)]).get(field)
+    field_max = collection.find_one(sort=[(field, pymongo.DESCENDING)]).get(
+        field
+    )
     sequence = range(field_max, field_max + n)
 
     return pd.Series(sequence) + 1

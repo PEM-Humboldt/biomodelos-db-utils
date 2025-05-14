@@ -38,5 +38,7 @@ def setup(url, username, password):
     if not os.path.exists(target_conf_folder):
         os.makedirs(target_conf_folder)
 
-    with open(os.path.join(target_conf_folder, "geoserver"), "w") as configfile:
+    with open(
+        os.path.join(target_conf_folder, "geoserver"), "w"
+    ) as configfile:
         config.write(configfile)

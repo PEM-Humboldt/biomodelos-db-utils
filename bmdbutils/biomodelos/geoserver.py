@@ -25,5 +25,8 @@ class Geoserver:
         self, workspace: str, permission: str, role_name: str, mode: str
     ):
         self.geo.upsert_workspaces_rules(
-            workspacePattern=workspace, permission=permission, role=role_name, mode=mode
+            workspacePattern=workspace,
+            permission=permission,
+            role=role_name,
+            mode=mode,
         )

@@ -6,7 +6,9 @@ from pymongo import MongoClient
 
 
 class Mongo:
-    def __init__(self, mongo_url=None, mongo_user=None, mongo_pass=None, mongo_db=None):
+    def __init__(
+        self, mongo_url=None, mongo_user=None, mongo_pass=None, mongo_db=None
+    ):
         if mongo_url and mongo_user and mongo_pass and mongo_db:
             [self.mongo_addr, self.mongo_port] = mongo_url.rsplit(":", 1)
             if not self.mongo_port:

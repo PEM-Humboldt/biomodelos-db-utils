@@ -38,7 +38,10 @@ def upsert(biomodelos, geoserver, models_info, models_folder):
         try:
             geoserver.create_ws(name=ws_name)
             geoserver.upsert_workspaces_rules(
-                workspace=ws_name, permission="r", role_name="READ_TAXID", mode="R"
+                workspace=ws_name,
+                permission="r",
+                role_name="READ_TAXID",
+                mode="R",
             )
             geoserver.load_layer(
                 file_path=os.path.join(models_folder, row.model_file),

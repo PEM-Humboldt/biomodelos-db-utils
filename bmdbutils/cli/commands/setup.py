@@ -42,11 +42,17 @@ import click
     hide_input=True,
     help="contraseña para el usuario para acceder a la base de datos de PostgresSQL",
 )
-def setup(api_url, mongo_url, postgres_url, postgres_username, postgres_password):
+def setup(
+    api_url, mongo_url, postgres_url, postgres_username, postgres_password
+):
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
     config["MONGODB"] = {"url": mongo_url}
-    if postgres_url != None and postgres_username != None and postgres_password != None:
+    if (
+        postgres_url != None
+        and postgres_username != None
+        and postgres_password != None
+    ):
         config["POSTGRESDB"] = {
             "url": postgres_url,
             "username": postgres_username,
@@ -57,5 +63,7 @@ def setup(api_url, mongo_url, postgres_url, postgres_username, postgres_password
     if not os.path.exists(target_conf_folder):
         os.makedirs(target_conf_folder)
 
-    with open(os.path.join(target_conf_folder, "biomodelos"), "w") as configfile:
+    with open(
+        os.path.join(target_conf_folder, "biomodelos"), "w"
+    ) as configfile:
         config.write(configfile)

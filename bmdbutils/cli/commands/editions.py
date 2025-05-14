@@ -46,7 +46,9 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
 
     editions = biomodelos.query_editions(tax_ids, init_date, end_date)
     folder = "editions_{init_date}_{end_date}{filtered}".format(
-        init_date=init_date, end_date=end_date, filtered="_filtered" if tax_ids else ""
+        init_date=init_date,
+        end_date=end_date,
+        filtered="_filtered" if tax_ids else "",
     )
     if not path.exists(path.join(out_folder, folder)):
         makedirs(path.join(out_folder, folder))
@@ -54,10 +56,12 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
     for index, row in editions.iterrows():
         geojson = row["geoJSON"]
         geojson = json.loads(geojson)
-        filename = "sp-{species_id}_usr-{user_id}_thr-{threshold}.geojson".format(
-            species_id=str(row["species_id"]),
-            user_id=str(row["user_id"]),
-            threshold=clean_str(row["threshold"]),
+        filename = (
+            "sp-{species_id}_usr-{user_id}_thr-{threshold}.geojson".format(
+                species_id=str(row["species_id"]),
+                user_id=str(row["user_id"]),
+                threshold=clean_str(row["threshold"]),
+            )
         )
         if len(geojson["features"]) < 1:
             print("has no features")
@@ -82,5 +86,7 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
                 feat["properties"]["userName"] = row["name"]
                 feat["properties"]["taxID"] = row["species_id"]
                 feat["properties"]["threshold"] = row["threshold"]
-                with open(path.join(out_folder, folder, filename), "w") as outfile:
+                with open(
+                    path.join(out_folder, folder, filename), "w"
+                ) as outfile:
                     json.dump(geojson, outfile, ensure_ascii=False)
