@@ -45,14 +45,15 @@ def ratings(biomodelos, tax_ids, init_date, end_date, out_folder):
     tax_ids = clean_tax_list(tax_ids)
 
     ratings = biomodelos.query_ratings(tax_ids, init_date, end_date)
-    name = 'ratings_{init_date}_{end_date}{filtered}.csv'.format(
-        init_date=init_date, end_date=end_date, filtered='_filtered' if tax_ids else '')
+    name = "ratings_{init_date}_{end_date}{filtered}.csv".format(
+        init_date=init_date, end_date=end_date, filtered="_filtered" if tax_ids else ""
+    )
 
-    with open(path.join(out_folder, name), 'w') as outfile:
+    with open(path.join(out_folder, name), "w") as outfile:
         csv_writer = writer(outfile)
         csv_writer.writerow(ratings.head())
 
-    with open(path.join(out_folder, name), 'a+') as outfile:
+    with open(path.join(out_folder, name), "a+") as outfile:
         csv_writer = writer(outfile)
         for index, row in ratings.iterrows():
             csv_writer.writerow(row)

@@ -45,38 +45,42 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
     tax_ids = clean_tax_list(tax_ids)
 
     editions = biomodelos.query_editions(tax_ids, init_date, end_date)
-    folder = 'editions_{init_date}_{end_date}{filtered}'.format(
-        init_date=init_date, end_date=end_date, filtered='_filtered' if tax_ids else '')
+    folder = "editions_{init_date}_{end_date}{filtered}".format(
+        init_date=init_date, end_date=end_date, filtered="_filtered" if tax_ids else ""
+    )
     if not path.exists(path.join(out_folder, folder)):
         makedirs(path.join(out_folder, folder))
 
     for index, row in editions.iterrows():
-        geojson = row['geoJSON']
+        geojson = row["geoJSON"]
         geojson = json.loads(geojson)
-        filename = 'sp-{species_id}_usr-{user_id}_thr-{threshold}.geojson'.format(
-            species_id=str(row['species_id']), user_id=str(row['user_id']), threshold=clean_str(row['threshold']))
-        if len(geojson['features']) < 1:
+        filename = "sp-{species_id}_usr-{user_id}_thr-{threshold}.geojson".format(
+            species_id=str(row["species_id"]),
+            user_id=str(row["user_id"]),
+            threshold=clean_str(row["threshold"]),
+        )
+        if len(geojson["features"]) < 1:
             print("has no features")
-            geojson['features']
+            geojson["features"]
             feat = {}
-            feat['properties'] = {
-                'UserID': row['user_id'],
-                'userName': row['name'],
-                'taxID': row['species_id'],
-                'threshold': row['threshold']
+            feat["properties"] = {
+                "UserID": row["user_id"],
+                "userName": row["name"],
+                "taxID": row["species_id"],
+                "threshold": row["threshold"],
             }
-            feat['type'] = 'Feature'
-            feat['geometry'] = {}
-            geojson['features'].append(feat)
-            with open(path.join(out_folder, folder, filename), 'w') as outfile:
+            feat["type"] = "Feature"
+            feat["geometry"] = {}
+            geojson["features"].append(feat)
+            with open(path.join(out_folder, folder, filename), "w") as outfile:
                 json.dump(geojson, outfile, ensure_ascii=False)
 
         else:
-            for idx, feat in enumerate(geojson['features']):
+            for idx, feat in enumerate(geojson["features"]):
                 print("has features")
-                feat['properties']['userID'] = row['user_id']
-                feat['properties']['userName'] = row['name']
-                feat['properties']['taxID'] = row['species_id']
-                feat['properties']['threshold'] = row['threshold']
-                with open(path.join(out_folder, folder, filename), 'w') as outfile:
+                feat["properties"]["userID"] = row["user_id"]
+                feat["properties"]["userName"] = row["name"]
+                feat["properties"]["taxID"] = row["species_id"]
+                feat["properties"]["threshold"] = row["threshold"]
+                with open(path.join(out_folder, folder, filename), "w") as outfile:
                     json.dump(geojson, outfile, ensure_ascii=False)

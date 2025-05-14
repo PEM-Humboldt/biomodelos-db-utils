@@ -16,7 +16,6 @@ from .commands.editions import editions
 from .commands.ecovars import ecovars
 
 
-
 @click.group()
 @click.pass_context
 def main(ctx):
@@ -38,7 +37,7 @@ def main(ctx):
             ctx.exit(0)
         else:
             ctx.obj = Biomodelos(api_url=config["API"]["url"])
-            
+
     if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
         if not "POSTGRESDB" in config.sections():
             click.echo(
@@ -50,7 +49,7 @@ def main(ctx):
             ctx.obj = Biomodelos(
                 pg_url=config["POSTGRESDB"]["url"],
                 pg_user=config["POSTGRESDB"]["username"],
-                pg_pass=config["POSTGRESDB"]["password"]
+                pg_pass=config["POSTGRESDB"]["password"],
             )
 
     if ctx.invoked_subcommand == "mongo":
@@ -64,7 +63,6 @@ def main(ctx):
             ctx.obj = Biomodelos(mongo_url=config["MONGODB"]["url"])
 
 
-    
 main.add_command(setup)
 main.add_command(geoserver)
 main.add_command(ratings)

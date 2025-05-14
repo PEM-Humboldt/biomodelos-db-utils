@@ -39,17 +39,19 @@ import click
 )
 def setup(mongo_url, mongo_username, mongo_password, mongo_db):
     config = configparser.ConfigParser()
-    if (mongo_url != None
+    if (
+        mongo_url != None
         and mongo_username != None
-            and mongo_password != None
-                and mongo_db != None):
+        and mongo_password != None
+        and mongo_db != None
+    ):
         config["MONGODB"] = {
             "url": mongo_url,
             "username": mongo_username,
             "password": mongo_password,
-            "db": mongo_db
+            "db": mongo_db,
         }
-        
+
     target_conf_folder = appdirs.user_config_dir("bmdbutils")
     if not os.path.exists(target_conf_folder):
         os.makedirs(target_conf_folder)

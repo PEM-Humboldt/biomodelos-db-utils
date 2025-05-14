@@ -12,6 +12,7 @@ from .setup import setup
 from .upload import upload
 from .validate import validate
 
+
 @click.group(
     short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos.",
 )
@@ -31,8 +32,9 @@ def mongo(ctx):
                 mongo_url=config["MONGODB"]["url"],
                 mongo_user=config["MONGODB"]["username"],
                 mongo_pass=config["MONGODB"]["password"],
-                mongo_db=config["MONGODB"]["db"]
+                mongo_db=config["MONGODB"]["db"],
             )
+
 
 mongo.add_command(setup)
 mongo.add_command(upload)

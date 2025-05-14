@@ -6,9 +6,7 @@ import pymongo
 
 
 def get_consecutive(
-    collection: pymongo.collection.Collection,
-    field: str,
-    n: int
+    collection: pymongo.collection.Collection, field: str, n: int
 ) -> pd.Series:
     """
 
@@ -29,9 +27,7 @@ def get_consecutive(
 
 
 def get_difference(
-    collection: pymongo.collection.Collection,
-    field: str,
-    values: pd.Series
+    collection: pymongo.collection.Collection, field: str, values: pd.Series
 ) -> pd.Series:
     """
 

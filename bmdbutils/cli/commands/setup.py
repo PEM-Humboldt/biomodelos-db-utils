@@ -46,13 +46,11 @@ def setup(api_url, mongo_url, postgres_url, postgres_username, postgres_password
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
     config["MONGODB"] = {"url": mongo_url}
-    if (postgres_url != None
-        and postgres_username != None
-            and postgres_password != None):
+    if postgres_url != None and postgres_username != None and postgres_password != None:
         config["POSTGRESDB"] = {
             "url": postgres_url,
             "username": postgres_username,
-            "password": postgres_password
+            "password": postgres_password,
         }
 
     target_conf_folder = appdirs.user_config_dir("bmdbutils")
