@@ -20,13 +20,11 @@ from .validate import validate
 def mongo(ctx):
     if ctx.invoked_subcommand != "setup":
         config = configparser.ConfigParser()
-        config.read(
-            os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
-        )
+        config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo"))
         if not "MONGODB" in config.sections():
             click.echo(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils setup'"
+                "Primero ejecute 'bmdbutils mongo setup'"
             )
             ctx.exit(0)
         else:

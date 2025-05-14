@@ -55,15 +55,17 @@ def main(ctx):
             )
 
     if ctx.invoked_subcommand == "mongo":
-        if not "MONGODB" in config.sections():
+        config = configparser.ConfigParser()
+        config.read(
+            os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
+        )
+        if len(config.sections()) <= 0:
             click.echo(
-                "La conexión a la base de datos de Mongo no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils setup'"
+                "BioModelos no ha sido configurado. "
+                "Primero ejecute 'bmdbutils mongo setup'"
             )
             ctx.exit(0)
-        else:
-            ctx.obj = Biomodelos(mongo_url=config["MONGODB"]["url"])
-
+        
 
 main.add_command(setup)
 main.add_command(geoserver)

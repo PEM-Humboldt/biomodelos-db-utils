@@ -13,7 +13,7 @@ from bmdbutils.biomodelos.mongo import Mongo
 pass_mongo = click.make_pass_decorator(Mongo)
 
 
-@click.command(short_help="Upload datos Mongo de BioModelos.")
+@click.command(short_help="Cargar documentos en una colección de datos mongoDB de BioModelos.")
 @click.option(
     "--csv-file",
     prompt="Archivo CSV",

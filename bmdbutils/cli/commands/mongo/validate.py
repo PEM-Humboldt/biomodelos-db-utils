@@ -6,8 +6,7 @@ import pandas as pd
 
 
 @click.command(
-    short_help="Cargar una tabla de modelos, registros o especies a una "
-    "colección de mongoDB [WIP]."
+    short_help="Valida un archivo csv de modelos, registros o especies a una colección de mongoDB [WIP]."
 )
 @click.option(
     "--csv-file",

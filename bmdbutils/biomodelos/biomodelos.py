@@ -9,13 +9,11 @@ class Biomodelos:
     def __init__(
         self,
         api_url=None,
-        mongo_url=None,
         pg_url=None,
         pg_user=None,
         pg_pass=None,
     ):
         self.api_url = api_url
-        self.mongo_url = mongo_url
         if pg_url and pg_user and pg_pass:
             [self.pg_addr, self.pg_port] = pg_url.rsplit(":", 1)
             if not self.pg_port:
