@@ -105,6 +105,13 @@ e instale el resto de dependencias necesarias:
 ```
 poetry install
 ```
+### Revision y formato de estilos para el código
+Para hacer formateo de estilos automático se utiliza el paquete black, el cual se encuentra incuído adentro del ambiente. Al ejecutarlo se tendran en cuenta las configuraciones de estilo definidas en el archivo [pyproject.toml](https://github.com/PEM-Humboldt/biomodelos-db-utils/blob/master/pyproject.toml).
+
+Ejecute el siguiente comando teniendo en cuenta que src es el archivo o folder que desea formatear.
+```
+black src
+```
 
 ### Tips
 En caso de necesitar agregar nuevas dependencias, ejecute:
