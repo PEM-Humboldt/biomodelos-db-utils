@@ -54,18 +54,6 @@ def main(ctx):
                 pg_pass=config["POSTGRESDB"]["password"],
             )
 
-    if ctx.invoked_subcommand == "mongo":
-        config = configparser.ConfigParser()
-        config.read(
-            os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
-        )
-        if len(config.sections()) <= 0:
-            click.echo(
-                "BioModelos no ha sido configurado. "
-                "Primero ejecute 'bmdbutils mongo setup'"
-            )
-            ctx.exit(0)
-
 
 main.add_command(setup)
 main.add_command(geoserver)
