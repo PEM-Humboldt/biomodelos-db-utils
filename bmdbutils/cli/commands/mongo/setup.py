@@ -1,5 +1,5 @@
 """
-$ bmdbutils setup mongo
+$ bmdbutils mongo setup
 """
 import configparser
 import os
@@ -58,3 +58,10 @@ def setup(mongo_url, mongo_username, mongo_password, mongo_db):
 
     with open(os.path.join(target_conf_folder, "mongo"), "w") as configfile:
         config.write(configfile)
+    
+    click.secho(
+        "La configuración de la base de datos MongoDB se ha realizado con éxito.",
+        blink=True, 
+        bold=True,
+        fg="green", 
+    )
