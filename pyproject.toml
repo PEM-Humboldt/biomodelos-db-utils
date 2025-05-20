@@ -1,3 +1,8 @@
+[tool.black]
+line-length = 79
+target-version = ['py310']
+include = '\.pyi?$'
+
 [tool.poetry]
 name = "bmdbutils"
 version = "0.1.0"

@@ -14,7 +14,7 @@ import click
     type=str,
     default="http://192.168.11.105:4000",
     show_default=True,
-    help="URL del API de BioMobelos (incluyendo el número del puerto)",
+    help="URL del API de BioModelos (incluyendo el número del puerto)",
 )
 @click.option(
     "--postgres-url",
@@ -38,19 +38,22 @@ import click
 def setup(api_url, postgres_url, postgres_username, postgres_password):
     config = configparser.ConfigParser()
     config["API"] = {"url": api_url}
-
-    if (postgres_url != None
+    if (
+        postgres_url != None
         and postgres_username != None
-            and postgres_password != None):
+        and postgres_password != None
+    ):
         config["POSTGRESDB"] = {
             "url": postgres_url,
             "username": postgres_username,
-            "password": postgres_password
+            "password": postgres_password,
         }
 
     target_conf_folder = appdirs.user_config_dir("bmdbutils")
     if not os.path.exists(target_conf_folder):
         os.makedirs(target_conf_folder)
 
-    with open(os.path.join(target_conf_folder, "biomodelos"), "w") as configfile:
+    with open(
+        os.path.join(target_conf_folder, "biomodelos"), "w"
+    ) as configfile:
         config.write(configfile)

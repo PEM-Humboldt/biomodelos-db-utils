@@ -41,7 +41,7 @@ def upsert(biomodelos, geoserver, models_info, models_folder):
                 workspace=ws_name,
                 permission="r",
                 role_name="READ_TAXID",
-                mode="R"
+                mode="R",
             )
             geoserver.load_layer(
                 file_path=os.path.join(models_folder, row.model_file),

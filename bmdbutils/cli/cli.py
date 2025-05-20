@@ -8,9 +8,9 @@ import appdirs
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
+from .commands.mongo.mongo import mongo
 from .commands.geoserver.geoserver import geoserver
 from .commands.setup import setup
-from .commands.upload import upload
 from .commands.ratings import ratings
 from .commands.editions import editions
 from .commands.ecovars import ecovars
@@ -20,7 +20,9 @@ from .commands.ecovars import ecovars
 @click.pass_context
 def main(ctx):
     config = configparser.ConfigParser()
-    config.read(os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos"))
+    config.read(
+        os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos")
+    )
     if ctx.invoked_subcommand != "setup":
         if len(config.sections()) <= 0:
             click.echo(
@@ -37,6 +39,7 @@ def main(ctx):
             ctx.exit(0)
         else:
             ctx.obj = Biomodelos(api_url=config["API"]["url"])
+
     if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
         if not "POSTGRESDB" in config.sections():
             click.echo(
@@ -48,13 +51,13 @@ def main(ctx):
             ctx.obj = Biomodelos(
                 pg_url=config["POSTGRESDB"]["url"],
                 pg_user=config["POSTGRESDB"]["username"],
-                pg_pass=config["POSTGRESDB"]["password"]
+                pg_pass=config["POSTGRESDB"]["password"],
             )
 
 
 main.add_command(setup)
-main.add_command(upload)
 main.add_command(geoserver)
 main.add_command(ratings)
 main.add_command(editions)
 main.add_command(ecovars)
+main.add_command(mongo)
