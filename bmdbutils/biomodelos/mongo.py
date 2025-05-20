@@ -4,7 +4,7 @@ import pandas as pd
 import sys
 from urllib.parse import quote_plus
 from json import loads
-from jsonschema import validate, FormatError
+from jsonschema import validate, ValidationError, SchemaError
 from pymongo import MongoClient
 
 
@@ -59,25 +59,28 @@ class Mongo:
             # van a facilitar la carga a mongo
             with open("output_array.json", "w") as f:
                 json.dump(data, f, indent=2)
-
-            return True
-
+            result = "✅ El archivo CSV posee el esquema necesario."
+            return True, result
+        
+        except ValidationError as ve:
+            result = f"❌ El archivo CSV no cumple con el esquema. Detalles: {ve}"
+            return False, result
+        
+        except SchemaError as se:
+            result = f"❌ Error en el esquema JSON. Detalles: {se}"
+            return False, result
+        
         except pd.errors.EmptyDataError:
-            print("❌ El archivo CSV está vacío.")
-            return False
+            result = "❌ El archivo '{csv_file}' está vacío."
+            return False, result
+        
         except FileNotFoundError:
-            print(
-                f"❌ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
-            )
-            return False
-        except FormatError as fe:
-            print(
-                f"❌ El archivo no cumple con el formato JSON. Detalles: {fe}"
-            )
-            return False
+            result = "❌ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
+            return False, result
+        
         except Exception as e:
-            print(f"❌ Error al validar el archivo CSV: {e}")
-            return False
+            result = "❌ Error al validar el archivo CSV: {e}"
+            return False, result
 
     def upload_mongo(self, df):
         pass
