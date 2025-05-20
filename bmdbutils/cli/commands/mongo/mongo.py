@@ -24,9 +24,16 @@ def mongo(ctx):
             os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
         )
         if not "MONGODB" in config.sections():
-            click.echo(
-                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils mongo setup'"
+            click.secho(
+                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.", 
+                fg="red",
+                blink=True,
+            )
+            click.secho(
+                "Primero ejecute 'bmdbutils mongo setup'",
+                fg="yellow",
+                blink=True,
+                bold=True,
             )
             ctx.exit(0)
         else:
