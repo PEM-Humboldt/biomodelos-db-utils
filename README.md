@@ -108,9 +108,16 @@ poetry install
 ### Revision y formato de estilos para el código
 Para hacer formateo de estilos automático se utiliza el paquete black, el cual se encuentra incuído adentro del ambiente. Al ejecutarlo se tendran en cuenta las configuraciones de estilo definidas en el archivo [pyproject.toml](https://github.com/PEM-Humboldt/biomodelos-db-utils/blob/master/pyproject.toml).
 
-Ejecute el siguiente desde la ruta ```~/biomodelos-db-utils/ ``` para formatear todos los archivos del folder bmdbutils.
+Ejecute el siguiente comando desde la raiz del repositorio para formatear todos los archivos que se encuentren adentro de la carpeta bmdbutils.
+
 ```
 black bmdbutils
+```
+
+También se puede formatear cada archivo de forma individual.
+
+```
+black <nombre archivo>
 ```
 
 ### Tips
