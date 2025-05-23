@@ -4,7 +4,7 @@ import pandas as pd
 import sys
 from urllib.parse import quote_plus
 from json import loads
-from jsonschema import validate, ValidationError, SchemaError
+from jsonschema import Draft7Validator, FormatChecker
 from pymongo import MongoClient
 
 
@@ -41,46 +41,51 @@ class Mongo:
 
         return prueba
 
-    def validate_csv_data_records(csv_file):
-
+    def validate_csv_data_records(self, csv_file):
+        all_errors = []
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json("output.json", orient="records", lines=True)
-            with open("records_schema.json", "r") as f:
-                schema = json.load(f)
+            df_file.to_json("bmdbutils/biomodelos/schemas/output.json", orient="records", lines=True)
 
-            with open("output.json", "r") as f:
+            with open("bmdbutils/biomodelos/schemas/records.json", "r") as f:
+                schema = json.load(f)
+                validator = Draft7Validator(schema, format_checker = FormatChecker())
+
+            with open("bmdbutils/biomodelos/schemas/output.json", "r") as f:
                 data = [json.loads(line) for line in f]
 
-                for record in data:
-                    validate(instance=record, schema=schema)
+                for idx, record in enumerate(data):
+                    errors = list(validator.iter_errors(record))
+                    for error in errors:
+                        all_errors.append(
+                            {
+                                "registro": idx,
+                                "campo": "/".join(map(str, error.path)),
+                                "mensaje": error.message,
+                            }
+                        )
 
-            # Estoy creando un nuevo archivo json como varios json anidados que depronto
-            # van a facilitar la carga a mongo
-            with open("output_array.json", "w") as f:
+                if len(all_errors) > 0:
+                    return all_errors
+
+                else:
+                    return True
+
+            with open("bmdbutils/biomodelos/schemas/output_array.json", "w") as f:
                 json.dump(data, f, indent=2)
-            result = "✅ El archivo CSV posee el esquema necesario."
-            return True, result
-        
-        except ValidationError as ve:
-            result = f"❌ El archivo CSV no cumple con el esquema. Detalles: {ve}"
-            return False, result
-        
-        except SchemaError as se:
-            result = f"❌ Error en el esquema JSON. Detalles: {se}"
-            return False, result
-        
+
         except pd.errors.EmptyDataError:
-            result = "❌ El archivo '{csv_file}' está vacío."
-            return False, result
-        
+
+            error = f"❌ El archivo '{csv_file}' está vacío."
+            return error
+
         except FileNotFoundError:
-            result = "❌ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
-            return False, result
-        
+            error = f"❌ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
+            return error
+
         except Exception as e:
-            result = "❌ Error al validar el archivo CSV: {e}"
-            return False, result
+            error = f"❌ Error al validar el archivo '{csv_file}': {e}"
+            return error
 
     def upload_mongo(self, df):
         pass

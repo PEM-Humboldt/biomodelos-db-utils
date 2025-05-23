@@ -25,7 +25,7 @@ def mongo(ctx):
         )
         if not "MONGODB" in config.sections():
             click.secho(
-                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.", 
+                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
                 fg="red",
                 blink=True,
             )
