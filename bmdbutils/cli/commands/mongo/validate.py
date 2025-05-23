@@ -1,9 +1,10 @@
 """
-$ bmdbutils validate
+$ bmdbutils mongo validate
 """
 import click
-import pandas as pd
+from bmdbutils.biomodelos.mongo import Mongo
 
+pass_mongo = click.make_pass_decorator(Mongo)
 
 @click.command(
     short_help="Valida un archivo csv de modelos, registros o especies a una colección de mongoDB [WIP]."
@@ -14,25 +15,26 @@ import pandas as pd
     hide_input=False,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
-def validate(csv_file):
-    try:
-        df = pd.read_csv(csv_file)
-        if df.empty:
-            raise ValueError("El archivo CSV está vacío.")
-        if not all(df.columns.isin(["id", "nombre", "apellido", "algo"])):
-            raise ValueError(
-                "El archivo CSV no contiene las columnas requeridas: id, nombre, apellido, algo."
+@pass_mongo
+def validate(mongo, csv_file):
+    validation = mongo.validate_csv_data_records(csv_file)
+    if type(validation) == bool:
+        click.secho(
+            "✅ El archivo CSV posee el esquema necesario.",
+            fg="green",
+            bold=True,
+        )
+    elif type(validation) == list:
+        click.secho(
+            "⚠️  Por favor leer atentamente y corregir el archivo CSV.",
+            fg="yellow",
+            bold=True,
+        )
+        for err in validation:
+            click.secho(
+                f"[Registro {err['registro']}] Error en '{err['campo']}': {err['mensaje']}",
+                fg="red",
+                bold=False,
             )
-        else:
-            print("El archivo CSV es válido.")
-        return True
-
-    except FileNotFoundError:
-        print(f"El archivo {csv_file} no se encuentra.")
-        return False
-    except pd.errors.EmptyDataError:
-        print("El archivo CSV está vacío.")
-        return False
-    except Exception as e:
-        print(f"Error al verificar el archivo CSV: {e}")
-        return False
+    else:
+        click.secho(validation, fg="red", bold=True)
