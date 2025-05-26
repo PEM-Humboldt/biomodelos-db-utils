@@ -14,7 +14,8 @@ from .validate import validate
 
 
 @click.group(
-    short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos.",
+    help=""" Comando relacionado con la base de datos MongoDB de BioModelos.""",
+    short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos."
 )
 @click.pass_context
 def mongo(ctx):

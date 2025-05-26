@@ -8,7 +8,13 @@ import appdirs
 import click
 
 
-@click.command(short_help="Configura la base de datos Mongo de BioModelos.")
+@click.command(
+    help=
+        """Comando para configurar la base de datos MongoDB de BioModelos. 
+        No es necesario ejecutar este comando si ya se ha configurado la base de datos MongoDB. 
+        No es necesario agregar el parámetro --mongo-password, éste se solicita en cada ejecución del comando mongo.""",
+    short_help="Configura la base de datos Mongo de BioModelos."
+)
 @click.option(
     "--mongo-url",
     type=str,
@@ -35,7 +41,8 @@ import click
     type=str,
     prompt="Contraseña para usuario de Mongo",
     hide_input=True,
-    help="Contraseña para el usuario para acceder a la base de datos de Mongo",
+    help="Contraseña para el usuario para acceder a la base de datos de Mongo," \
+    "no es necesario agregarlo, se solicita en cada.",
 )
 def setup(mongo_url, mongo_username, mongo_password, mongo_db):
     config = configparser.ConfigParser()
