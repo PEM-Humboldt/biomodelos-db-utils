@@ -42,13 +42,13 @@ class Mongo:
         all_errors = []
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json("bmdbutils/biomodelos/tmp/output.json", orient="records", lines=True)
+            df_file.to_json("tmp/output.json", orient="records", lines=True)
 
             with open("bmdbutils/biomodelos/schemas/records.json", "r") as f:
                 schema = json.load(f)
                 validator = Draft7Validator(schema, format_checker = FormatChecker())
 
-            with open("bmdbutils/biomodelos/tmp/output.json", "r") as f:
+            with open("tmp/output.json", "r") as f:
                 data = [json.loads(line) for line in f]
 
                 for idx, record in enumerate(data):
@@ -68,7 +68,7 @@ class Mongo:
                 else:
                     return True
 
-            with open("bmdbutils/biomodelos/tmp/output_array.json", "w") as f:
+            with open("tmp/output_array.json", "w") as f:
                 json.dump(data, f, indent=2)
 
         except pd.errors.EmptyDataError:
