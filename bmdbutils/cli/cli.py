@@ -23,13 +23,6 @@ def main(ctx):
     config.read(
         os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos")
     )
-    if ctx.invoked_subcommand != "setup":
-        if len(config.sections()) <= 0:
-            click.echo(
-                "BioModelos no ha sido configurado. "
-                "Primero ejecute 'bmdbutils setup'"
-            )
-            ctx.exit(0)
     if ctx.invoked_subcommand == "geoserver":
         if not "API" in config.sections():
             click.echo(

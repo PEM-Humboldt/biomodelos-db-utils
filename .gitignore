@@ -3,3 +3,5 @@
 .vscode/
 .pytest_cache/
 dist/
+tmp/
+!.gitkeep

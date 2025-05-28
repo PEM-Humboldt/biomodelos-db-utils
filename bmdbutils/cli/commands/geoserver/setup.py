@@ -3,12 +3,16 @@ $ bmdbutils geoserver setup
 """
 import configparser
 import os
-
 import appdirs
 import click
 
 
-@click.command(short_help="Configurar GeoServer")
+@click.command(
+    help=""" Comando para configurar GeoServer de BioModelos.
+        No es necesario ejecutar este comando si ya se ha configurado el GeoServer.
+        No es necesario agregar el parámetro --password, éste se solicita automáticamente""",
+    short_help="Configurar GeoServer"
+)
 @click.option(
     "--url",
     type=str,

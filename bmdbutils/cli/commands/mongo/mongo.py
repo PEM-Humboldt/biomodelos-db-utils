@@ -14,7 +14,8 @@ from .validate import validate
 
 
 @click.group(
-    short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos.",
+    help=""" Comando relacionado con la base de datos MongoDB de BioModelos.""",
+    short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos."
 )
 @click.pass_context
 def mongo(ctx):
@@ -25,7 +26,7 @@ def mongo(ctx):
         )
         if not "MONGODB" in config.sections():
             click.secho(
-                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.", 
+                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
                 fg="red",
                 blink=True,
             )

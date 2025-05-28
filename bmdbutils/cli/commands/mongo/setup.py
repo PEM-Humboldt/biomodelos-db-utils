@@ -3,12 +3,17 @@ $ bmdbutils mongo setup
 """
 import configparser
 import os
-
 import appdirs
 import click
 
 
-@click.command(short_help="Configura la base de datos Mongo de BioModelos.")
+@click.command(
+    help=
+        """Comando para configurar la base de datos MongoDB de BioModelos. 
+        No es necesario ejecutar este comando si ya se ha configurado la base de datos MongoDB. 
+        No es necesario agregar el parámetro --mongo-password, éste se solicita automáticamente""",
+    short_help="Configura la base de datos Mongo de BioModelos."
+)
 @click.option(
     "--mongo-url",
     type=str,
@@ -35,7 +40,8 @@ import click
     type=str,
     prompt="Contraseña para usuario de Mongo",
     hide_input=True,
-    help="Contraseña para el usuario para acceder a la base de datos de Mongo",
+    help="""Contraseña para el usuario para acceder a la base de datos de Mongo,
+    se solicita automaticamente.""",
 )
 def setup(mongo_url, mongo_username, mongo_password, mongo_db):
     config = configparser.ConfigParser()
@@ -58,10 +64,10 @@ def setup(mongo_url, mongo_username, mongo_password, mongo_db):
 
     with open(os.path.join(target_conf_folder, "mongo"), "w") as configfile:
         config.write(configfile)
-    
+
     click.secho(
         "La configuración de la base de datos MongoDB se ha realizado con éxito.",
-        blink=True, 
+        blink=True,
         bold=True,
-        fg="green", 
+        fg="green",
     )
