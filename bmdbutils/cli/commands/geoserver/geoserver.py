@@ -27,9 +27,11 @@ def geoserver(ctx):
             or not "LOCATION" in config.sections()
             or not "CREDENTIALS" in config.sections()
         ):
-            click.echo(
+            click.secho(
                 "Geoserver no ha sido configurado o la configuración es erronea. "
-                "Primero ejecute 'bmdbutils geoserver setup'"
+                "Primero ejecute 'bmdbutils geoserver setup'",
+                fg = "red",
+                bold = False
             )
             ctx.exit(0)
 
