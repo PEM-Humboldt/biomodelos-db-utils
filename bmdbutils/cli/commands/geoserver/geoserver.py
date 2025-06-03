@@ -30,8 +30,8 @@ def geoserver(ctx):
             click.secho(
                 "Geoserver no ha sido configurado o la configuración es erronea. "
                 "Primero ejecute 'bmdbutils geoserver setup'",
-                fg = "red",
-                bold = False
+                fg="red",
+                bold=False,
             )
             ctx.exit(0)
 

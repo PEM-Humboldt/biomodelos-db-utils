@@ -28,8 +28,8 @@ def main(ctx):
             click.secho(
                 "La url del API de BioModelos no ha sido configurado correctamente. "
                 "Primero ejecute 'bmdbutils setup'",
-                fg = "red",
-                bold = False
+                fg="red",
+                bold=False,
             )
             ctx.exit(0)
         else:
@@ -40,8 +40,8 @@ def main(ctx):
             click.secho(
                 "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente. "
                 "Primero ejecute 'bmdbutils setup'",
-                fg = "red",
-                bold = False
+                fg="red",
+                bold=False,
             )
             ctx.exit(0)
         else:
