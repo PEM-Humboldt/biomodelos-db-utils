@@ -6,6 +6,7 @@ import click
 import configparser
 import os
 import appdirs
+import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
 
@@ -17,7 +18,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @click.option(
     "--csv-file",
-    prompt="Archivo CSV",
+    prompt="Ruta del archivo CSV",
     hide_input=False,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
@@ -37,12 +38,9 @@ def upload(mongo, csv_file):
         config_path = os.path.join(
             appdirs.user_config_dir("bmdbutils"), "mongo"
         )
+        mongo.extract_tax_ids(csv_file)
         config = configparser.ConfigParser()
         config.read(config_path)
-        click.secho(
-            "⌛ Validando registros taxID...",
-            fg="yellow",
-        )
         tax_id_validation = mongo.validate_tax_ids()
         if tax_id_validation:
             click.secho(
@@ -50,6 +48,7 @@ def upload(mongo, csv_file):
                 fg="yellow",
             )
             mongo.upload_mongo(csv_file)
+            sys.exit(0)
         else:
             click.secho(
                 "⛔ Falló la validación de taxIDs. Debe crear los taxIDs en la colección 'species' antes de subir los datos.",
@@ -60,7 +59,7 @@ def upload(mongo, csv_file):
 
     elif type(validation) == list:
         click.secho(
-            "⛔ El archivo CSV tiene campos u datos no válidos.",
+            "⛔ El archivo CSV tiene campos con datos no válidos.",
             fg="red",
         )
         click.secho(

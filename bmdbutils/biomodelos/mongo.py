@@ -13,14 +13,13 @@ from pymongo.errors import (
 
 
 class Mongo:
+    
     def __init__(
         self,
         mongo_url,
         mongo_user,
         mongo_pass,
         mongo_db="produccion",
-        tax_ids=[],
-        inserted_list=[],
     ):
         if mongo_url and mongo_user and mongo_pass:
             [self.mongo_addr, self.mongo_port] = mongo_url.rsplit(":", 1)
@@ -31,13 +30,29 @@ class Mongo:
         self.mongo_user = mongo_user
         self.mongo_pass = mongo_pass
         self.mongo_db = mongo_db
-        self.tax_ids = tax_ids
-        self.inserted_list = inserted_list
         self.mongo_str_connection = f"mongodb://{quote_plus(self.mongo_user)}:{quote_plus(self.mongo_pass)}@{self.mongo_addr}:{self.mongo_port}/?authMechanism=SCRAM-SHA-1&authSource={self.mongo_db}"
+    
+    def mongo_connection(self):
+        cnx = MongoClient(
+            self.mongo_str_connection, serverSelectionTimeoutMS=5000
+        )
+        try:
+            cnx.admin.command("ping")
+            print("✅ Conexión con MongoDB exitosa.")
+            return cnx
 
+        except ConnectionFailure as cfe:
+            print(f"⛔ Servidor no disponible: {cfe}")
+            sys.exit(1)
+        except OperationFailure as opfa:
+            print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
+            sys.exit(1)
+        except ServerSelectionTimeoutError as sstoe:
+            print(f"⛔ No se pudo conectar al servidor MongoDB: {sstoe}")
+            sys.exit(1)
+    
     def validate_csv_data_records(self, csv_file):
         all_errors = []
-
         try:
             df_file = pd.read_csv(csv_file)
             df_file.to_json("tmp/output.json", orient="records", lines=True)
@@ -47,27 +62,21 @@ class Mongo:
                 validator = Draft7Validator(
                     schema, format_checker=FormatChecker()
                 )
-
+                f.close()
             with open("tmp/output.json", "r") as f:
                 data = [json.loads(line) for line in f]
 
                 for idx, record in enumerate(data):
-
-                    for key in record.keys():
-                        if key == "taxID":
-                            self.tax_ids.append(record[key])
-                    self.tax_ids = list(set(self.tax_ids))
                     errors = list(validator.iter_errors(record))
-
                     for error in errors:
                         all_errors.append(
                             {
-                                "registro": idx,
-                                "campo": "/".join(map(str, error.path)),
-                                "mensaje": error.message,
+                                "register": idx,
+                                "field": "/".join(map(str, error.path)),
+                                "message": error.message,
                             }
                         )
-
+                f.close()
                 if len(all_errors) > 0:
                     return all_errors
 
@@ -86,48 +95,33 @@ class Mongo:
             error = f"⛔ Error al validar el archivo '{csv_file}': {e}"
             return error
 
-    def mongo_connection(self):
-        cnx = MongoClient(
-            self.mongo_str_connection, serverSelectionTimeoutMS=5000
-        )
-        try:
-            cnx.admin.command("ping")
-            print("✅ Conexión con MongoDB exitosa.")
-            return cnx
-
-        except ConnectionFailure as cfe:
-            print(f"⛔ Server no disponible: {cfe}")
-            sys.exit(1)
-        except OperationFailure as opfa:
-            print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)
-        except ServerSelectionTimeoutError as sstoe:
-            print(f"⛔ No se pudo conectar al servidor MongoDB: {sstoe}")
+    def extract_tax_ids(self, csv_file):
+        df_file = pd.read_csv(csv_file)
+        if "taxID" in df_file.columns:
+            self.tax_ids = df_file["taxID"].unique().tolist()
+        else: 
+            print("⛔ No se encontró la columna 'taxID' en el archivo CSV.")
             sys.exit(1)
 
     def validate_tax_ids(self):
+        tax_id_exists = True
         cnx = self.mongo_connection()
         db = cnx[self.mongo_db]
         collection = db["species"]
-        tax_id_exists = True
-
-        for tax_id in self.tax_ids:
-            prueba = collection.find_one({"taxID": tax_id})
-
-            if prueba != None:
-                print(
-                    f"✅ El registro taxID: {tax_id} existe en la colección 'species'."
-                )
-
-            else:
-                tax_id_exists = False
-                print(
-                    f"⛔ No existe el registro taxID: {tax_id} en la colección 'species'. Debe crearlo antes de subir los datos."
-                )
+        existing_docs = collection.find({"taxID": {"$in": self.tax_ids}})
+        tax_id_found = [doc["taxID"] for doc in existing_docs]
+        tax_id_not_found = set(self.tax_ids) - set(tax_id_found)
+        
+        if len(tax_id_not_found) > 0:
+            print(
+                f"⛔ En la colección 'species' no existen los siguientes taxID: {', '.join(map(str, tax_id_not_found))}. "
+                "Debe crearlos antes de subir los datos."
+            )
+            tax_id_exists = False
+        else:
+            return tax_id_exists
         cnx.close()
-
-        return tax_id_exists
-
+        
     def upload_mongo(self, df):
         inserted_list = []
         cnx = self.mongo_connection()

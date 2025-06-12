@@ -8,11 +8,11 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Valida un archivo csv de modelos, registros o especies a una colección de mongoDB [WIP]."
+    short_help="Valida un archivo CSV de modelos, registros o especies a una colección de mongoDB [WIP]."
 )
 @click.option(
     "--csv-file",
-    prompt="Archivo CSV",
+    prompt="Ruta del archivo CSV",
     hide_input=False,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
@@ -36,7 +36,7 @@ def validate(mongo, csv_file):
         )
         for err in validation:
             click.secho(
-                f"⛔ [Registro {err['registro']}] Error en '{err['campo']}': {err['mensaje']}",
+                f"⛔ [Row {err['register']}] Error in '{err['field']}': {err['message']}",
                 fg="red",
             )
     else:
