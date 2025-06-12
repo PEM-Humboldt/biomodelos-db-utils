@@ -13,7 +13,6 @@ from pymongo.errors import (
 
 
 class Mongo:
-    
     def __init__(
         self,
         mongo_url,
@@ -31,7 +30,7 @@ class Mongo:
         self.mongo_pass = mongo_pass
         self.mongo_db = mongo_db
         self.mongo_str_connection = f"mongodb://{quote_plus(self.mongo_user)}:{quote_plus(self.mongo_pass)}@{self.mongo_addr}:{self.mongo_port}/?authMechanism=SCRAM-SHA-1&authSource={self.mongo_db}"
-    
+
     def mongo_connection(self):
         cnx = MongoClient(
             self.mongo_str_connection, serverSelectionTimeoutMS=5000
@@ -50,7 +49,7 @@ class Mongo:
         except ServerSelectionTimeoutError as sstoe:
             print(f"⛔ No se pudo conectar al servidor MongoDB: {sstoe}")
             sys.exit(1)
-    
+
     def validate_csv_data_records(self, csv_file):
         all_errors = []
         try:
@@ -99,7 +98,7 @@ class Mongo:
         df_file = pd.read_csv(csv_file)
         if "taxID" in df_file.columns:
             self.tax_ids = df_file["taxID"].unique().tolist()
-        else: 
+        else:
             print("⛔ No se encontró la columna 'taxID' en el archivo CSV.")
             sys.exit(1)
 
@@ -111,7 +110,7 @@ class Mongo:
         existing_docs = collection.find({"taxID": {"$in": self.tax_ids}})
         tax_id_found = [doc["taxID"] for doc in existing_docs]
         tax_id_not_found = set(self.tax_ids) - set(tax_id_found)
-        
+
         if len(tax_id_not_found) > 0:
             print(
                 f"⛔ En la colección 'species' no existen los siguientes taxID: {', '.join(map(str, tax_id_not_found))}. "
@@ -121,7 +120,7 @@ class Mongo:
         else:
             return tax_id_exists
         cnx.close()
-        
+
     def upload_mongo(self, df):
         inserted_list = []
         cnx = self.mongo_connection()
