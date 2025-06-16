@@ -14,7 +14,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Cargar documentos en una colección de datos mongoDB de BioModelos."
+    short_help="Cargar documentos en una colección records en la base de datos Mongo de BioModelos."
 )
 @click.option(
     "--csv-file",
@@ -24,36 +24,44 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def upload(mongo, csv_file):
+    config_path = os.path.join(
+            appdirs.user_config_dir("bmdbutils"), "mongo"
+        )
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    cnx = mongo.mongo_connection()
     click.secho(
         "⌛ Validando el archivo CSV...",
-        fg="white",
+        fg="yellow",
     )
     validation = mongo.validate_csv_data_records(csv_file)
     if type(validation) == bool:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
-            fg="green",
-            bold=True,
+            fg="white",
         )
-        config_path = os.path.join(
-            appdirs.user_config_dir("bmdbutils"), "mongo"
+        click.secho(
+            "⌛ Validando taxIDs...",
+            fg="yellow",
         )
-        mongo.extract_tax_ids(csv_file)
-        config = configparser.ConfigParser()
-        config.read(config_path)
-        tax_id_validation = mongo.validate_tax_ids()
+        tax_ids = mongo.extract_tax_ids(csv_file)
+        tax_id_validation = mongo.validate_tax_ids(tax_ids, cnx)
         if tax_id_validation:
             click.secho(
-                "⌛ Subiendo documentos a la colección de datos mongoDB...",
+                "⌛ Cargando documentos a la colección records...",
                 fg="yellow",
             )
-            mongo.upload_mongo(csv_file)
+            mongo.upload_mongo(cnx)
+            cnx.close()
             sys.exit(0)
         else:
             click.secho(
-                "⛔ Falló la validación de taxIDs. Debe crear los taxIDs en la colección 'species' antes de subir los datos.",
-                fg="red",
-                bold=True,
+                "⛔ Falló la validación de taxIDs.",
+                fg="red"
+            )
+            click.secho(
+                "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
+                fg="yellow"
             )
             return
 
@@ -65,12 +73,11 @@ def upload(mongo, csv_file):
         click.secho(
             "⚠️  Utilice el comando 'bmdbutils mongo validate' para más detalles.",
             fg="yellow",
-            bold=True,
         )
 
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
-            fg="yellow",
+            fg="red",
         )
         click.secho(f"{validation}", fg="red")

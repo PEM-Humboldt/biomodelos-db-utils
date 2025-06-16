@@ -8,7 +8,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Valida un archivo CSV de modelos, registros o especies a una colección de mongoDB [WIP]."
+    short_help="Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos."
 )
 @click.option(
     "--csv-file",
