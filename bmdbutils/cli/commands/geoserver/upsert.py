@@ -33,7 +33,7 @@ def upsert(biomodelos, geoserver, models_info, models_folder):
     """
     df = pd.read_csv(models_info)
     for row in df.itertuples():
-        click.echo(f"Uploading {row.model_file} to Geoserver")
+        click.secho(f"Uploading {row.model_file} to Geoserver", fg="green")
         ws_name = f"taxid-{row.tax_id:0>5}"
         try:
             geoserver.create_ws(name=ws_name)
@@ -49,7 +49,7 @@ def upsert(biomodelos, geoserver, models_info, models_folder):
                 layer_name=row.model_id,
             )
 
-            click.echo(f"Updating {row.model_id} layer name")
+            click.secho(f"Updating {row.model_id} layer name", fg="green")
             biomodelos.update_model_layer(
                 model_id=row.model_id, layer=f"{ws_name}:{row.model_id}"
             )

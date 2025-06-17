@@ -11,7 +11,7 @@ import click
     help="""Comando para configurar el API y la base de datos de BioModelos.
     No es necesario ejecutar este comando si ya se ha configurado el API y la base de datos de BioModelos.
     No es necesario agregar el parámetros --postgres-password, éste se solicita automáticamente.""",
-    short_help="Configura el API y la base de datos de BioModelos."
+    short_help="Configura el API y la base de datos de BioModelos.",
 )
 @click.option(
     "--api-url",

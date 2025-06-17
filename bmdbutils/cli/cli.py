@@ -25,9 +25,11 @@ def main(ctx):
     )
     if ctx.invoked_subcommand == "geoserver":
         if not "API" in config.sections():
-            click.echo(
+            click.secho(
                 "La url del API de BioModelos no ha sido configurado correctamente. "
-                "Primero ejecute 'bmdbutils setup'"
+                "Primero ejecute 'bmdbutils setup'",
+                fg="red",
+                bold=False,
             )
             ctx.exit(0)
         else:
@@ -35,9 +37,11 @@ def main(ctx):
 
     if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
         if not "POSTGRESDB" in config.sections():
-            click.echo(
+            click.secho(
                 "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils setup'"
+                "Primero ejecute 'bmdbutils setup'",
+                fg="red",
+                bold=False,
             )
             ctx.exit(0)
         else:

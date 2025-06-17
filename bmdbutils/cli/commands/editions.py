@@ -64,7 +64,7 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
             )
         )
         if len(geojson["features"]) < 1:
-            print("has no features")
+            click.secho("has no features", fg="red")
             geojson["features"]
             feat = {}
             feat["properties"] = {
@@ -81,7 +81,7 @@ def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
 
         else:
             for idx, feat in enumerate(geojson["features"]):
-                print("has features")
+                click.secho("has features", fg="green")
                 feat["properties"]["userID"] = row["user_id"]
                 feat["properties"]["userName"] = row["name"]
                 feat["properties"]["taxID"] = row["species_id"]

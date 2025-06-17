@@ -8,11 +8,10 @@ import click
 
 
 @click.command(
-    help=
-        """Comando para configurar la base de datos MongoDB de BioModelos. 
+    help="""Comando para configurar la base de datos MongoDB de BioModelos. 
         No es necesario ejecutar este comando si ya se ha configurado la base de datos MongoDB. 
         No es necesario agregar el parámetro --mongo-password, éste se solicita automáticamente""",
-    short_help="Configura la base de datos Mongo de BioModelos."
+    short_help="Configura la base de datos Mongo de BioModelos.",
 )
 @click.option(
     "--mongo-url",
