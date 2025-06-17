@@ -4,10 +4,7 @@ import sys
 from urllib.parse import quote_plus
 from jsonschema import Draft7Validator, FormatChecker
 from pymongo import MongoClient
-from pymongo.errors import (
-    ConnectionFailure,
-    OperationFailure,
-)
+from pymongo.errors import PyMongoError, ConnectionFailure, OperationFailure, ServerSelectionTimeoutError
 
 
 class Mongo:
@@ -41,8 +38,8 @@ class Mongo:
         except ConnectionFailure as cfe:
             print(f"⛔ Servidor no disponible: {cfe}")
             sys.exit(1)
-        except OperationFailure as opfa:
-            print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
+        except ServerSelectionTimeoutError as e:
+            print("No se pudo conectar al servidor MongoDB:", e)
             sys.exit(1)
         
     def validate_csv_data_records(self, csv_file):
@@ -100,24 +97,28 @@ class Mongo:
 
     def validate_tax_ids(self, tax_ids, cnx):
         tax_id_exists = True
-        db = cnx[self.mongo_db]
-        collection = db["species"]
-        existing_docs = collection.find({"taxID": {"$in": tax_ids}})
-        tax_id_found = [doc["taxID"] for doc in existing_docs]
-        tax_id_not_found = set(tax_ids) - set(tax_id_found)
+        try: 
+            db = cnx[self.mongo_db]
+            collection = db["species"]
+            existing_docs = collection.find({"taxID": {"$in": tax_ids}})
+            tax_id_found = [doc["taxID"] for doc in existing_docs]
+            tax_id_not_found = set(tax_ids) - set(tax_id_found)
 
-        if len(tax_id_not_found) > 0:
-            print(
-                f"⛔ En la colección 'species' no existen los siguientes taxID: {', '.join(map(str, tax_id_not_found))}. "
-            )
-            cnx.close()
-            tax_id_exists = False
-        else:
-            print(
-                f"✅ Los taxID: {', '.join(map(str, tax_id_found))} existen en la colección 'species'."
-            )
-            return tax_id_exists
+            if len(tax_id_not_found) > 0:
+                print(
+                    f"⛔ En la colección 'species' no existen los siguientes taxID: {', '.join(map(str, tax_id_not_found))}. "
+                )
+                cnx.close()
+                tax_id_exists = False
+            else:
+                print(
+                    f"✅ Los taxID: {', '.join(map(str, tax_id_found))} existen en la colección 'species'."
+                )
+                return tax_id_exists
         
+        except OperationFailure as opfa:
+            print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
+            sys.exit(1)
 
     def upload_mongo(self, cnx):
         inserted_list = []
@@ -128,13 +129,14 @@ class Mongo:
             data = [json.loads(line) for line in f]
             try:
                 for record in data:
+                    record["createdDate"] = pd.Timestamp.now().isoformat() 
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
                     print(
                         f"✅ Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'."
                     )
 
-            except OperationFailure or ConnectionFailure as err:
+            except PyMongoError as err:
                 print(
                     "Algo salió mal al subir los documentos a la colección 'records'."
                     "Se eliminarán los documentos subidos hasta el momento."
@@ -142,7 +144,7 @@ class Mongo:
                 for id in inserted_list:
                     collection.delete_one({"_id": id})
                     print(
-                        f"✅ Documento con ID: {id} eliminado correctamente de la colección 'records'."
+                        f"✅ Documento con _id: {id} eliminado correctamente de la colección 'records'."
                     )
                 print(f"⛔ Este fue el error: {err}")
                 cnx.close()
