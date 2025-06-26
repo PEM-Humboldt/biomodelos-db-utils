@@ -3,7 +3,7 @@ import pandas as pd
 import sys
 from urllib.parse import quote_plus
 from jsonschema import Draft7Validator, FormatChecker
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 from pymongo.errors import PyMongoError, ConnectionFailure, OperationFailure, ServerSelectionTimeoutError
 
 
@@ -95,6 +95,11 @@ class Mongo:
             print("⛔ No se encontró la columna 'taxID' en el archivo CSV.")
             sys.exit(1)
 
+    def extract_model_tax_ids(self, csv_file):
+        df_file = pd.read_csv(csv_file)
+        docs = df_file[["modelID", "taxID"]].to_dict(orient="records")
+        return docs
+
     def validate_tax_ids(self, tax_ids, cnx):
         tax_id_exists = True
         try: 
@@ -152,3 +157,100 @@ class Mongo:
             f.close()
         print(f"✅ Se subieron {len(data)} documentos a la colección 'records'.")
         cnx.close()
+    
+    def validate_metadatos_models(self, csv_file):
+        all_errors = []
+        try:
+            df_file = pd.read_csv(csv_file)
+            df_file.to_json("tmp/output.json", orient="records", lines=True)
+
+            with open("bmdbutils/biomodelos/schemas/metadatos_models.json", "r") as f:
+                schema = json.load(f)
+                validator = Draft7Validator(
+                    schema, format_checker=FormatChecker()
+                )
+                f.close()
+            with open("tmp/output.json", "r") as f:
+                data = [json.loads(line) for line in f]
+
+                for idx, record in enumerate(data):
+                    errors = list(validator.iter_errors(record))
+                    for error in errors:
+                        all_errors.append(
+                            {
+                                "record": idx,
+                                "field": "/".join(map(str, error.path)),
+                                "message": error.message,
+                            }
+                        )
+                f.close()
+                if len(all_errors) > 0:
+                    return all_errors
+
+                else:
+                    return True
+
+        except pd.errors.EmptyDataError:
+            error = f"⛔ El archivo '{csv_file}' está vacío."
+            return error
+
+        except FileNotFoundError:
+            error = f"⛔ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
+            return error
+
+        except Exception as e:
+            error = f"⛔ Error al validar el archivo '{csv_file}': {e}"
+            return error
+
+    def validate_models(self, docs, cnx):
+        models_validation = True
+        try:
+            db = cnx[self.mongo_db]
+            collection = db["models"]
+            existing_docs = collection.find({"$or": docs})            
+            
+            for doc in existing_docs:
+                print(
+                    f"✅ En la colección models existe un documento con modelID: {doc['modelID']} y taxID: {doc['taxID']}."
+                )
+            models_docs = list(existing_docs)    
+            return models_validation, models_docs
+        except OperationFailure as opfa:
+            print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
+            sys.exit(1)
+
+    def update_metadata_models(self, models_docs, cnx):
+        db = cnx[self.mongo_db]
+        collection = db["models"]
+        operations = []
+        rollback = []
+        with open("tmp/output.json", "r") as f:
+            for record in f:
+                doc = json.loads(record)
+                filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}
+                changes = {key: value for key, value in doc.items() if key not in filter}
+                operations.append(UpdateOne(filter, {"$set": changes}, upsert=False))
+            try:
+                if operations:
+                    results = collection.bulk_write(operations)
+                    print(f"Documentos que coincidieron con el filtro: {results.matched_count}")
+                    print(f"Documentos modificados: {results.modified_count}")
+                
+            except PyMongoError as err:
+                print(
+                    "Algo salió mal al subir los documentos a la colección 'models'."
+                    "Se van a restaurar los documentos modificados."
+                )
+                for doc in models_docs:
+                    filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}
+                    revert = {key: value for key, value in doc.items() if key not in filter}
+                    rollback.append(UpdateOne(filter, {"$set": revert}, upsert=False))
+                
+                results = collection.bulk_write(rollback)
+                print(f"Documentos revertieron: {results.modified_count} cambios en la colección 'models'.")
+                print(f"⛔ Este fue el error: {err}")
+                cnx.close()
+                sys.exit(1)
+            f.close()
+        cnx.close()
+ 
