@@ -23,9 +23,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def metadatos(mongo, csv_file):
-    config_path = os.path.join(
-            appdirs.user_config_dir("bmdbutils"), "mongo"
-        )
+    config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
     config = configparser.ConfigParser()
     config.read(config_path)
     cnx = mongo.mongo_connection()
@@ -46,13 +44,15 @@ def metadatos(mongo, csv_file):
         tax_id = mongo.extract_tax_ids(csv_file)
         model_tax_ids = mongo.extract_model_tax_ids(csv_file)
         tax_id_validation = mongo.validate_tax_ids(tax_id, cnx)
-        
+
         if tax_id_validation:
             click.secho(
                 "⌛ Validando modelIDs...",
                 fg="yellow",
             )
-            models_validation, models_docs = mongo.validate_models(model_tax_ids, cnx)
+            models_validation, models_docs = mongo.validate_models(
+                model_tax_ids, cnx
+            )
             if models_validation:
                 click.secho(
                     "⌛ Modificando metadatos de documentos en la colección models...",
@@ -66,31 +66,28 @@ def metadatos(mongo, csv_file):
                 cnx.close()
                 sys.exit(0)
             else:
-                click.secho(
-                    "⛔ Falló la validación de modelIDs.",
-                    fg="red"
-                )
+                click.secho("⛔ Falló la validación de modelIDs.", fg="red")
                 click.secho(
                     "⚠️  Deben existir los modelIDs en la colección 'models' antes de modificar los documentos.",
-                    fg="yellow"
+                    fg="yellow",
                 )
             cnx.close()
-            sys.exit(0)                
+            sys.exit(0)
         else:
-            click.secho(
-                "⛔ Falló la validación de taxIDs.",
-                fg="red"
-            )
+            click.secho("⛔ Falló la validación de taxIDs.", fg="red")
             click.secho(
                 "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
-                fg="yellow"
+                fg="yellow",
             )
-    
+
     elif isinstance(validation, str):
         click.secho(validation, fg="red")
-    else:    
+    else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
-        click.secho(f"busque el archivo ~/biomodelos-db-utils/tmp/metadata_error.txt y lealo atentamente", fg="red")
+        click.secho(
+            f"busque el archivo ~/biomodelos-db-utils/tmp/metadata_error.txt y lealo atentamente",
+            fg="red",
+        )

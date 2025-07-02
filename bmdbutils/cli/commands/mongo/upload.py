@@ -24,9 +24,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def upload(mongo, csv_file):
-    config_path = os.path.join(
-            appdirs.user_config_dir("bmdbutils"), "mongo"
-        )
+    config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
     config = configparser.ConfigParser()
     config.read(config_path)
     cnx = mongo.mongo_connection()
@@ -55,13 +53,10 @@ def upload(mongo, csv_file):
             cnx.close()
             sys.exit(0)
         else:
-            click.secho(
-                "⛔ Falló la validación de taxIDs.",
-                fg="red"
-            )
+            click.secho("⛔ Falló la validación de taxIDs.", fg="red")
             click.secho(
                 "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
-                fg="yellow"
+                fg="yellow",
             )
             return
 
