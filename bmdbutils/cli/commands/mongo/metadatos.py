@@ -1,7 +1,6 @@
 """
 $ bmdbutils mongo metadatos 
 """
-import pandas as pd
 import click
 import configparser
 import os
@@ -35,7 +34,7 @@ def metadatos(mongo, csv_file):
         fg="yellow",
     )
     validation = mongo.validate_metadatos_models(csv_file)
-    if type(validation) == bool:
+    if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
             fg="white",
@@ -60,7 +59,10 @@ def metadatos(mongo, csv_file):
                     fg="yellow",
                 )
                 mongo.update_metadata_models(models_docs, cnx)
-                
+                click.secho(
+                    "⚠️ En el archivo ~/biomodelos-db-utils/tmp/output.json se guardaron los documentos cargados.",
+                    fg="yellow",
+                )
                 cnx.close()
                 sys.exit(0)
             else:
@@ -84,19 +86,11 @@ def metadatos(mongo, csv_file):
                 fg="yellow"
             )
     
-    elif type(validation) == list:
-        click.secho(
-            "⛔ El archivo CSV tiene campos con datos no válidos.",
-            fg="red",
-        )
-        click.secho(
-            "⚠️  Utilice el comando 'bmdbutils mongo validate' para más detalles.",
-            fg="yellow",
-        )
-
-    else:
+    elif isinstance(validation, str):
+        click.secho(validation, fg="red")
+    else:    
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
-        click.secho(f"{validation}", fg="red")
+        click.secho(f"busque el archivo ~/biomodelos-db-utils/tmp/metadata_error.txt y lealo atentamente", fg="red")

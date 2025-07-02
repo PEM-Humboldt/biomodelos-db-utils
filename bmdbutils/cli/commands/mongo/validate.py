@@ -24,19 +24,19 @@ def validate(mongo, csv_file):
         bold=True,
     )
     validation = mongo.validate_csv_data_records(csv_file)
-    if type(validation) == bool:
+    if isinstance(validation, bool):
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
             fg="white",
         )
-    elif type(validation) == list:
+    elif isinstance(validation, list):
         click.secho(
             "⚠️  Por favor leer atentamente y corregir el archivo CSV.",
             fg="yellow",
         )
         for err in validation:
             click.secho(
-                f"⛔ [Row {err['register']}] Error in '{err['field']}': {err['message']}",
+                f"⛔ [Row {err['record']}] Error in '{err['field']}': {err['message']}",
                 fg="red",
             )
     else:

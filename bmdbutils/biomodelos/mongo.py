@@ -159,7 +159,6 @@ class Mongo:
         cnx.close()
     
     def validate_metadatos_models(self, csv_file):
-        all_errors = []
         try:
             df_file = pd.read_csv(csv_file)
             df_file.to_json("tmp/output.json", orient="records", lines=True)
@@ -172,24 +171,19 @@ class Mongo:
                 f.close()
             with open("tmp/output.json", "r") as f:
                 data = [json.loads(line) for line in f]
-
+                f.close()
+            with open("tmp/metadata_error.txt", "w") as f:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
                     for error in errors:
-                        all_errors.append(
-                            {
-                                "record": idx,
-                                "field": "/".join(map(str, error.path)),
-                                "message": error.message,
-                            }
-                        )
+                        f.write(f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n")
                 f.close()
-                if len(all_errors) > 0:
-                    return all_errors
-
-                else:
-                    return True
-
+            
+            if len(errors) == 0:
+                return True
+            else:
+                return False
+                                    
         except pd.errors.EmptyDataError:
             error = f"⛔ El archivo '{csv_file}' está vacío."
             return error
@@ -233,9 +227,9 @@ class Mongo:
             try:
                 if operations:
                     results = collection.bulk_write(operations)
-                    print(f"Documentos que coincidieron con el filtro: {results.matched_count}")
-                    print(f"Documentos modificados: {results.modified_count}")
-                
+                    print(f"Documentos que coincidieron con el filtro modelID taxID: {results.matched_count}")
+                    print(f"Documentos modificados con éxito: {results.modified_count}")
+                    
             except PyMongoError as err:
                 print(
                     "Algo salió mal al subir los documentos a la colección 'models'."
@@ -247,7 +241,7 @@ class Mongo:
                     rollback.append(UpdateOne(filter, {"$set": revert}, upsert=False))
                 
                 results = collection.bulk_write(rollback)
-                print(f"Documentos revertieron: {results.modified_count} cambios en la colección 'models'.")
+                print(f"Se hizo un rollback de: {results.modified_count} documentos en la colección 'models'.")
                 print(f"⛔ Este fue el error: {err}")
                 cnx.close()
                 sys.exit(1)

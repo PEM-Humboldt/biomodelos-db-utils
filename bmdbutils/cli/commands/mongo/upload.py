@@ -35,7 +35,7 @@ def upload(mongo, csv_file):
         fg="yellow",
     )
     validation = mongo.validate_csv_data_records(csv_file)
-    if type(validation) == bool:
+    if isinstance(validation, bool):
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
             fg="white",
@@ -65,7 +65,7 @@ def upload(mongo, csv_file):
             )
             return
 
-    elif type(validation) == list:
+    elif isinstance(validation, list):
         click.secho(
             "⛔ El archivo CSV tiene campos con datos no válidos.",
             fg="red",
