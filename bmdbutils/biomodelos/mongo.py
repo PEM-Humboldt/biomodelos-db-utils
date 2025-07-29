@@ -140,6 +140,7 @@ class Mongo:
             try:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
+                    record["resourceIncorporationDate"] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
                     print(
