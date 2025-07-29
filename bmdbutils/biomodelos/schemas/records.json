@@ -4,7 +4,7 @@
         "acceptedNameUsage": { "type": "string"},	
         "altitudinalOutlier": { "type": ["boolean", "null"], "default" : null },
         "basisOfRecord": { "type": ["string", "null"], "default": null },
-        "catalogNumber": { "type": ["string", "null"], "default": null},
+        "catalogNumber": { "type": ["number","string", "null"], "default": null},
         "cellID": { "type": ["number", "null"], "default": null },
         "collectionCode": { "type": ["string", "null"], "default": null },
         "consistentAltitude": { "type": ["boolean" , "null"], "default" : null },
