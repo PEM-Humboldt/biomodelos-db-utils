@@ -23,7 +23,7 @@ import click
 @click.option(
     "--postgres-url",
     type=str,
-    default="192.168.11.106:5432",
+    default="192.168.11.106:5430",
     show_default=True,
     help="URL de la base de datos de PostgresSQL (incluyendo el número del puerto)",
 )
