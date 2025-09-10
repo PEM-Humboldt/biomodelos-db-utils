@@ -97,3 +97,69 @@ class Biomodelos:
         )
         ecovars = pd.read_sql_query(query, cnx)
         return ecovars
+    
+    def query_users(self):
+        cnx = create_engine(
+            "postgresql://{username}:{password}@{addr}:{port}/{dbname}".format(
+                username=self.pg_user,
+                password=quote_plus(self.pg_pass),
+                addr=self.pg_addr,
+                port=self.pg_port,
+                dbname=self.pg_db,
+            )
+        )
+        query = """SELECT COUNT(*) AS total_users
+                FROM users
+                """
+        total_users = pd.read_sql_query(query, cnx)
+
+        query = """SELECT COUNT(expertise) AS total_expertise
+                FROM users
+                WHERE expertise IS NOT NULL
+                AND trim(expertise) <> ''
+                """
+        expertise_users = pd.read_sql_query(query, cnx)
+
+        
+        return total_users, expertise_users
+
+    def query_downloads(self):
+        cnx = create_engine(
+            "postgresql://{username}:{password}@{addr}:{port}/{dbname}".format(
+                username=self.pg_user,
+                password=quote_plus(self.pg_pass),
+                addr=self.pg_addr,
+                port=self.pg_port,
+                dbname=self.pg_db,
+            )
+        )
+        query = """SELECT COUNT (*) as total_downloads, m.description
+                    FROM downloads AS d
+                    JOIN model_uses AS m ON d.model_use_id = m.id
+                    group by m.description
+                """
+        downloads = pd.read_sql_query(query, cnx)
+       
+        return downloads
+
+    def query_groups(self):
+        cnx = create_engine(
+            "postgresql://{username}:{password}@{addr}:{port}/{dbname}".format(
+                username=self.pg_user,
+                password=quote_plus(self.pg_pass),
+                addr=self.pg_addr,
+                port=self.pg_port,
+                dbname=self.pg_db,
+            )
+        )
+        query = """SELECT DISTINCT COUNT (*) AS total_groups
+                FROM groups
+                """
+        total_groups = pd.read_sql_query(query, cnx)
+        query = """SELECT DISTINCT COUNT (*) AS active_groups
+                FROM groups g
+                WHERE g.group_state_id = 1
+                """
+        active_groups = pd.read_sql_query(query, cnx)
+                
+        return total_groups, active_groups
