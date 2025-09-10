@@ -14,6 +14,7 @@ from .commands.setup import setup
 from .commands.ratings import ratings
 from .commands.editions import editions
 from .commands.ecovars import ecovars
+from .commands.stats.stats import stats
 
 
 @click.group()
@@ -35,7 +36,7 @@ def main(ctx):
         else:
             ctx.obj = Biomodelos(api_url=config["API"]["url"])
 
-    if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
+    if ctx.invoked_subcommand in ["ratings", "editions", "ecovars", "stats"]:
         if not "POSTGRESDB" in config.sections():
             click.secho(
                 "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente. "
@@ -58,3 +59,4 @@ main.add_command(ratings)
 main.add_command(editions)
 main.add_command(ecovars)
 main.add_command(mongo)
+main.add_command(stats)
