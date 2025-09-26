@@ -22,7 +22,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     help="Archivo CSV que contiene los registros de BioModelos",
 )
 @pass_mongo
-def metadatos(mongo, csv_file):
+def metadata_models(mongo, csv_file):
     config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -31,7 +31,7 @@ def metadatos(mongo, csv_file):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation = mongo.validate_metadatos_models(csv_file)
+    validation = mongo.validate_csv_data(csv_file, "metadata_models")
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
