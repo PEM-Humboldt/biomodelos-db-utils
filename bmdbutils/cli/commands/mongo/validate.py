@@ -23,21 +23,20 @@ def validate(mongo, csv_file):
         fg="yellow",
         bold=True,
     )
-    validation = mongo.validate_csv_data_records(csv_file)
-    if isinstance(validation, bool):
+    validation = mongo.validate_csv_data(csv_file, "records")
+    if isinstance(validation, bool) and validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
             fg="white",
         )
-    elif isinstance(validation, list):
-        click.secho(
-            "⚠️  Por favor leer atentamente y corregir el archivo CSV.",
-            fg="yellow",
-        )
-        for err in validation:
-            click.secho(
-                f"⛔ [Row {err['record']}] Error in '{err['field']}': {err['message']}",
-                fg="red",
-            )
+    elif isinstance(validation, str):
+        click.secho(validation, fg="red")
     else:
-        click.secho(f" {validation}", fg="red")
+        click.secho(
+            "⛔ Falló la validación del archivo CSV.",
+            fg="red",
+        )
+        click.secho(
+            f"busque el archivo ~/biomodelos-db-utils/tmp/records_error.txt y lealo atentamente",
+            fg="red",
+        )
