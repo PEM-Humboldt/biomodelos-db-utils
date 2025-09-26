@@ -32,7 +32,7 @@ def upload(mongo, csv_file):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation = mongo.validate_csv_data_records(csv_file)
+    validation = mongo.validate_csv_data(csv_file, "records")
     if isinstance(validation, bool):
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
