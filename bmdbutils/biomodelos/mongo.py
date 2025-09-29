@@ -149,12 +149,15 @@ class Mongo:
             with open("tmp/records_uploaded.txt", "w") as f:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
-                    record["resourceIncorporationDate"] = pd.Timestamp.now().isoformat()
+                    record[
+                        "resourceIncorporationDate"
+                    ] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
                     f.write(
                         f"✅ Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'."
-                        + "\n")
+                        + "\n"
+                    )
             f.close()
         except PyMongoError as err:
             print(
@@ -250,12 +253,24 @@ class Mongo:
         try:
             db = cnx[self.mongo_db]
             collection = db["models"]
-            total_models = collection.count_documents({ "isActive": True})
-            published_models = collection.count_documents({ "isActive": True, "published": True, "modelStatus": "pendingValidation"})
-            valid_models = collection.count_documents({ "isActive": True, "modelStatus": "Valid"})
-            developing_models = collection.count_documents({ "isActive": True, "modelStatus": "pendingValidation"})
-            statistics_models = collection.count_documents({ "isActive": True, "modelStatus": "Statistic"})
-            
+            total_models = collection.count_documents({"isActive": True})
+            published_models = collection.count_documents(
+                {
+                    "isActive": True,
+                    "published": True,
+                    "modelStatus": "pendingValidation",
+                }
+            )
+            valid_models = collection.count_documents(
+                {"isActive": True, "modelStatus": "Valid"}
+            )
+            developing_models = collection.count_documents(
+                {"isActive": True, "modelStatus": "pendingValidation"}
+            )
+            statistics_models = collection.count_documents(
+                {"isActive": True, "modelStatus": "Statistic"}
+            )
+
             data = [
                 {"total": total_models},
                 {"published": published_models},
