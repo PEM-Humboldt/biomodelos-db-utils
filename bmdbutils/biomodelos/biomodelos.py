@@ -118,9 +118,9 @@ class Biomodelos:
                 WHERE expertise IS NOT NULL
                 AND trim(expertise) <> ''
                 """
-        expertise_users = pd.read_sql_query(query, cnx)
+        expert_users = pd.read_sql_query(query, cnx)
 
-        return total_users, expertise_users
+        return total_users, expert_users
 
     def query_downloads(self):
         cnx = create_engine(
