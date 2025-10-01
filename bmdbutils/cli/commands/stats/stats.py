@@ -71,6 +71,7 @@ def stats(ctx):
                 pg_pass=config["POSTGRESDB"]["password"],
             )
 
+
 stats.add_command(users)
 stats.add_command(groups)
 stats.add_command(downloads)

@@ -97,7 +97,7 @@ class Biomodelos:
         )
         ecovars = pd.read_sql_query(query, cnx)
         return ecovars
-    
+
     def query_users(self):
         cnx = create_engine(
             "postgresql://{username}:{password}@{addr}:{port}/{dbname}".format(
@@ -120,7 +120,6 @@ class Biomodelos:
                 """
         expertise_users = pd.read_sql_query(query, cnx)
 
-        
         return total_users, expertise_users
 
     def query_downloads(self):
@@ -139,7 +138,7 @@ class Biomodelos:
                     group by m.description
                 """
         downloads = pd.read_sql_query(query, cnx)
-       
+
         return downloads
 
     def query_groups(self):
@@ -161,5 +160,5 @@ class Biomodelos:
                 WHERE g.group_state_id = 1
                 """
         active_groups = pd.read_sql_query(query, cnx)
-                
+
         return total_groups, active_groups
