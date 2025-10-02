@@ -21,10 +21,6 @@ def users(biomodelos):
         fg="white",
     )
     click.secho(
-        f"Se encontraron {expert_users['total_expertise'].sum()} usuarios expertos.",
-        fg="white",
-    )
-    click.secho(
-        f"Se encontraron {total_users['total_users'].sum() - expert_users['total_expertise'].sum()} usuarios sin experticia",
+        f"Se encontraron {expert_users['expert_users'].sum()} usuarios expertos.",
         fg="white",
     )
