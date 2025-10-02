@@ -22,6 +22,6 @@ def models(mongo):
     for doc in data:
         for key, value in doc.items():
             click.secho(
-                f"Se encontraron {value} modelos en {key}.", fg="white"
+                f"Se encontraron {value} modelos {key}.", fg="white"
             )
     cnx.close()

@@ -305,11 +305,11 @@ class Mongo:
             )
 
             data = [
-                {"total": total_models},
-                {"published": published_models},
-                {"valid": valid_models},
-                {"developing": developing_models},
-                {"pendingValidation": statistics_models},
+                {"Totales": total_models},
+                {"Publicados": published_models},
+                {"Validados": valid_models},
+                {"en Desarrollo": developing_models},
+                {"Estadísticos": statistics_models},
             ]
             return data
 
