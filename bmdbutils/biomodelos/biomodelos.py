@@ -113,7 +113,7 @@ class Biomodelos:
                 """
         total_users = pd.read_sql_query(query, cnx)
 
-        query = """SELECT count(id) as expert_users
+        query = """SELECT COUNT(DISTINCT user_id) AS expert_users
                 FROM groups_users
                 WHERE groups_users_state_id = 1;
                 """
