@@ -282,18 +282,34 @@ class Mongo:
         try:
             db = cnx[self.mongo_db]
             collection = db["models"]
-            total_models = collection.count_documents({ "isActive": True})
-            published_models = collection.count_documents({ "isActive": True, "published": True, "modelStatus": "pendingValidation"})
-            valid_models = collection.count_documents({ "isActive": True, "modelStatus": "Valid"})
-            developing_models = collection.count_documents({ "isActive": True, "modelStatus": "pendingValidation"})
-            statistics_models = collection.count_documents({ "isActive": True, "modelStatus": "Statistic"})
-            
+            total_models = collection.count_documents({"isActive": True})
+            published_models = collection.count_documents(
+                {
+                    "isActive": True,
+                    "published": True,
+                    "modelStatus": "pendingValidation",
+                }
+            )
+            valid_models = collection.count_documents(
+                {"isActive": True, "modelStatus": "Valid"}
+            )
+            developing_models = collection.count_documents(
+                {
+                    "isActive": True,
+                    "published": False,
+                    "modelStatus": "pendingValidation",
+                }
+            )
+            statistics_models = collection.count_documents(
+                {"isActive": True, "modelStatus": "Statistic"}
+            )
+
             data = [
-                {"total": total_models},
-                {"published": published_models},
-                {"valid": valid_models},
-                {"developing": developing_models},
-                {"pendingValidation": statistics_models},
+                {"Totales": total_models},
+                {"Publicados": published_models},
+                {"Validados": valid_models},
+                {"en Desarrollo": developing_models},
+                {"Estadísticos": statistics_models},
             ]
             return data
 

@@ -97,7 +97,7 @@ class Biomodelos:
         )
         ecovars = pd.read_sql_query(query, cnx)
         return ecovars
-    
+
     def query_users(self):
         cnx = create_engine(
             "postgresql://{username}:{password}@{addr}:{port}/{dbname}".format(
@@ -113,15 +113,13 @@ class Biomodelos:
                 """
         total_users = pd.read_sql_query(query, cnx)
 
-        query = """SELECT COUNT(expertise) AS total_expertise
-                FROM users
-                WHERE expertise IS NOT NULL
-                AND trim(expertise) <> ''
+        query = """SELECT COUNT(DISTINCT user_id) AS expert_users
+                FROM groups_users
+                WHERE groups_users_state_id = 1;
                 """
-        expertise_users = pd.read_sql_query(query, cnx)
+        expert_users = pd.read_sql_query(query, cnx)
 
-        
-        return total_users, expertise_users
+        return total_users, expert_users
 
     def query_downloads(self):
         cnx = create_engine(
@@ -139,7 +137,7 @@ class Biomodelos:
                     group by m.description
                 """
         downloads = pd.read_sql_query(query, cnx)
-       
+
         return downloads
 
     def query_groups(self):
@@ -161,5 +159,5 @@ class Biomodelos:
                 WHERE g.group_state_id = 1
                 """
         active_groups = pd.read_sql_query(query, cnx)
-                
+
         return total_groups, active_groups
