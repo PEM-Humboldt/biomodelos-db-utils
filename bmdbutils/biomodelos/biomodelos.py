@@ -113,14 +113,13 @@ class Biomodelos:
                 """
         total_users = pd.read_sql_query(query, cnx)
 
-        query = """SELECT COUNT(expertise) AS total_expertise
-                FROM users
-                WHERE expertise IS NOT NULL
-                AND trim(expertise) <> ''
+        query = """SELECT COUNT(DISTINCT user_id) AS expert_users
+                FROM groups_users
+                WHERE groups_users_state_id = 1;
                 """
-        expertise_users = pd.read_sql_query(query, cnx)
+        expert_users = pd.read_sql_query(query, cnx)
 
-        return total_users, expertise_users
+        return total_users, expert_users
 
     def query_downloads(self):
         cnx = create_engine(

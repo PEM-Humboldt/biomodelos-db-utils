@@ -21,7 +21,5 @@ def models(mongo):
     data = mongo.models_stats(cnx)
     for doc in data:
         for key, value in doc.items():
-            click.secho(
-                f"Se encontraron {value} modelos en {key}.", fg="white"
-            )
+            click.secho(f"Se encontraron {value} modelos {key}.", fg="white")
     cnx.close()
