@@ -22,7 +22,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     help="Archivo CSV que contiene los registros de BioModelos",
 )
 @pass_mongo
-def metadata_models(mongo, csv_file):
+def models_metadata(mongo, csv_file):
     config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -31,7 +31,7 @@ def metadata_models(mongo, csv_file):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation = mongo.validate_csv_data(csv_file, "metadata_models")
+    validation = mongo.validate_csv_data(csv_file, "models_metadata")
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
@@ -58,7 +58,7 @@ def metadata_models(mongo, csv_file):
                     "⌛ Modificando metadatos de documentos en la colección models...",
                     fg="yellow",
                 )
-                mongo.update_metadata_models(models_docs, cnx)
+                mongo.update_models_metadata(models_docs, cnx)
                 click.secho(
                     "⚠️ En el archivo ~/biomodelos-db-utils/tmp/output.json se guardaron los documentos cargados.",
                     fg="yellow",

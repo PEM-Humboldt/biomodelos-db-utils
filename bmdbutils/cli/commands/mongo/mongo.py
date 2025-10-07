@@ -11,7 +11,7 @@ from bmdbutils.biomodelos.mongo import Mongo
 from .setup import setup
 from .upload import upload
 from .validate import validate
-from .metadata_models import metadata_models
+from .models_metadata import models_metadata
 
 
 @click.group(
@@ -50,4 +50,4 @@ def mongo(ctx):
 mongo.add_command(setup)
 mongo.add_command(upload)
 mongo.add_command(validate)
-mongo.add_command(metadata_models)
+mongo.add_command(models_metadata)

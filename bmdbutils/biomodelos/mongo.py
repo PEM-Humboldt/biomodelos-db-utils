@@ -54,9 +54,9 @@ class Mongo:
                 "bmdbutils/biomodelos/schemas/records.json",
                 "tmp/records_error.txt",
             ),
-            "metadata_models": (
+            "models_metadata": (
                 "tmp/metadata_output.json",
-                "bmdbutils/biomodelos/schemas/metadata_models.json",
+                "bmdbutils/biomodelos/schemas/models_metadata.json",
                 "tmp/metadata_error.txt",
             ),
         }
@@ -195,7 +195,7 @@ class Mongo:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
             sys.exit(1)
 
-    def update_metadata_models(self, models_docs, cnx):
+    def update_models_metadata(self, models_docs, cnx):
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
