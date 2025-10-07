@@ -174,7 +174,9 @@ class Mongo:
             sys.exit(1)
         f.close()
         print(
-            f"✅ Se subieron {len(data)} documentos a la colección 'records', revisa los ids en el archivo ~/biomodelos-db-utils/tmp/records_uploaded.txt."
+            f"""✅ Se subieron {len(data)} documentos a la colección 'records'. 
+El archivo records_uploaded.txt tiene los ids que se cargaron a la colección. 
+Busca este archivo en la ruta ./biomodelos-db-utils/tmp/"""
         )
         cnx.close()
 

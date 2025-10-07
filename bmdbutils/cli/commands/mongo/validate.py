@@ -37,6 +37,6 @@ def validate(mongo, csv_file):
             fg="red",
         )
         click.secho(
-            f"busque el archivo ~/biomodelos-db-utils/tmp/records_error.txt y lealo atentamente",
+            f"Busque el archivo records_error.txt en la ruta ./biomodelos-db-utils/tmp/ y lealo atentamente y corrija los errores.",
             fg="red",
         )
