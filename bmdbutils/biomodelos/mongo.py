@@ -176,7 +176,7 @@ class Mongo:
         print(
             f"""✅ Se subieron {len(data)} documentos a la colección 'records'. 
 El archivo records_uploaded.txt tiene los ids que se cargaron a la colección. 
-Busca este archivo en la ruta ./biomodelos-db-utils/tmp/"""
+Busca este archivo en la ruta ./tmp/"""
         )
         cnx.close()
 
