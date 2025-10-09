@@ -47,37 +47,44 @@ class Mongo:
             print("No se pudo conectar al servidor MongoDB:", e)
             sys.exit(1)
 
-    def validate_csv_data_records(self, csv_file):
-        all_errors = []
+    def validate_csv_data(self, csv_file, collection):
+        config = {
+            "records": (
+                "tmp/records_output.json",
+                "bmdbutils/biomodelos/schemas/records.json",
+                "tmp/records_error.txt",
+            ),
+            "models_metadata": (
+                "tmp/metadata_output.json",
+                "bmdbutils/biomodelos/schemas/models_metadata.json",
+                "tmp/metadata_error.txt",
+            ),
+        }
+        jsonFile, schemaFile, outputErrorFile = config[collection]
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json("tmp/output.json", orient="records", lines=True)
-
-            with open("bmdbutils/biomodelos/schemas/records.json", "r") as f:
+            df_file.to_json(jsonFile, orient="records", lines=True)
+            with open(schemaFile, "r") as f:
                 schema = json.load(f)
                 validator = Draft7Validator(
                     schema, format_checker=FormatChecker()
                 )
                 f.close()
-            with open("tmp/output.json", "r") as f:
+            with open(jsonFile, "r") as f:
                 data = [json.loads(line) for line in f]
-
+                f.close()
+            with open(outputErrorFile, "w") as f:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
                     for error in errors:
-                        all_errors.append(
-                            {
-                                "record": idx,
-                                "field": "/".join(map(str, error.path)),
-                                "message": error.message,
-                            }
+                        f.write(
+                            f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
                         )
                 f.close()
-                if len(all_errors) > 0:
-                    return all_errors
-
-                else:
-                    return True
+            if len(errors) == 0:
+                return True
+            else:
+                return False
 
         except pd.errors.EmptyDataError:
             error = f"⛔ El archivo '{csv_file}' está vacío."
@@ -135,77 +142,43 @@ class Mongo:
         db = cnx[self.mongo_db]
         collection = db["records"]
 
-        with open("tmp/output.json", "r") as f:
+        with open("tmp/records_output.json", "r") as f:
             data = [json.loads(line) for line in f]
-            try:
+            f.close()
+        try:
+            with open("tmp/records_uploaded.txt", "w") as f:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
+                    record[
+                        "resourceIncorporationDate"
+                    ] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
-                    print(
+                    f.write(
                         f"✅ Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'."
+                        + "\n"
                     )
-
-            except PyMongoError as err:
-                print(
-                    "Algo salió mal al subir los documentos a la colección 'records'."
-                    "Se eliminarán los documentos subidos hasta el momento."
-                )
-                for id in inserted_list:
-                    collection.delete_one({"_id": id})
-                    print(
-                        f"✅ Documento con _id: {id} eliminado correctamente de la colección 'records'."
-                    )
-                print(f"⛔ Este fue el error: {err}")
-                cnx.close()
-                sys.exit(1)
             f.close()
+        except PyMongoError as err:
+            print(
+                "Algo salió mal al subir los documentos a la colección 'records'."
+                "Se eliminarán los documentos subidos hasta el momento."
+            )
+            for id in inserted_list:
+                collection.delete_one({"_id": id})
+                print(
+                    f"✅ Documento con _id: {id} eliminado correctamente de la colección 'records'."
+                )
+            print(f"⛔ Este fue el error: {err}")
+            cnx.close()
+            sys.exit(1)
+        f.close()
         print(
-            f"✅ Se subieron {len(data)} documentos a la colección 'records'."
+            f"""✅ Se subieron {len(data)} documentos a la colección 'records'. 
+El archivo records_uploaded.txt tiene los ids que se cargaron a la colección. 
+Busca este archivo en la ruta ./tmp/"""
         )
         cnx.close()
-
-    def validate_metadatos_models(self, csv_file):
-        try:
-            df_file = pd.read_csv(csv_file)
-            df_file.to_json("tmp/output.json", orient="records", lines=True)
-
-            with open(
-                "bmdbutils/biomodelos/schemas/metadatos_models.json", "r"
-            ) as f:
-                schema = json.load(f)
-                validator = Draft7Validator(
-                    schema, format_checker=FormatChecker()
-                )
-                f.close()
-            with open("tmp/output.json", "r") as f:
-                data = [json.loads(line) for line in f]
-                f.close()
-            with open("tmp/metadata_error.txt", "w") as f:
-                for idx, record in enumerate(data):
-                    errors = list(validator.iter_errors(record))
-                    for error in errors:
-                        f.write(
-                            f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
-                        )
-                f.close()
-
-            if len(errors) == 0:
-                return True
-            else:
-                return False
-
-        except pd.errors.EmptyDataError:
-            error = f"⛔ El archivo '{csv_file}' está vacío."
-            return error
-
-        except FileNotFoundError:
-            error = f"⛔ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
-            return error
-
-        except Exception as e:
-            error = f"⛔ Error al validar el archivo '{csv_file}': {e}"
-            return error
 
     def validate_models(self, docs, cnx):
         models_validation = True
@@ -224,12 +197,12 @@ class Mongo:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
             sys.exit(1)
 
-    def update_metadata_models(self, models_docs, cnx):
+    def update_models_metadata(self, models_docs, cnx):
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
         rollback = []
-        with open("tmp/output.json", "r") as f:
+        with open("tmp/metadata_output.json", "r") as f:
             for record in f:
                 doc = json.loads(record)
                 filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}
