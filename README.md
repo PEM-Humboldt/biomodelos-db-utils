@@ -8,11 +8,40 @@ Utilitarios para BioModelos
 
 ## Instalación
 
+### En Windows
+
+Se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+
+1. Instalar conda
+1. Clonar el repositorio
+1. Instalar dependencias del ambiente del repositorio:
+
+    ```
+    conda env create --file condaenv.yml
+    ```
+1. Activar el ambiente recién restaurado
+
+    ```
+    conda activate bm-db-utils
+    ```
+1. Instalar la herramienta:
+
+    ```
+    poetry install
+    ```
+
+En este momento tendrá disponible el comando `bmdbutils`.
+
+En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
+
+### En linux
+
 ### Usando Conda
 
 Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
 
 1. Instalar conda
+1. Clonar el repositorio
 1. Instalar dependencias del ambiente del repositorio:
 
     ```
