@@ -8,57 +8,50 @@ Utilitarios para BioModelos
 
 ## Instalación
 
-### En Windows
-
-Se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-
-1. Instalar conda
-1. Clonar el repositorio
-1. Instalar dependencias del ambiente del repositorio:
-
-    ```
-    conda env create --file condaenv.yml
-    ```
-1. Activar el ambiente recién restaurado
-
-    ```
-    conda activate bm-db-utils
-    ```
-1. Instalar la herramienta:
-
-    ```
-    poetry install
-    ```
-
-En este momento tendrá disponible el comando `bmdbutils`.
-
-En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
-
-### En linux
-
 ### Usando Conda
 
 Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
 
+Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
+
 1. Instalar conda
+
 1. Clonar el repositorio
+
 1. Instalar dependencias del ambiente del repositorio:
 
     ```
     conda env create --file condaenv.yml
     ```
-1. Activar el ambiente recién restaurado
+
+1. Activar el ambiente recién restaurado:
 
     ```
     conda activate bm-db-utils
     ```
+### Para linux
+
 1. Instalar la herramienta:
 
     ```
     pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
     ```
 
-En este momento tendrá disponible el comando `bmdbutils`.
+### Para Windows
+
+1. Instalar la herramienta:
+
+    ```
+    poetry install
+    ```
+
+En ambos sistemas operativos, a partir de este momento tendrá disponible el comando `bmdbutils` desde la terminal de Conda.
+
+El comando se desactiva desactivando el ambiente
+
+    ```
+    conda deactivate
+    ```
 
 En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
 
