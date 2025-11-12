@@ -19,24 +19,36 @@ pass_mongo = click.make_pass_decorator(Mongo)
 @pass_mongo
 def validate(mongo, csv_file):
     click.secho(
-        "⌛ Validando el archivo CSV...",
+        "⌛ Validando columnas year, month y day del archivo CSV...",
         fg="yellow",
         bold=True,
     )
-    validation = mongo.validate_csv_data(csv_file, "records")
-    if isinstance(validation, bool) and validation is True:
+    validateDate = mongo.validate_date_fields(csv_file)
+    if isinstance(validateDate, bool) and validateDate is True:
         click.secho(
-            "✅ El archivo CSV posee el esquema necesario.",
-            fg="white",
+            "⌛ Validando el archivo CSV...",
+            fg="yellow",
+            bold=True,
         )
-    elif isinstance(validation, str):
-        click.secho(validation, fg="red")
+        validation = mongo.validate_csv_data(csv_file, "records")
+        if isinstance(validation, bool) and validation is True:
+            click.secho(
+                "✅ El archivo CSV posee el esquema necesario.",
+                fg="white",
+            )
+        elif isinstance(validation, str):
+            click.secho(validation, fg="red")
+        else:
+            click.secho(
+                "⛔ Falló la validación del archivo CSV.",
+                fg="red",
+            )
+            click.secho(
+                f"Busque el archivo records_error.txt en la ruta ./tmp/ y lealo atentamente y corrija los errores.",
+                fg="red",
+            )
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
-            fg="red",
-        )
-        click.secho(
-            f"Busque el archivo records_error.txt en la ruta ./tmp/ y lealo atentamente y corrija los errores.",
             fg="red",
         )
