@@ -3,11 +3,9 @@
     "properties":{
         "acceptedNameUsage": { "type": "string"},	
         "altitudinalOutlier": { "type": ["boolean", "null"], "default" : null },
-        "basisOfRecord": { "type": "string", "default": "" , "enum": ["FossilSpecimen", "HumanObservation", "MachineObservation", "MaterialSample", "PreservedSpecimen", "LivingSpecimen", "Occurrence", "StillImage", "MovingImage", "SoundRecording", "OtherSpecimen", "MaterialCitation"]},
+        "basisOfRecord": { "type": "string", "default": "" , "enum": ["FossilSpecimen", "HumanObservation", "MachineObservation", "MaterialSample", "PreservedSpecimen", "LivingSpecimen", "Occurrence", "MaterialCitation"]},
         "catalogNumber": { "type": "string", "default": ""},
-        "cellID": { "type": ["number", "null"], "default" : null, "minimum": 0},
         "collectionCode": { "type": "string", "default": "" },
-        "consistentAltitude": { "type": ["boolean" , "null"], "default" : null },
         "contributedRecord": { "type": ["boolean" , "null"], "default" : null },
         "country": { "type": "string", "default" : "" },
         "county": { "type": "string", "default" : "" },
@@ -17,7 +15,6 @@
         "day": { "type": ["number", "null"], "default" : null , "minimum": 1, "maximum": 31},
         "decimalLatitude": { "type": "number", "minimum": -90, "maximum": 90},
         "decimalLongitude": { "type": "number", "minimum": -180, "maximum": 180},
-        "demAltitude": { "type": ["number", "null"], "default" : null },
         "downloadDate": { "type": ["string", "null"], "default" : null, "format": "date-time" },
         "environmentalOutlier": { "type": ["boolean" , "null"], "default" : null },
         "identifiedBy": { "type": "string", "default" : "" },
@@ -48,6 +45,7 @@
             },
             "default" : []
         },
+        "reportedDate": { "type": ["string", "null"], "default" : null, "format": "date-time" },
         "source": { "type": "string", "default" : "" },
         "spatialDuplicated": { "type": "boolean", "default" : false },
         "speciesOriginal": { "type": "string"},
