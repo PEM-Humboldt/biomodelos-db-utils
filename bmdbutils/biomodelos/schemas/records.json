@@ -9,6 +9,7 @@
         "contributedRecord": { "type": ["boolean" , "null"], "default" : null },
         "country": { "type": "string", "default" : "" },
         "county": { "type": "string", "default" : "" },
+        "createdDate": { "type": ["string", "null"], "default" : null, "format": "date-time" },
         "createdCitationBm": { "type": "string", "default" : "" },
         "createdCommentsBm": { "type": "string", "default" : "" },
         "dateIdentified": { "type": ["string", "null"], "default" : null, "format": "date-time" },
