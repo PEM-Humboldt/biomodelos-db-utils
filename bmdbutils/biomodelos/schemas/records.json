@@ -55,7 +55,6 @@
         "updated": { "type": "array", "default" : []},
         "url": { "type": "string", "default" : ""},
         "userIdBm": { "type": ["number", "null"], "default" : null },
-        "verbatimElevation": { "type": ["number", "null"], "default" : null },
         "visualizationPrivileges": { "type": "number", "default" : 0, "enum" : [0, 1]},
         "year": { "type": ["number", "null"], "default" : null, "minimum": 1800}
     },
