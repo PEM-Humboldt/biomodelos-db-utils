@@ -155,8 +155,7 @@ class Mongo:
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
                     f.write(
-                        f"✅ Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'."
-                        + "\n"
+                        f"Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'.\n"
                     )
             f.close()
         except PyMongoError as err:
