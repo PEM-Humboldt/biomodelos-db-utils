@@ -29,50 +29,62 @@ def upload(mongo, csv_file):
     config.read(config_path)
     cnx = mongo.mongo_connection()
     click.secho(
-        "⌛ Validando el archivo CSV...",
+        "⌛ Validando columnas year, month y day del archivo CSV...",
         fg="yellow",
+        bold=True,
     )
-    validation = mongo.validate_csv_data(csv_file, "records")
-    if isinstance(validation, bool):
+    validateDate = mongo.validate_date_fields(csv_file)
+    if isinstance(validateDate, bool) and validateDate is True:
         click.secho(
-            "✅ El archivo CSV posee el esquema necesario.",
-            fg="white",
-        )
-        click.secho(
-            "⌛ Validando taxIDs...",
+            "⌛ Validando el archivo CSV...",
             fg="yellow",
         )
-        tax_ids = mongo.extract_tax_ids(csv_file)
-        tax_id_validation = mongo.validate_tax_ids(tax_ids, cnx)
-        if tax_id_validation:
+        validation = mongo.validate_csv_data(csv_file, "records")
+        if isinstance(validation, bool):
             click.secho(
-                "⌛ Cargando documentos a la colección records...",
+                "✅ El archivo CSV posee el esquema necesario.",
+                fg="white",
+            )
+            click.secho(
+                "⌛ Validando taxIDs...",
                 fg="yellow",
             )
-            mongo.upload_mongo(cnx)
-            cnx.close()
-            sys.exit(0)
+            tax_ids = mongo.extract_tax_ids(csv_file)
+            tax_id_validation = mongo.validate_tax_ids(tax_ids, cnx)
+            if tax_id_validation:
+                click.secho(
+                    "⌛ Cargando documentos a la colección records...",
+                    fg="yellow",
+                )
+                mongo.upload_mongo(cnx)
+                cnx.close()
+                sys.exit(0)
+            else:
+                click.secho("⛔ Falló la validación de taxIDs.", fg="red")
+                click.secho(
+                    "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
+                    fg="yellow",
+                )
+                return
+
+        elif isinstance(validation, list):
+            click.secho(
+                "⛔ El archivo CSV tiene campos con datos no válidos.",
+                fg="red",
+            )
+            click.secho(
+                "⚠️  Utilice el comando 'bmdbutils mongo validate' para más detalles.",
+                fg="yellow",
+            )
+
         else:
-            click.secho("⛔ Falló la validación de taxIDs.", fg="red")
             click.secho(
-                "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
-                fg="yellow",
+                "⛔ Falló la validación del archivo CSV.",
+                fg="red",
             )
-            return
-
-    elif isinstance(validation, list):
-        click.secho(
-            "⛔ El archivo CSV tiene campos con datos no válidos.",
-            fg="red",
-        )
-        click.secho(
-            "⚠️  Utilice el comando 'bmdbutils mongo validate' para más detalles.",
-            fg="yellow",
-        )
-
+            click.secho(f"{validation}", fg="red")
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
-        click.secho(f"{validation}", fg="red")
