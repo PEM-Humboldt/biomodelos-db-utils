@@ -153,10 +153,10 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#biomodelos-db-utils">Biomodelos-db-utils</a></li>
+        <li class="first-level active"><a href="#biomodelos-db-utils">Biomodelos DB Utils</a></li>
             <li class="second-level"><a href="#caracteristicas-principales">Características principales</a></li>
                 
-            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
+            <li class="second-level"><a href="#requisitos-previos">Requisitos previos</a></li>
                 
             <li class="second-level"><a href="#instalacion-y-ejecucion">Instalación y ejecución</a></li>
                 
@@ -164,19 +164,29 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="biomodelos-db-utils">Biomodelos-db-utils</h1>
-<p>Es una herramienta de línea de comandos sirviente como utilitario para el aplicativo BioModelos. </p>
+<h1 id="biomodelos-db-utils">Biomodelos DB Utils</h1>
+<p><strong>Biomodelos DB Utils</strong> es una herramienta de línea de comandos (CLI) que actúa como conjunto de utilitarios para la plataforma <strong>BioModelos</strong>, facilitando tareas de configuración, validación, carga y consulta de información.</p>
 <h2 id="caracteristicas-principales">Características principales</h2>
 <ul>
-<li>Permite la validación y carga de modelos, comunicándose directamente con la base de datos y mongo</li>
-<li>Permite la validación y carga de registros, comunicándose directamente con Geoserver</li>
-<li>Permite la configuración del API y la base de datos</li>
-<li>Permite la consulta de variables y ediciones</li>
-<li>Permite la validación de archivos CSV y .tiff </li>
+<li>Configuración de servicios utilizados por BioModelos, incluyendo:</li>
+<li>API</li>
+<li>Base de datos PostgreSQL</li>
+<li>Base de datos MongoDB</li>
+<li>GeoServer</li>
+<li>Validación y carga de modelos <code>.tif</code> en GeoServer.</li>
+<li>Validación, corrección y carga de registros desde archivos CSV.</li>
+<li>Consulta de variables ecológicas, ediciones y calificaciones asociadas a especies.</li>
+<li>Obtención de estadísticas históricas de uso de la plataforma (usuarios, modelos, descargas y grupos).</li>
+<li>Validación de archivos CSV y modelos antes de su carga.</li>
 </ul>
-<h2 id="prerequisitos">Prerequisitos</h2>
+<h2 id="requisitos-previos">Requisitos previos</h2>
+<ul>
+<li>Acceso a los servicios de BioModelos (API, bases de datos y GeoServer), ya sea en entorno local o de producción.</li>
+<li>Credenciales válidas para los servicios que se desean configurar o consultar.</li>
+</ul>
 <h2 id="instalacion-y-ejecucion">Instalación y ejecución</h2>
-<p>Se recomienda seguir los pasos recomendados en  el <a href="https://github.com/PEM-Humboldt/biomodelos-db-utils.git">repositorio</a></p></div>
+<p>Para instalar y ejecutar la herramienta, se recomienda seguir los pasos descritos en el repositorio oficial del proyecto:</p>
+<p>👉 https://github.com/PEM-Humboldt/biomodelos-db-utils</p></div>
         
         
     </div>
@@ -281,5 +291,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-02-24 16:43:16.513763+00:00
+Build Date UTC : 2026-02-24 16:59:07.890573+00:00
 -->
