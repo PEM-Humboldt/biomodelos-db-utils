@@ -6,13 +6,7 @@ examples:
 
 notes: 
   - title: "Parámetros"
-    description: | 
-      `bmdbutils setup [OPTIONS]`
-
-      - `--api-url`: URL del API de Biomodelos al que se desea conectar. Este debe incluir el número del puerto.
-      - `--postgres-url`: URL de la base de datos de PostgreSQL a la que se desea conectar. Este debe incluir el número del puerto.
-      - `--postgres-username`: Nombre del usuario para acceder a PostgreSQL
-      - `--postgres-password`: Contraseña del usuario para acceder a PostgreSQL
+    auto_help: true
 
   - title: "Consideraciones" 
     description: |

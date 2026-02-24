@@ -8,12 +8,7 @@ examples:
 
 notes: 
   - title: "Parámetros"
-    description: | 
-      `bmdbutils ratings [OPTIONS] OUT_FOLDER` 
-
-      - `--tax-ids`: Lista de ids de especies separados por coma (,) para filtrar las calificaciones
-      - `--init-date`: Fecha de inicio para filtrar las calificaciones [%Y-%m-%d]
-      - `--end-date`: Fecha de finalización para filtrar las calificaciones [%Y-%m-%d]
+    auto_help: true
 
   - title: "Consideraciones" 
     description: |

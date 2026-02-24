@@ -12,13 +12,7 @@ examples:
 
 notes: 
   - title: "Parámetros"
-    description: | 
-      `bmdbutils stats <downloads|groups|models|users>`` 
-
-        - `downloads`: Obtener estadísticas de descarga de modelos de la plataforma
-        - `groups`: Obtener estadísticas de los grupos de usuarios en la plataforma.
-        - `models`: Obtener estadísticas de los modelos en la plataforma.
-        - `users`: Obtener estadísticas de usuarios registrados en la plataforma.
+    auto_help: true
 
   - title: "Consideraciones" 
     description: |

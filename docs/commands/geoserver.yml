@@ -7,16 +7,7 @@ examples:
     cmd: "bmdbutils geoserver upsert model_file.csv ."
 notes: 
   - title: "Parámetros"
-    description: | 
-      `bmdbutils geoserver <setup|upsert> [OPTIONS] [ARGS]`
-
-      - `setup`: Comando para configurar GeoServer de BioModelos.
-          - `--url`: URL del Geoserver al que se desea conectar. Este debe incluir el número del puerto.
-          - `--username`: Nombre del usuario para acceder a Geoserver. (Default: admin)
-          - `--password`: Contraseña del usuario para acceder a Geoserver.
-      - `upsert`: Carga los archivos de modelos en el GeoServer.
-          - `models_info`: Archivo CSV para mapear los campos `tax_id`, `model_id` y `model_file` para cada modelo a cargar
-          - `models_folder`: Ruta a la carpeta que contiene los archivos `.tif` referenciados en el CSV.
+    auto_help: true
 
   - title: "Consideraciones" 
     description: |
