@@ -1,0 +1,37 @@
+title: Setup
+description: Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. 
+examples:
+  - title: Configurar API y base de datos localmente
+    cmd: "bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username biomodelos_pro --postgres-password example"
+
+notes: 
+  - title: "Parámetros"
+    description: | 
+      `bmdbutils setup [OPTIONS]`
+
+      - `--api-url`: URL del API de Biomodelos al que se desea conectar. Este debe incluir el número del puerto.
+      - `--postgres-url`: URL de la base de datos de PostgreSQL a la que se desea conectar. Este debe incluir el número del puerto.
+      - `--postgres-username`: Nombre del usuario para acceder a PostgreSQL
+      - `--postgres-password`: Contraseña del usuario para acceder a PostgreSQL
+
+  - title: "Consideraciones" 
+    description: |
+        - Este comando no es necesario si ya se ha realizado la configuración previamente.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
+        - Sobrescribe la configuración existente si ya ha sido definida previamente.
+        - No valida la disponibilidad del API ni de la base de datos en el momento de la ejecución.
+
+  - title: "Valores por defecto"
+    description: |
+        - `--api-url`: URL de producción 192.168.11.105:4000
+        - `--postgres-url`: URL de producción 192.168.11.106:5430
+
+        ⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.
+
+  - title: "Validaciones"
+    description: |
+        - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
+        - Todos los parámetros son obligatorios si no existe una configuración previa.

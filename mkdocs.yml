@@ -1,0 +1,13 @@
+site_name: Biomodelos-db-utils
+plugins:
+  - search
+  - macros:
+      module_name: docs/main
+  - gen-files:
+      scripts:
+        - docs/gen_pages.py
+  - literate-nav:
+      nav_file: summary.md
+
+theme:
+    name: cinder

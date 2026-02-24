@@ -1,0 +1,59 @@
+title: Mongo
+description: Permite configurar MongoDB y gestionar registros de Biomodelos mediante validación y carga de archivos CSV.
+examples:
+  - title: Configurar base de datos de Mongo 
+    cmd: "bmdbutils mongo setup --mongo-url http://localhost:27017 --mongo-db database --mongo-username username --mongo-password password"
+  - title: Validar un archivo CSV antes de su carga. 
+    cmd: "bmdbutils mongo validate"
+    extra: |
+        - "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta. `Ruta del archivo CSV: /home/user/directory/model.csv`"
+        - Esto validará los registros en el CSV sin subirlos a la colección.
+  - title: Cargar un documento a una colección records.
+    cmd: "bmdbutils mongo upload"
+    extra: | 
+        - "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta. `Ruta del archivo CSV: /home/user/directory/model.csv`"
+        - Se espera que anteriormente se haya hecho uso del comando `validate`.
+  - title: Validar, corregir y cargar un archivo en un único comando.
+    cmd: "bmdbutils mongo models-metadata"
+    extra: |
+        - "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta. `Ruta del archivo CSV: /home/user/directory/model.csv`"
+        - Este comando se usa como alternativa a `validate` y `upload`. 
+
+notes: 
+  - title: "Parámetros"
+    description: | 
+      `bmdbutils mongo <setup|validate|upload|models-metadata> [OPTIONS]`
+
+      - `setup`: Configuración de base de datos de mongo
+          - `--mongo-url`: URL de Mongo al que se desea conectar. Este debe incluir el número del puerto. (Default: 192.168.11.105:27016)
+          - `--mongo-db` : Nombre de la base de datos de mongo a la que se desea conectar. (Default:produccion)
+          - `--mongo-username`: Nombre del usuario para acceder a la base de datos de mongo. (Default:biomodelos)
+          - `--mongo-password`: Contraseña del usuario para acceder a la base de datos de mongo.
+      - `validate`: Valida un archivo CSV de registros sin cargar información en la base de datos de Mongo.
+          - `--csv-file`: Archivo CSV que contiene los registros de biomodelos.
+      - `upload`: Carga documentos en la colección `records` de la base de datos Mongo.
+          - `--csv-file`: Archivo CSV que contiene los registros de biomodelos.
+      - `models-metadata`: Valida, corrige y carga metadatos de modelos en la base de datos Mongo. Este comando es una alternativa a `validate` y `upload`.
+          - `--csv-file`: Archivo CSV que contiene los registros de biomodelos.
+
+  - title: "Consideraciones" 
+    description: |
+        - Se recomienda ejecutar primero el comando `validate` y posteriormente `upload`.
+        - El comando `models-metadata` es una alternativa al flujo `validate` + `upload`.
+        - El comando `setup` no es necesario si la configuración ya existe. Sus valores por defecto apuntan al servidor de producción.
+        - Para los comandos de validación y carga, se debe proporcionar la ruta absoluta del archivo CSV.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando `validate` no modifica información en la base de datos.
+        - El comando `upload` inserta documentos en la colección `records`.
+        - El comando `models-metadata`:
+            - Puede modificar metadatos existentes en la base de datos.
+            - En caso de encontrar errores en la estructura del archivo, los indica a través de un log almacenado en la carpeta /tmp/ del repositorio.
+        - Ninguno de los comandos elimina registros existentes.
+        
+  - title: "Validaciones"
+    description: |
+        - El archivo CSV debe existir y ser accesible desde el sistema.
+        - El archivo debe cumplir con la estructura esperada por Biomodelos. 
+        - Si la validación falla, los comandos de carga no se ejecutan.

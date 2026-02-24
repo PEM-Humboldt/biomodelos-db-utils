@@ -1,0 +1,48 @@
+title: Geoserver
+description: Configuración de GeoServer para Biomodelos y carga de modelos. 
+examples:
+  - title: Configurar conexión a GeoServer
+    cmd: "bmdbutils geoserver setup --url http://localhost:8080/geoserver --username admin --password admin"
+  - title: Cargar un nuevo modelo a Geoserver. 
+    cmd: "bmdbutils geoserver upsert model_file.csv ."
+notes: 
+  - title: "Parámetros"
+    description: | 
+      `bmdbutils geoserver <setup|upsert> [OPTIONS] [ARGS]`
+
+      - `setup`: Comando para configurar GeoServer de BioModelos.
+          - `--url`: URL del Geoserver al que se desea conectar. Este debe incluir el número del puerto.
+          - `--username`: Nombre del usuario para acceder a Geoserver. (Default: admin)
+          - `--password`: Contraseña del usuario para acceder a Geoserver.
+      - `upsert`: Carga los archivos de modelos en el GeoServer.
+          - `models_info`: Archivo CSV para mapear los campos `tax_id`, `model_id` y `model_file` para cada modelo a cargar
+          - `models_folder`: Ruta a la carpeta que contiene los archivos `.tif` referenciados en el CSV.
+
+  - title: "Consideraciones" 
+    description: |
+        - `setup`
+            - No es necesario si ya se ha realizado la configuración previamente. Sus valores por defecto apuntan al servidor de producción.
+            - La URL del localhost debe ser escrita con el prefijo http.
+        - `upsert`
+            - Se debe contar con un CSV con el id de la especie (tax_id), el id del modelo de Geoserver (model_id) y el nombre del archivo .tif a cargar (model_file)
+            - El archivo TIF debe estar en la carpeta especificada en el segundo argumento.
+            - No es necesario agregar el parámetro --password, éste se solicita automáticamente
+
+  - title: "Comportamiento del comando"
+    description: |
+        - `upsert`
+            - El comando carga el modelo al GeoServer previamente configurado mediante `setup`. En caso de no configurarlo, se asume el GeoServer de producción por defecto.
+            - El comando valida la existencia del archivo(s) TIF especificado en el archivo CSV.
+            - El comando busca el archivo(s) TIF especificado en el directorio especificado en el segundo argumento del comando.
+            - El comando carga el modelo al Geoserver previamente especificado con el comando `setup`. 
+            - El comando evita duplicados. Si el modelo ya existe, retorna error. 
+
+  - title: "Valores por defecto"
+    description: |
+        - `setup`
+            - `--api-url`: URL de producción http://192.168.11.58:8181/geoserver
+            - `--username`: Usuario de GeoServer de producción (admin)
+            
+        ⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.
+
+
