@@ -1,0 +1,25 @@
+title: Stats
+description: Comando para realizar consultas SQL y NoSQL relacionadas con estadísticas de uso de BioModelos.
+examples:
+  - title: Listar descargas
+    cmd: "bmdbutils stats downloads"
+  - title: Listar grupos
+    cmd: "bmdbutils stats groups"
+  - title: Listar modelos
+    cmd: "bmdbutils stats models"
+  - title: Listar usuarios
+    cmd: "bmdbutils stats users"
+
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El comando retorna resultados históricos.
+        
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando consulta estadísticas de uso de la plataforma BioModelos.
+        - No modifica ni elimina información.
+        - Los resultados se muestran directamente en consola.

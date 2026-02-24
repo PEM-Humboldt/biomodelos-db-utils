@@ -1,0 +1,41 @@
+title: Ecovars
+description: Obtener las variables ecológicas de los modelos correspondientes a las especies indicadas.
+examples:
+  - title: Listar las variables ecológicas de especies con ID 8 y 9. 
+    cmd: "bmdbutils ecovars --tax-ids 8,9 ."
+  - title: Listar las variables ecológicas de especies con ID 8 y 9, y en un rango de fechas establecido.
+    cmd: "bmdbutils ecovars --tax-ids 8,9 --init-date 2017-01-01 --end-date 2025-12-01 ."
+
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El comando debe incluir la ruta donde se creará el archivo CSV con los resultados de la consulta [OUT_FOLDER].
+        - Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante será sobreescrito.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando consulta las variables ecológicas asociadas a los modelos de las especies indicadas.
+        - No modifica ni elimina información en la base de datos.
+
+  - title: "Estructura del resultado"
+    description: |
+        El resultado es un archivo CSV que contiene los siguientes campos:
+
+          - user_id: Identificador del usuario que creó o añadió el registro.
+          - name: Nombre del usuario que creó o añadió el registro.
+          - species_id: Identificador de la especie.
+          - ecological_variable: Nombre de la variable ecológica.
+          - created_at: Fecha de creación.
+          - updated_at: Fecha de última actualización.
+
+  - title: "Valores por defecto"
+    description: |
+        - Si no se especifican `--init-date` y `--end-date`, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.
+
+  - title: "Validaciones"
+    description: |
+        - Las fechas deben ser proporcionadas en formato YYYY-MM-DD.
+        - El parámetro --tax-ids debe ir precedido por al menos un identificador de especie. 
