@@ -156,3 +156,19 @@ poetry run bmdbutils
 ```
 
 Es recomendable familiarizarse con la documentación de [poetry](https://python-poetry.org/docs/) y de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
+
+## Documentación
+
+La documentación para la línea de comandos fue realizada con [MkDocs](https://www.mkdocs.org/). Los siguientes comandos deben ser ejecutados dentro del ambiente previamente configurado.
+
+```sh
+# Instalación de librerías
+conda install mkdocs mkdocs-macros-plugin mkdocs-gen-files mkdocs-literate-nav
+pip install mkdocs-cinder
+# Desplegar página en ambiente local (Ingresar a: http://127.0.0.1:8000/)
+mkdocs serve
+# Generar documentación
+mkdocs build
+# Desplegar página en github pages
+mkdocs gh-deploy
+```
