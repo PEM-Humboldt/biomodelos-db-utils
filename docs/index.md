@@ -24,4 +24,5 @@
 
 👉 Para instalar y ejecutar la herramienta, se recomienda seguir los pasos descritos en el [repositorio oficial del proyecto](https://github.com/PEM-Humboldt/biomodelos-db-utils)
 
+Para iniciar el uso de db-utils, es necesario realizar la configuración de la base de datos de [Postgres](setup.md), [Mongo](mongo.md) y [GeoServer](geoserver.md). Esta configuración es obligatoria si se trabaja desde un ambiente local o de pruebas, puesto que las configuraciones por defecto apuntan a producción. 
  

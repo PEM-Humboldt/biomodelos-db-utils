@@ -19,9 +19,9 @@ notes:
 
   - title: "Consideraciones" 
     description: |
+        - ⚠️ El comando `setup` debe ejecutarse antes de ejecutar cualquier otro comando. En caso de que la configuración ya exista, este no será necesario. Sus valores por defecto apuntan al servidor de producción.
         - Se recomienda ejecutar primero el comando `validate` y posteriormente `upload`.
         - El comando `models-metadata` es una alternativa al flujo `validate` + `upload`.
-        - El comando `setup` no es necesario si la configuración ya existe. Sus valores por defecto apuntan al servidor de producción.
         - Para los comandos de validación y carga, se debe proporcionar la ruta absoluta del archivo CSV.
 
   - title: "Comportamiento del comando"

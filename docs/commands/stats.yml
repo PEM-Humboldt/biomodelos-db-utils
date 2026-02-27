@@ -11,6 +11,9 @@ examples:
     cmd: "bmdbutils stats users"
 
 notes: 
+
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuación a la base de datos de [PostgreSQL](setup.md) y [Mongo](mongo.md).
   - title: "Parámetros"
     auto_help: true
 

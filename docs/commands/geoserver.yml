@@ -12,6 +12,7 @@ notes:
   - title: "Consideraciones" 
     description: |
         - `setup`
+            - ⚠️ Debe ejecutarse antes de ejecutar cualquier otro comando.
             - No es necesario si ya se ha realizado la configuración previamente. Sus valores por defecto apuntan al servidor de producción.
             - La URL del localhost debe ser escrita con el prefijo http.
         - `upsert`

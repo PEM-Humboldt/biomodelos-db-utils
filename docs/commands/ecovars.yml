@@ -7,6 +7,8 @@ examples:
     cmd: "bmdbutils ecovars --tax-ids 8,9 --init-date 2017-01-01 --end-date 2025-12-01 ."
 
 notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles [aquí](setup.md)
   - title: "Parámetros"
     auto_help: true
 
