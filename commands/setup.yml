@@ -1,5 +1,5 @@
 title: Setup
-description: Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. 
+description: Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. Esta configuración es obligatoria para la ejecución de otros comandos.
 examples:
   - title: Configurar API y base de datos localmente
     cmd: "bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username biomodelos_pro --postgres-password example"

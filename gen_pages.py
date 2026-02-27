@@ -8,6 +8,7 @@ commands_dir = os.path.join("docs", "commands")
 
 summary_lines = ["- [Inicio](index.md)\n", "- Comandos\n"]
 
+custom_order = ['setup.yml', 'ecovars.yml', 'editions.yml', 'geoserver.yml', 'mongo.yml', 'ratings.yml', 'stats.yml']
 
 def gen_files():
     """
@@ -16,7 +17,7 @@ def gen_files():
     with open(template_path, "r", encoding="utf-8") as tpl:
         template_content = tpl.read()
 
-    for fname in sorted(os.listdir(commands_dir)):
+    for fname in custom_order:
         if fname.endswith(".yml"):
             name = os.path.splitext(fname)[0]
             md_file = f"{name}.md"
@@ -27,7 +28,7 @@ def gen_files():
             with open(yml_path, "r", encoding="utf-8") as yml_file:
                 yml_data = yaml.safe_load(yml_file)
                 if yml_data and "title" in yml_data:
-                    title = yml_data["title"].replace("Comando ", "AMOASTEVEN")
+                    title = yml_data["title"].replace("Comando ", "")
                     display_name = title.replace("-", " ")
 
             with mkdocs_gen_files.open(md_file, "w") as f:

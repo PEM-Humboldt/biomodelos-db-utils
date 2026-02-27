@@ -81,6 +81,12 @@
                         
                             
 <li >
+    <a href="../setup/">Setup</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../ecovars/">Ecovars</a>
 </li>
 
@@ -106,12 +112,6 @@
                             
 <li >
     <a href="../ratings/">Ratings</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../setup/">Setup</a>
 </li>
 
                         
@@ -156,6 +156,8 @@
         <li class="first-level active"><a href="#editions">Editions</a></li>
             <li class="second-level"><a href="#examples">Examples</a></li>
                 
+            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
+                
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
             <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
@@ -182,6 +184,8 @@
 <p><strong>Listar registros en un rango de fechas.</strong></p>
 <pre><code class="language-sh">bmdbutils editions --tax-ids 7035,1204 --init-date 2017-01-01 --end-date 2025-12-01 .
 </code></pre>
+<h4 id="prerequisitos">Prerequisitos</h4>
+<p>Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles <a href="../setup/">aquí</a></p>
 <h4 id="parametros">Parámetros</h4>
 <pre><code class="language-text">Usage: bmdbutils editions [OPTIONS] OUT_FOLDER
 

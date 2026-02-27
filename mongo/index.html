@@ -81,6 +81,12 @@
                         
                             
 <li >
+    <a href="../setup/">Setup</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../ecovars/">Ecovars</a>
 </li>
 
@@ -106,12 +112,6 @@
                             
 <li >
     <a href="../ratings/">Ratings</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../setup/">Setup</a>
 </li>
 
                         
@@ -206,9 +206,9 @@ Commands:
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
+<li>⚠️ El comando <code>setup</code> debe ejecutarse antes de ejecutar cualquier otro comando. En caso de que la configuración ya exista, este no será necesario. Sus valores por defecto apuntan al servidor de producción.</li>
 <li>Se recomienda ejecutar primero el comando <code>validate</code> y posteriormente <code>upload</code>.</li>
 <li>El comando <code>models-metadata</code> es una alternativa al flujo <code>validate</code> + <code>upload</code>.</li>
-<li>El comando <code>setup</code> no es necesario si la configuración ya existe. Sus valores por defecto apuntan al servidor de producción.</li>
 <li>Para los comandos de validación y carga, se debe proporcionar la ruta absoluta del archivo CSV.</li>
 </ul>
 <h4 id="comportamiento-del-comando">Comportamiento del comando</h4>

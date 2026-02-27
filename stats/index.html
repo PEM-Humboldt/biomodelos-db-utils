@@ -81,6 +81,12 @@
                         
                             
 <li >
+    <a href="../setup/">Setup</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../ecovars/">Ecovars</a>
 </li>
 
@@ -110,12 +116,6 @@
 
                         
                             
-<li >
-    <a href="../setup/">Setup</a>
-</li>
-
-                        
-                            
 <li class="active">
     <a href="./">Stats</a>
 </li>
@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../setup/">
+                        <a rel="prev" href="../ratings/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -155,6 +155,8 @@
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#stats">Stats</a></li>
             <li class="second-level"><a href="#examples">Examples</a></li>
+                
+            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
                 
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
@@ -181,6 +183,8 @@
 <p><strong>Listar usuarios</strong></p>
 <pre><code class="language-sh">bmdbutils stats users
 </code></pre>
+<h4 id="prerequisitos">Prerequisitos</h4>
+<p>Es necesario haber realizado la configuación a la base de datos de <a href="../setup/">PostgreSQL</a> y <a href="../mongo/">Mongo</a>.</p>
 <h4 id="parametros">Parámetros</h4>
 <pre><code class="language-text">Usage: bmdbutils stats [OPTIONS] COMMAND [ARGS]...
 
