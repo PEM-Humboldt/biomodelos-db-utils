@@ -1,9 +1,9 @@
 title: Mongo
 description: Permite configurar MongoDB y gestionar registros de Biomodelos mediante validación y carga de archivos CSV.
 examples:
-  - title: Configurar base de datos de Mongo 
+  - title: Configurar base de datos de Mongo.
     cmd: "bmdbutils mongo setup --mongo-url http://localhost:27017 --mongo-db database --mongo-username username --mongo-password password"
-  - title: Validar un archivo CSV antes de su carga. 
+  - title: Validar un archivo CSV antes de su carga.
     cmd: "bmdbutils mongo validate"
     extra: "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: `/home/user/directory/model.csv`"
   - title: Cargar un documento a una colección records.
@@ -44,6 +44,6 @@ notes:
     description: |
         - `setup`
           ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:
-            - `--mongo-url`: URL de producción
-            - `--mongo-db`: Base de datos de producción
-            - `--mongo-username`: Usuario de producción
+            - `--mongo-url`: URL de producción.
+            - `--mongo-db`: Base de datos de producción.
+            - `--mongo-username`: Usuario de producción.

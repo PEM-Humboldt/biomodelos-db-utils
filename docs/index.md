@@ -4,7 +4,7 @@
 
 ## Características principales
 
-- Configuración de servicios utilizados por BioModelos, incluyendo:
+- Configuración de servicios utilizados por Biomodelos, incluyendo:
   - API
   - Base de datos PostgreSQL
   - Base de datos MongoDB
@@ -17,12 +17,12 @@
 
 ## Requisitos previos
 
-- Acceso a los servicios de BioModelos (API, bases de datos y GeoServer), ya sea en entorno local o de producción.
+- Acceso a los servicios de Biomodelos (API, bases de datos y GeoServer), ya sea en entorno local o de producción.
 - Credenciales válidas para los servicios que se desean configurar o consultar.
 
 ## Instalación y ejecución
 
-👉 Para instalar y ejecutar la herramienta, se recomienda seguir los pasos descritos en el [repositorio oficial del proyecto](https://github.com/PEM-Humboldt/biomodelos-db-utils)
+👉 Para instalar la herramienta, se recomienda seguir los pasos descritos en el [repositorio oficial del proyecto](https://github.com/PEM-Humboldt/biomodelos-db-utils).
 
-Para iniciar el uso de db-utils, es necesario realizar la configuración de la base de datos de [Postgres](setup.md), [Mongo](mongo.md) y [GeoServer](geoserver.md). Esta configuración es obligatoria si se trabaja desde un ambiente local o de pruebas, puesto que las configuraciones por defecto apuntan a producción. 
+Su ejecución se realiza a partir del comando `bmdbutils`, y como paso inicial es necesario configurar la base de datos de [Postgres](setup.md), [Mongo](mongo.md) y el [GeoServer](geoserver.md). Esta configuración es obligatoria si se trabaja desde un ambiente local o de pruebas, puesto que las configuraciones por defecto apuntan a producción. 
  

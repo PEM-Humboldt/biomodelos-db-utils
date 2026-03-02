@@ -8,7 +8,7 @@ examples:
 
 notes: 
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles [aquí](setup.md)
+    description: Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles [aquí](setup.md).
   - title: "Parámetros"
     auto_help: true
 
