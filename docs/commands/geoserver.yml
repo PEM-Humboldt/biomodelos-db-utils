@@ -2,12 +2,13 @@ title: Geoserver
 description: Configuración de GeoServer para Biomodelos y carga de modelos. 
 examples:
   - title: Configurar conexión a GeoServer
-    cmd: "bmdbutils geoserver setup --url http://localhost:8080/geoserver --username admin --password admin"
+    cmd: "bmdbutils geoserver setup --url http://localhost:8080/geoserver --username username --password password"
   - title: Cargar un nuevo modelo a Geoserver. 
     cmd: "bmdbutils geoserver upsert model_file.csv ."
 notes: 
   - title: "Parámetros"
     auto_help: true
+    setup_help: true
 
   - title: "Consideraciones" 
     description: |
@@ -32,9 +33,8 @@ notes:
   - title: "Valores por defecto"
     description: |
         - `setup`
-            - `--api-url`: URL de producción http://192.168.11.58:8181/geoserver
-            - `--username`: Usuario de GeoServer de producción (admin)
-            
-        ⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.
+          ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:
+            - `--api-url`: URL de producción
+            - `--username`: Usuario de GeoServer de producción
 
 

@@ -1,3 +1,5 @@
+import re
+
 def define_env(env):
 
     import os, yaml, subprocess
@@ -10,7 +12,17 @@ def define_env(env):
             capture_output=True,
             text=True,
         )
-        return result.stdout
+        cleaned = re.sub(r"\[default:.*?\]", "", result.stdout, flags=re.DOTALL)
+        return cleaned
+    
+    def get_setup(cmd):
+        result = subprocess.run(
+            cmd + ["setup", "--help"],
+            capture_output=True,
+            text=True
+        )
+        cleaned = re.sub(r"\[default:.*?\]", "", result.stdout, flags=re.DOTALL)
+        return cleaned
     
     @env.macro
     def command():
@@ -27,7 +39,11 @@ def define_env(env):
             for note in data.get("notes", []):
                 if note.get("auto_help"):
                     cmd = ["bmdbutils"] + page_name.split()
-                    note["description"] = f"```text\n{get_help(cmd)}\n```"
+                    help_text = get_help(cmd)
+                    if note.get("setup_help"):
+                        help_text += "\n" + get_setup(cmd)
+
+                    note["description"] = f"```text\n{help_text}\n```"
             return data
         else:
             return {"error": f"{page_name}.yml doesn't exist"}

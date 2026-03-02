@@ -2,12 +2,12 @@ title: Setup
 description: Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. Esta configuración es obligatoria para la ejecución de otros comandos.
 examples:
   - title: Configurar API y base de datos localmente
-    cmd: "bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username biomodelos_pro --postgres-password example"
+    cmd: "bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username username --postgres-password password"
 
 notes: 
   - title: "Parámetros"
     auto_help: true
-
+    
   - title: "Consideraciones" 
     description: |
         - Este comando no es necesario si ya se ha realizado la configuración previamente.
@@ -20,10 +20,8 @@ notes:
 
   - title: "Valores por defecto"
     description: |
-        - `--api-url`: URL de producción 192.168.11.105:4000
-        - `--postgres-url`: URL de producción 192.168.11.106:5430
-
-        ⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.
+        - `--api-url`: URL de producción
+        - `--postgres-url`: URL de producción
 
   - title: "Validaciones"
     description: |
