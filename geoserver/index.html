@@ -172,7 +172,7 @@
 <p>Configuración de GeoServer para Biomodelos y carga de modelos.</p>
 <h4 id="examples">Examples</h4>
 <p><strong>Configurar conexión a GeoServer</strong></p>
-<pre><code class="language-sh">bmdbutils geoserver setup --url http://localhost:8080/geoserver --username admin --password admin
+<pre><code class="language-sh">bmdbutils geoserver setup --url http://localhost:8080/geoserver --username username --password password
 </code></pre>
 <p><strong>Cargar un nuevo modelo a Geoserver.</strong></p>
 <pre><code class="language-sh">bmdbutils geoserver upsert model_file.csv .
@@ -187,6 +187,18 @@ Commands:
   setup   Configurar GeoServer
   upsert  Crear o actualizar los archivos de modelos en el GeoServer para
           modelos existentes en BioModelos
+
+Usage: bmdbutils geoserver setup [OPTIONS]
+
+  Comando para configurar GeoServer de BioModelos. No es necesario ejecutar
+  este comando si ya se ha configurado el GeoServer. No es necesario agregar
+  el parámetro --password, éste se solicita automáticamente
+
+Options:
+  --url TEXT       URL de GeoServer  
+  --username TEXT  nombre de usuario para acceder a GeoServer  
+  --password TEXT  contraseña para el ususario
+  --help           Show this message and exit.
 
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
@@ -217,13 +229,13 @@ Commands:
 </ul>
 <h4 id="valores-por-defecto">Valores por defecto</h4>
 <ul>
-<li><code>setup</code><ul>
-<li><code>--api-url</code>: URL de producción http://192.168.11.58:8181/geoserver</li>
-<li><code>--username</code>: Usuario de GeoServer de producción (admin)</li>
+<li><code>setup</code>
+  ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:<ul>
+<li><code>--api-url</code>: URL de producción</li>
+<li><code>--username</code>: Usuario de GeoServer de producción</li>
 </ul>
 </li>
-</ul>
-<p>⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.</p></div>
+</ul></div>
         
         
     </div>

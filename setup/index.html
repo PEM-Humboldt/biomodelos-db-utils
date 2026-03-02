@@ -174,7 +174,7 @@
 <p>Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. Esta configuración es obligatoria para la ejecución de otros comandos.</p>
 <h4 id="examples">Examples</h4>
 <p><strong>Configurar API y base de datos localmente</strong></p>
-<pre><code class="language-sh">bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username biomodelos_pro --postgres-password example
+<pre><code class="language-sh">bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username username --postgres-password password
 </code></pre>
 <h4 id="parametros">Parámetros</h4>
 <pre><code class="language-text">Usage: bmdbutils setup [OPTIONS]
@@ -186,10 +186,9 @@
 
 Options:
   --api-url TEXT            URL del API de BioModelos (incluyendo el número
-                            del puerto)  [default: http://192.168.11.105:4000]
+                            del puerto)  
   --postgres-url TEXT       URL de la base de datos de PostgresSQL (incluyendo
-                            el número del puerto)  [default:
-                            192.168.11.106:5430]
+                            el número del puerto)  
   --postgres-username TEXT  nombre de usuario para acceder a la base de datos
                             de PostgresSQL
   --postgres-password TEXT  contraseña para el usuario para acceder a la base
@@ -209,10 +208,9 @@ Options:
 </ul>
 <h4 id="valores-por-defecto">Valores por defecto</h4>
 <ul>
-<li><code>--api-url</code>: URL de producción 192.168.11.105:4000</li>
-<li><code>--postgres-url</code>: URL de producción 192.168.11.106:5430</li>
+<li><code>--api-url</code>: URL de producción</li>
+<li><code>--postgres-url</code>: URL de producción</li>
 </ul>
-<p>⚠️ Estos valores corresponden al entorno de producción y deben usarse con precaución.</p>
 <h4 id="validaciones">Validaciones</h4>
 <ul>
 <li>Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.</li>

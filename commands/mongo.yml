@@ -16,6 +16,7 @@ examples:
 notes: 
   - title: "Parámetros"
     auto_help: true
+    setup_help: true
 
   - title: "Consideraciones" 
     description: |
@@ -38,3 +39,11 @@ notes:
         - El archivo CSV debe existir y ser accesible desde el sistema.
         - El archivo debe cumplir con la estructura esperada por Biomodelos. 
         - Si la validación falla, los comandos de carga no se ejecutan.
+
+  - title: "Valores por defecto"
+    description: |
+        - `setup`
+          ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:
+            - `--mongo-url`: URL de producción
+            - `--mongo-db`: Base de datos de producción
+            - `--mongo-username`: Usuario de producción

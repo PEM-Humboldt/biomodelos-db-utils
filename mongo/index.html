@@ -164,6 +164,8 @@
                 
             <li class="second-level"><a href="#validaciones">Validaciones</a></li>
                 
+            <li class="second-level"><a href="#valores-por-defecto">Valores por defecto</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -203,6 +205,23 @@ Commands:
   validate         Valida un archivo CSV de registros en la colección records
                    en la base de datos Mongo de BioModelos.
 
+Usage: bmdbutils mongo setup [OPTIONS]
+
+  Comando para configurar la base de datos MongoDB de BioModelos.  No es
+  necesario ejecutar este comando si ya se ha configurado la base de datos
+  MongoDB.  No es necesario agregar el parámetro --mongo-password, éste se
+  solicita automáticamente
+
+Options:
+  --mongo-url TEXT       URL de la base de datos Mongo (incluyendo el número
+                         del puerto)  
+  --mongo-db TEXT        Base de datos de Mongo  
+  --mongo-username TEXT  Usuario para acceder a la base de datos de Mongo
+
+  --mongo-password TEXT  Contraseña para el usuario para acceder a la base de
+                         datos de Mongo, se solicita automaticamente.
+  --help                 Show this message and exit.
+
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
@@ -227,6 +246,16 @@ Commands:
 <li>El archivo CSV debe existir y ser accesible desde el sistema.</li>
 <li>El archivo debe cumplir con la estructura esperada por Biomodelos. </li>
 <li>Si la validación falla, los comandos de carga no se ejecutan.</li>
+</ul>
+<h4 id="valores-por-defecto">Valores por defecto</h4>
+<ul>
+<li><code>setup</code>
+  ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:<ul>
+<li><code>--mongo-url</code>: URL de producción</li>
+<li><code>--mongo-db</code>: Base de datos de producción</li>
+<li><code>--mongo-username</code>: Usuario de producción</li>
+</ul>
+</li>
 </ul></div>
         
         
