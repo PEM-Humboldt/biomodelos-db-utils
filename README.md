@@ -162,13 +162,18 @@ Es recomendable familiarizarse con la documentación de [poetry](https://python-
 La documentación para la línea de comandos fue realizada con [MkDocs](https://www.mkdocs.org/). Los siguientes comandos deben ser ejecutados dentro del ambiente previamente configurado.
 
 ```sh
-# Instalación de librerías
-conda install mkdocs mkdocs-macros-plugin mkdocs-gen-files mkdocs-literate-nav
-pip install mkdocs-cinder
-# Desplegar página en ambiente local (Ingresar a: http://127.0.0.1:8000/)
+# Configuración de ambiente de desarrollo 
+# 1. Instalación de librerías
+pip install mkdocs mkdocs-macros-plugin mkdocs-gen-files mkdocs-literate-nav mkdocs-cinder
+# 2. Reiniciar ambiente de conda
+conda deactivate
+conda activate bm-db-utils
+# 3. Desplegar página en ambiente local (Ingresar a: http://127.0.0.1:8000/)
 mkdocs serve
-# Generar documentación
+
+# Despliegue a Github Pages de producción
+# 1. Generar documentación
 mkdocs build
-# Desplegar página en github pages
+# 2. Desplegar página en github pages
 mkdocs gh-deploy
 ```
