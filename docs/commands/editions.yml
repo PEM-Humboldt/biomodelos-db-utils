@@ -1,0 +1,41 @@
+title: Editions
+description: Obtener las ediciones hechas a modelos correspondientes a las especies indicadas. 
+examples:
+  - title: Listar ediciones realizadas sobre la especie de ID 8 y 9. 
+    cmd: "bmdbutils editions --tax-ids 7035,1204 ./dir_path/"
+    extra: Por defecto trae los registros del último mes.
+  - title: Listar registros en un rango de fechas.
+    cmd: "bmdbutils editions --tax-ids 7035,1204 --init-date 2017-01-01 --end-date 2025-12-01 ."
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles [aquí](setup.md)
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El comando debe incluir la ruta donde se creará el archivo CSV con los resultados de la consulta [OUT_FOLDER].
+        - Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante será sobreescrito.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando consulta las ediciones realizadas a los modelos de las especies indicadas.
+        - No modifica ni elimina información en la base de datos.
+
+  - title: "Estructura del resultado"
+    description: |
+        - El resultado es uno (o varios) archivo GeoJSON con la información del modelo de cada especie consultada. 
+        - Cada archivo corresponde a una edición realizada sobre el modelo.
+        - La consola retorna dos posibles mensajes:
+            - "Has features": El archivo GeoJSON contiene uno o más features.
+            - "Has no features": El archivo GeoJSON no contiene features asociados.
+
+  - title: "Valores por defecto"
+    description: |
+        - Si no se especifican `--init-date` y `--end-date`, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.
+
+  - title: "Validaciones"
+    description: |
+        - Las fechas deben ser proporcionadas en formato YYYY-MM-DD.
+        - El parámetro `--tax-ids` debe ir precedido por al menos un identificador de especie. 

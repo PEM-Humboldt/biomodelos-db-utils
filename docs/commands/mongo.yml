@@ -1,0 +1,49 @@
+title: Mongo
+description: Permite configurar MongoDB y gestionar registros de Biomodelos mediante validación y carga de archivos CSV.
+examples:
+  - title: Configurar base de datos de Mongo.
+    cmd: "bmdbutils mongo setup --mongo-url http://localhost:27017 --mongo-db database --mongo-username username --mongo-password password"
+  - title: Validar un archivo CSV antes de su carga.
+    cmd: "bmdbutils mongo validate"
+    extra: "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: `/home/user/directory/model.csv`"
+  - title: Cargar un documento a una colección records.
+    cmd: "bmdbutils mongo upload"
+    extra: "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: `/home/user/directory/model.csv`"
+  - title: Validar, corregir y cargar un archivo en un único comando.
+    cmd: "bmdbutils mongo models-metadata"
+    extra: "Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: `/home/user/directory/model.csv`"
+
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+    setup_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - ⚠️ El comando `setup` debe ejecutarse antes de ejecutar cualquier otro comando. En caso de que la configuración ya exista, este no será necesario. Sus valores por defecto apuntan al servidor de producción.
+        - Se recomienda ejecutar primero el comando `validate` y posteriormente `upload`.
+        - El comando `models-metadata` es una alternativa al flujo `validate` + `upload`.
+        - Para los comandos de validación y carga, se debe proporcionar la ruta absoluta del archivo CSV.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando `validate` no modifica información en la base de datos.
+        - El comando `upload` inserta documentos en la colección `records`.
+        - El comando `models-metadata`:
+            - Puede modificar metadatos existentes en la base de datos.
+            - En caso de encontrar errores en la estructura del archivo, los indica a través de un log almacenado en la carpeta /tmp/ del repositorio.
+        - Ninguno de los comandos elimina registros existentes.
+        
+  - title: "Validaciones"
+    description: |
+        - El archivo CSV debe existir y ser accesible desde el sistema.
+        - El archivo debe cumplir con la estructura esperada por Biomodelos. 
+        - Si la validación falla, los comandos de carga no se ejecutan.
+
+  - title: "Valores por defecto"
+    description: |
+        - `setup`
+          ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:
+            - `--mongo-url`: URL de producción.
+            - `--mongo-db`: Base de datos de producción.
+            - `--mongo-username`: Usuario de producción.

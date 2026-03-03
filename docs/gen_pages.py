@@ -1,0 +1,44 @@
+import os
+import yaml
+import mkdocs_gen_files
+
+template_path = os.path.join("docs", "commands.md")
+
+commands_dir = os.path.join("docs", "commands")
+
+summary_lines = ["- [Inicio](index.md)\n", "- Comandos\n"]
+
+custom_order = ['setup.yml', 'ecovars.yml', 'editions.yml', 'geoserver.yml', 'mongo.yml', 'ratings.yml', 'stats.yml']
+
+def gen_files():
+    """
+    Generate md files from yml files.
+    """
+    with open(template_path, "r", encoding="utf-8") as tpl:
+        template_content = tpl.read()
+
+    for fname in custom_order:
+        if fname.endswith(".yml"):
+            name = os.path.splitext(fname)[0]
+            md_file = f"{name}.md"
+            
+            display_name = name.replace("_", " ").title()
+            
+            yml_path = os.path.join(commands_dir, fname)
+            with open(yml_path, "r", encoding="utf-8") as yml_file:
+                yml_data = yaml.safe_load(yml_file)
+                if yml_data and "title" in yml_data:
+                    title = yml_data["title"].replace("Comando ", "")
+                    display_name = title.replace("-", " ")
+
+            with mkdocs_gen_files.open(md_file, "w") as f:
+                f.write(f"---\ntitle: {display_name}\n---\n\n")
+                f.write(template_content)
+
+            summary_lines.append(f"    - [{display_name}]({md_file})\n")
+
+    with mkdocs_gen_files.open("summary.md", "w") as f:
+        f.writelines(summary_lines)
+
+
+gen_files()

@@ -1,0 +1,43 @@
+title: Ratings
+description: Obtener las calificaciones otorgadas a modelos correspondientes a las especies indicadas.
+examples:
+  - title: Listar las calificaciones de especies con ID 7002 y 7011. 
+    cmd: "bmdbutils ratings --tax-ids 7002,7011 ."
+  - title: Listar las calificaciones de especies con ID 7002 y 7011, y en un rango de fechas establecido.
+    cmd: "bmdbutils ratings --tax-ids 7002,7011 --init-date 2017-01-01 --end-date 2025-12-01 ."
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles [aquí](setup.md).
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El comando debe incluir la ruta donde se creará el archivo CSV con los resultados de la consulta [OUT_FOLDER].
+        - Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante será sobreescrito.
+
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando consulta las calificaciones asociadas a las especies indicadas.
+        - No modifica ni elimina información en la base de datos.
+
+  - title: "Estructura del resultado"
+    description: |
+        El resultado es un archivo CSV que contiene los siguientes campos:
+
+          - user_id: Identificador del usuario que creó o añadió el registro.
+          - name: Nombre del usuario que creó o añadió el registro.
+          - model_id: Identificador del modelo del GeoServer.
+          - species_id: Identificador de la especie.
+          - accepted_name: Nombre aceptado de la especie.
+          - score: Calificación.
+
+  - title: "Valores por defecto"
+    description: |
+        - Si no se especifican `--init-date` y `--end-date`, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.
+
+  - title: "Validaciones"
+    description: |
+        - Las fechas deben ser proporcionadas en formato YYYY-MM-DD.
+        - El parámetro `--tax-ids` debe ir precedido por al menos un identificador de especie. 
