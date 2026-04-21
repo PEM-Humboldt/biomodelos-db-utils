@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import sys
+from datetime import datetime
 from urllib.parse import quote_plus
 from jsonschema import Draft7Validator, FormatChecker
 from pymongo import MongoClient, UpdateOne
@@ -46,6 +47,53 @@ class Mongo:
         except ServerSelectionTimeoutError as e:
             print("No se pudo conectar al servidor MongoDB:", e)
             sys.exit(1)
+
+    def validate_date_fields(self, csv_file):
+        try:
+            df = pd.read_csv(csv_file)
+            today = datetime.now()
+            current_year = today.year
+            current_month = today.month
+            current_day = today.day
+            invalid_rows = []
+
+            for idx, row in df.iterrows():
+                year = row.get('year')
+                month = row.get('month')
+                day = row.get('day')
+
+                # Si no hay ninguno, saltar
+                if pd.isna(year) and pd.isna(month) and pd.isna(day):
+                    continue
+
+                # Compara cada campo existente
+                if pd.notna(year) and int(year) > current_year:
+                    invalid_rows.append((idx, f"Año inválido: {year} > {current_year}"))
+                    continue
+
+                if pd.notna(month):
+                    if pd.isna(year) or int(year) == current_year:  # compara mes solo si aplica
+                        if int(month) > current_month:
+                            invalid_rows.append((idx, f"Mes inválido: {month} > {current_month}"))
+                            continue
+
+                if pd.notna(day):
+                    if (pd.isna(year) or int(year) == current_year) and (pd.isna(month) or int(month) == current_month):
+                        if int(day) > current_day:
+                            invalid_rows.append((idx, f"Día inválido: {day} > {current_day}"))
+
+            if invalid_rows:
+                print("❌ Fechas inválidas encontradas:")
+                for idx, msg in invalid_rows:
+                    print(f"  - Fila {idx + 1}: {msg}")
+                return False
+            else:
+                print("✅ Las columnas tienen fechas válidas o anteriores a hoy.")
+                return True
+
+        except Exception as e:
+            print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
+            return False
 
     def validate_csv_data(self, csv_file, collection):
         config = {
@@ -149,9 +197,6 @@ class Mongo:
             with open("tmp/records_uploaded.txt", "w") as f:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
-                    record[
-                        "resourceIncorporationDate"
-                    ] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
                     f.write(
