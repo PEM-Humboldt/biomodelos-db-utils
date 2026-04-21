@@ -40,8 +40,6 @@
                     "idIssueBm": { "type": "boolean" , "default" : false },
                     "reportedDate": { "type": ["string", "null"], "default" : null, "format": "date-time" }
                 },
-                "required": ["reportedDate", "idIssueBm", "geoIssueBm", "userIdBm", "originVagrant", "oldTaxonomyBm", "originIntroduced",
-                 "otherIssuesBm", "commentsBm"],
                 "additionalProperties": false
             },
             "default" : []
