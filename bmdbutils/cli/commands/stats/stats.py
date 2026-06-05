@@ -22,7 +22,7 @@ from .models import models
 @click.pass_context
 def stats(ctx):
     if ctx.invoked_subcommand == "models":
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(interpolation=None)
         config.read(
             os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
         )
@@ -47,7 +47,7 @@ def stats(ctx):
                 mongo_db=config["MONGODB"]["db"],
             )
     if ctx.invoked_subcommand in ["users", "downloads", "groups"]:
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(interpolation=None)
         config.read(
             os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos")
         )

@@ -25,7 +25,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 @pass_mongo
 def upload(mongo, csv_file):
     config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config.read(config_path)
     cnx = mongo.mongo_connection()
     click.secho(

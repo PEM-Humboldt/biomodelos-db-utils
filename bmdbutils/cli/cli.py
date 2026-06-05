@@ -20,7 +20,7 @@ from .commands.stats.stats import stats
 @click.group()
 @click.pass_context
 def main(ctx):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config.read(
         os.path.join(appdirs.user_config_dir("bmdbutils"), "biomodelos")
     )

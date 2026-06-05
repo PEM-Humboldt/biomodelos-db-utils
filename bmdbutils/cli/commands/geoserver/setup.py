@@ -34,7 +34,7 @@ import click
     help="contraseña para el ususario",
 )
 def setup(url, username, password):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config["LOCATION"] = {"url": url}
     config["CREDENTIALS"] = {"username": username, "password": password}
 
