@@ -43,7 +43,7 @@ import click
     se solicita automaticamente.""",
 )
 def setup(mongo_url, mongo_username, mongo_password, mongo_db):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     if (
         mongo_url != None
         and mongo_username != None

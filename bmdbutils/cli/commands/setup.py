@@ -30,17 +30,19 @@ import click
 @click.option(
     "--postgres-username",
     type=str,
+    default="biomodelos_pro",
+    show_default=True,
     help="nombre de usuario para acceder a la base de datos de PostgresSQL",
 )
 @click.option(
     "--postgres-password",
     type=str,
-    prompt="Contraseña para usuario de postgres",
+    prompt="Contraseña para usuario de base de datos de PostgresSQL",
     hide_input=True,
-    help="contraseña para el usuario para acceder a la base de datos de PostgresSQL",
+    help="Contraseña del usuario para acceder a la base de datos de PostgresSQL",
 )
 def setup(api_url, postgres_url, postgres_username, postgres_password):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config["API"] = {"url": api_url}
     if (
         postgres_url != None

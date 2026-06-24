@@ -18,7 +18,7 @@ from .upsert import upsert
 @click.pass_context
 def geoserver(ctx):
     if ctx.invoked_subcommand != "setup":
-        config = configparser.ConfigParser()
+        config = configparser.ConfigParser(interpolation=None)
         config.read(
             os.path.join(appdirs.user_config_dir("bmdbutils"), "geoserver")
         )
