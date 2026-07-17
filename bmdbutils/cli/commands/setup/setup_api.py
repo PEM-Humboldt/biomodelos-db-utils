@@ -8,6 +8,7 @@ import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
 
+
 @click.command(
     help="""Comando para configurar el API de BioModelos.
     No es necesario ejecutar este comando si ya se ha configurado el API.""",
@@ -22,7 +23,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 )
 def api(url):
     config = load_config()
-    config["API"] = { "url": url }
+    config["API"] = {"url": url}
     save_config(config)
     click.secho(
         "La configuración del API se ha realizado con éxito.",

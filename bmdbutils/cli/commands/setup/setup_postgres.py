@@ -8,6 +8,7 @@ import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
 
+
 @click.command(
     help="""Comando para configurar la base de datos de BioModelos.
     No es necesario agregar el parámetros --postgres-password, éste se solicita automáticamente.""",
@@ -39,7 +40,7 @@ def postgres(url, username, password):
     config["POSTGRESDB"] = {
         "url": url,
         "username": username,
-        "password": password
+        "password": password,
     }
     save_config(config)
 

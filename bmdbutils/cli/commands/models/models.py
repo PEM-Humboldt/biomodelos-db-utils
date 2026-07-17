@@ -18,7 +18,6 @@ from .geoserver_upsert import geoserver_upsert
 from .fix_metadata import models_metadata
 
 
-
 @click.group(
     short_help="Operaciones relacionadas con modelos de BioModelos",
 )
@@ -41,7 +40,7 @@ def models(ctx):
                 pg_pass=config["POSTGRESDB"]["password"],
             )
     if ctx.invoked_subcommand == "geoserver-upsert":
-        if (not "GEOSERVER" in config.sections()):
+        if not "GEOSERVER" in config.sections():
             click.secho(
                 "Geoserver no ha sido configurado o la configuración es errónea. "
                 "Primero ejecute 'bmdbutils geoserver setup'",
@@ -59,15 +58,13 @@ def models(ctx):
             ctx.exit(0)
         else:
             ctx.ensure_object(dict)
-            ctx.obj["biomodelos"] = Biomodelos(
-                api_url=config["API"]["url"]
-            )
+            ctx.obj["biomodelos"] = Biomodelos(api_url=config["API"]["url"])
             ctx.obj["geoserver"] = Geoserver(
                 config["GEOSERVER"]["url"],
                 config["GEOSERVER"]["username"],
                 config["GEOSERVER"]["password"],
             )
-    
+
     if ctx.invoked_subcommand == "fix-metadata":
         if not "MONGODB" in config.sections():
             click.secho(
@@ -84,6 +81,7 @@ def models(ctx):
                 mongo_pass=config["MONGODB"]["password"],
                 mongo_db=config["MONGODB"]["database"],
             )
+
 
 models.add_command(ratings)
 models.add_command(editions)

@@ -8,6 +8,7 @@ import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
 
+
 @click.command(
     help="""Comando para configurar la base de datos MongoDB de BioModelos. 
         No es necesario ejecutar este comando si ya se ha configurado la base de datos MongoDB. 
@@ -49,7 +50,7 @@ def mongo(url, username, password, database):
         "url": url,
         "username": username,
         "password": password,
-        "database": database
+        "database": database,
     }
     save_config(config)
 

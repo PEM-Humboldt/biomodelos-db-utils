@@ -58,9 +58,9 @@ class Mongo:
             invalid_rows = []
 
             for idx, row in df.iterrows():
-                year = row.get('year')
-                month = row.get('month')
-                day = row.get('day')
+                year = row.get("year")
+                month = row.get("month")
+                day = row.get("day")
 
                 # Si no hay ninguno, saltar
                 if pd.isna(year) and pd.isna(month) and pd.isna(day):
@@ -68,19 +68,32 @@ class Mongo:
 
                 # Compara cada campo existente
                 if pd.notna(year) and int(year) > current_year:
-                    invalid_rows.append((idx, f"Año inválido: {year} > {current_year}"))
+                    invalid_rows.append(
+                        (idx, f"Año inválido: {year} > {current_year}")
+                    )
                     continue
 
                 if pd.notna(month):
-                    if pd.isna(year) or int(year) == current_year:  # compara mes solo si aplica
+                    if (
+                        pd.isna(year) or int(year) == current_year
+                    ):  # compara mes solo si aplica
                         if int(month) > current_month:
-                            invalid_rows.append((idx, f"Mes inválido: {month} > {current_month}"))
+                            invalid_rows.append(
+                                (
+                                    idx,
+                                    f"Mes inválido: {month} > {current_month}",
+                                )
+                            )
                             continue
 
                 if pd.notna(day):
-                    if (pd.isna(year) or int(year) == current_year) and (pd.isna(month) or int(month) == current_month):
+                    if (pd.isna(year) or int(year) == current_year) and (
+                        pd.isna(month) or int(month) == current_month
+                    ):
                         if int(day) > current_day:
-                            invalid_rows.append((idx, f"Día inválido: {day} > {current_day}"))
+                            invalid_rows.append(
+                                (idx, f"Día inválido: {day} > {current_day}")
+                            )
 
             if invalid_rows:
                 print("❌ Fechas inválidas encontradas:")
@@ -88,7 +101,9 @@ class Mongo:
                     print(f"  - Fila {idx + 1}: {msg}")
                 return False
             else:
-                print("✅ Las columnas tienen fechas válidas o anteriores a hoy.")
+                print(
+                    "✅ Las columnas tienen fechas válidas o anteriores a hoy."
+                )
                 return True
 
         except Exception as e:

@@ -8,6 +8,7 @@ import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
 
+
 @click.command(
     help=""" Comando para configurar GeoServer de BioModelos.
         No es necesario ejecutar este comando si ya se ha configurado el GeoServer.
@@ -38,8 +39,8 @@ def geoserver(url, username, password):
     config = load_config()
     config["GEOSERVER"] = {
         "url": url,
-        "username": username, 
-        "password": password
+        "username": username,
+        "password": password,
     }
     save_config(config)
 
