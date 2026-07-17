@@ -1,5 +1,5 @@
 """
-$ bmdbutils mongo metadatos 
+$ bmdbutils models fix-metadata
 """
 import click
 import configparser
@@ -8,6 +8,7 @@ import appdirs
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
+from bmdbutils.biomodelos.config import load_config
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
@@ -23,9 +24,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def models_metadata(mongo, csv_file):
-    config_path = os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
-    config = configparser.ConfigParser(interpolation=None)
-    config.read(config_path)
+    config = load_config() 
     cnx = mongo.mongo_connection()
     click.secho(
         "⌛ Validando el archivo CSV...",

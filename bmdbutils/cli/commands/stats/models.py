@@ -16,7 +16,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def models(mongo):
-    """Obtener las estadisticas de modelos en la plataforma."""
+    """Obtener las estadísticas de modelos en la plataforma."""
     cnx = mongo.mongo_connection()
     data = mongo.models_stats(cnx)
     for doc in data:

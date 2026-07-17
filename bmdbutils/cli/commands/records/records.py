@@ -1,17 +1,15 @@
 """
-$ bmdbutils mongo
+$ bmdbutils records
 """
 import configparser
 import os
-
 import appdirs
 import click
 
 from bmdbutils.biomodelos.mongo import Mongo
-from .setup import setup
+from bmdbutils.biomodelos.config import load_config
 from .upload import upload
 from .validate import validate
-from .models_metadata import models_metadata
 
 
 @click.group(
@@ -19,12 +17,9 @@ from .models_metadata import models_metadata
     short_help="Operaciones relacionadas con base de datos MongoDB de BioModelos.",
 )
 @click.pass_context
-def mongo(ctx):
-    if ctx.invoked_subcommand != "setup":
-        config = configparser.ConfigParser(interpolation=None)
-        config.read(
-            os.path.join(appdirs.user_config_dir("bmdbutils"), "mongo")
-        )
+def records(ctx):
+    if ctx.invoked_subcommand in ["upload", "validate"]:
+        config = load_config()
         if not "MONGODB" in config.sections():
             click.secho(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
@@ -32,7 +27,7 @@ def mongo(ctx):
                 blink=True,
             )
             click.secho(
-                "Primero ejecute 'bmdbutils mongo setup'",
+                "Primero ejecute 'bmdbutils setup mongo'",
                 fg="yellow",
                 blink=True,
                 bold=True,
@@ -43,11 +38,9 @@ def mongo(ctx):
                 mongo_url=config["MONGODB"]["url"],
                 mongo_user=config["MONGODB"]["username"],
                 mongo_pass=config["MONGODB"]["password"],
-                mongo_db=config["MONGODB"]["db"],
+                mongo_db=config["MONGODB"]["database"],
             )
 
 
-mongo.add_command(setup)
-mongo.add_command(upload)
-mongo.add_command(validate)
-mongo.add_command(models_metadata)
+records.add_command(upload)
+records.add_command(validate)
