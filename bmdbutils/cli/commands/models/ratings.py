@@ -1,5 +1,5 @@
 """
-$ bmdbutils ratings
+$ bmdbutils models ratings
 """
 from datetime import date, timedelta
 from os import path
