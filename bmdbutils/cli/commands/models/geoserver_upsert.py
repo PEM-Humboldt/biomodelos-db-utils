@@ -8,9 +8,6 @@ import pandas as pd
 from bmdbutils.biomodelos.biomodelos import Biomodelos
 from bmdbutils.biomodelos.geoserver import Geoserver
 
-pass_biomodelos = click.make_pass_decorator(Biomodelos)
-pass_geoserver = click.make_pass_decorator(Geoserver)
-
 
 @click.command(
     short_help="Crear o actualizar los archivos de modelos en el GeoServer para "
@@ -18,9 +15,8 @@ pass_geoserver = click.make_pass_decorator(Geoserver)
 )
 @click.argument("models_info", type=click.File())
 @click.argument("models_folder", type=click.Path(exists=True, file_okay=False))
-@pass_geoserver
-@pass_biomodelos
-def geoserver_upsert(biomodelos, geoserver, models_info, models_folder):
+@click.pass_obj
+def geoserver_upsert(obj, models_info, models_folder):
     """Crear o actualizar los archivos de modelos en el GeoServer para modelos
     existentes en BioModelos
 
@@ -30,6 +26,9 @@ def geoserver_upsert(biomodelos, geoserver, models_info, models_folder):
     MODELS_FOLDER: Ruta a la carpeta que contiene los archivos especificados
     en el campo model_file del archivo MODEL_INFO
     """
+    biomodelos = obj["biomodelos"]
+    geoserver = obj["geoserver"]
+
     df = pd.read_csv(models_info)
     for row in df.itertuples():
         click.secho(f"Uploading {row.model_file} to Geoserver", fg="green")

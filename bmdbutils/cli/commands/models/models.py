@@ -43,7 +43,7 @@ def models(ctx):
     if ctx.invoked_subcommand == "geoserver-upsert":
         if (not "GEOSERVER" in config.sections()):
             click.secho(
-                "Geoserver no ha sido configurado o la configuración es erronea. "
+                "Geoserver no ha sido configurado o la configuración es errónea. "
                 "Primero ejecute 'bmdbutils geoserver setup'",
                 fg="red",
                 bold=False,
@@ -58,7 +58,11 @@ def models(ctx):
             )
             ctx.exit(0)
         else:
-            ctx.obj = Geoserver(
+            ctx.ensure_object(dict)
+            ctx.obj["biomodelos"] = Biomodelos(
+                api_url=config["API"]["url"]
+            )
+            ctx.obj["geoserver"] = Geoserver(
                 config["GEOSERVER"]["url"],
                 config["GEOSERVER"]["username"],
                 config["GEOSERVER"]["password"],
