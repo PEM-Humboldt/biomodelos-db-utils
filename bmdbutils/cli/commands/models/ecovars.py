@@ -1,5 +1,5 @@
 """
-$ bmdbutils ecovars
+$ bmdbutils models ecovars
 """
 from datetime import date
 from os import path, makedirs
