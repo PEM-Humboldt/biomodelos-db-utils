@@ -1,17 +1,18 @@
 """
-$ bmdbutils geoserver setup
+$ bmdbutils setup geoserver
 """
 import configparser
 import os
 import appdirs
 import click
 
+from bmdbutils.biomodelos.config import load_config, save_config
 
 @click.command(
     help=""" Comando para configurar GeoServer de BioModelos.
         No es necesario ejecutar este comando si ya se ha configurado el GeoServer.
         No es necesario agregar el parámetro --password, éste se solicita automáticamente""",
-    short_help="Configurar GeoServer",
+    short_help="Configura el GeoServer de BioModelos",
 )
 @click.option(
     "--url",
@@ -25,24 +26,26 @@ import click
     type=str,
     default="admin",
     show_default=True,
-    help="nombre de usuario para acceder a GeoServer",
+    help="Nombre de usuario para acceder a GeoServer",
 )
 @click.option(
     "--password",
     prompt="Contraseña para el ususario de GeoServer",
     hide_input=True,
-    help="contraseña para el ususario",
+    help="Contraseña para el ususario",
 )
-def setup(url, username, password):
-    config = configparser.ConfigParser(interpolation=None)
-    config["LOCATION"] = {"url": url}
-    config["CREDENTIALS"] = {"username": username, "password": password}
+def geoserver(url, username, password):
+    config = load_config()
+    config["GEOSERVER"] = {
+        "url": url,
+        "username": username, 
+        "password": password
+    }
+    save_config(config)
 
-    target_conf_folder = appdirs.user_config_dir("bmdbutils")
-    if not os.path.exists(target_conf_folder):
-        os.makedirs(target_conf_folder)
-
-    with open(
-        os.path.join(target_conf_folder, "geoserver"), "w"
-    ) as configfile:
-        config.write(configfile)
+    click.secho(
+        "La configuración de GeoServer se ha realizado con éxito.",
+        blink=True,
+        bold=True,
+        fg="green",
+    )

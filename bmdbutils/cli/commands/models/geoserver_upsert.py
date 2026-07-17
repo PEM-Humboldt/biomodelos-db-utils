@@ -1,8 +1,7 @@
 """
-$ bmbdutils geoserver upsert
+$ bmbdutils models geoserver-upsert
 """
 import os
-
 import click
 import pandas as pd
 
@@ -21,14 +20,14 @@ pass_geoserver = click.make_pass_decorator(Geoserver)
 @click.argument("models_folder", type=click.Path(exists=True, file_okay=False))
 @pass_geoserver
 @pass_biomodelos
-def upsert(biomodelos, geoserver, models_info, models_folder):
+def geoserver_upsert(biomodelos, geoserver, models_info, models_folder):
     """Crear o actualizar los archivos de modelos en el GeoServer para modelos
     existentes en BioModelos
 
-    MODELS_INFO \t archivo csv que mapea los campos tax_id, model_id y
+    MODELS_INFO: archivo csv que mapea los campos tax_id, model_id y
     model_file para cada modelo a cargar
 
-    MODELS_FOLDER \t Ruta a la carpeta que contiene los archivos especificados
+    MODELS_FOLDER: Ruta a la carpeta que contiene los archivos especificados
     en el campo model_file del archivo MODEL_INFO
     """
     df = pd.read_csv(models_info)
