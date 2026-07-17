@@ -1,5 +1,5 @@
 """
-$ bmdbutils editions
+$ bmdbutils models editions
 """
 from datetime import date, timedelta
 from os import path, makedirs
