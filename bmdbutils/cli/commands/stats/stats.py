@@ -36,7 +36,7 @@ def stats(ctx):
                 blink=True,
                 bold=True,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         else:
             ctx.obj = Mongo(
                 mongo_url=config["MONGODB"]["url"],
@@ -44,7 +44,7 @@ def stats(ctx):
                 mongo_pass=config["MONGODB"]["password"],
                 mongo_db=config["MONGODB"]["database"],
             )
-    if ctx.invoked_subcommand in ["users", "downloads", "groups"]:
+    elif ctx.invoked_subcommand in ["users", "downloads", "groups"]:
         config = load_config()
         if not "POSTGRESDB" in config.sections():
             click.secho(
@@ -58,7 +58,7 @@ def stats(ctx):
                 blink=True,
                 bold=True,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         else:
             ctx.obj = Biomodelos(
                 pg_url=config["POSTGRESDB"]["url"],

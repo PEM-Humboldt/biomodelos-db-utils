@@ -32,14 +32,14 @@ def models(ctx):
                 fg="red",
                 bold=False,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         else:
             ctx.obj = Biomodelos(
                 pg_url=config["POSTGRESDB"]["url"],
                 pg_user=config["POSTGRESDB"]["username"],
                 pg_pass=config["POSTGRESDB"]["password"],
             )
-    if ctx.invoked_subcommand == "geoserver-upsert":
+    elif ctx.invoked_subcommand == "geoserver-upsert":
         if not "GEOSERVER" in config.sections():
             click.secho(
                 "Geoserver no ha sido configurado o la configuración es errónea. "
@@ -47,7 +47,7 @@ def models(ctx):
                 fg="red",
                 bold=False,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         elif not "API" in config.sections():
             click.secho(
                 "La url del API de BioModelos no ha sido configurado correctamente. "
@@ -55,17 +55,16 @@ def models(ctx):
                 fg="red",
                 bold=False,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         else:
             ctx.ensure_object(dict)
             ctx.obj["biomodelos"] = Biomodelos(api_url=config["API"]["url"])
             ctx.obj["geoserver"] = Geoserver(
-                config["GEOSERVER"]["url"],
-                config["GEOSERVER"]["username"],
-                config["GEOSERVER"]["password"],
+                gs_url=config["GEOSERVER"]["url"],
+                gs_user=config["GEOSERVER"]["username"],
+                gs_pass=config["GEOSERVER"]["password"],
             )
-
-    if ctx.invoked_subcommand == "fix-metadata":
+    elif ctx.invoked_subcommand == "fix-metadata":
         if not "MONGODB" in config.sections():
             click.secho(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente. "
@@ -73,7 +72,7 @@ def models(ctx):
                 fg="red",
                 bold=False,
             )
-            ctx.exit(0)
+            ctx.exit(1)
         else:
             ctx.obj = Mongo(
                 mongo_url=config["MONGODB"]["url"],

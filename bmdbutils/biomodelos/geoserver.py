@@ -2,10 +2,10 @@ from geo.Geoserver import Geoserver as Gs
 
 
 class Geoserver:
-    def __init__(self, url, user, password):
-        GS_URL = url
-        GS_USER = user
-        GS_PASS = password
+    def __init__(self, gs_url, gs_user, gs_pass):
+        GS_URL = gs_url
+        GS_USER = gs_user
+        GS_PASS = gs_pass
 
         self.geo = Gs(GS_URL, username=GS_USER, password=GS_PASS)
 
