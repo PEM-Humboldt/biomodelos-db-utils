@@ -8,7 +8,7 @@ from csv import writer
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils._helpers import clean_date_range, clean_tax_list
+from ._helpers import clean_date_range, clean_tax_list
 
 pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
