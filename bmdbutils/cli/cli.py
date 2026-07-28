@@ -1,13 +1,10 @@
 """
 bmdbutils CLI entry point.
 """
-import configparser
 import os
-import appdirs
 import click
 
 from bmdbutils.biomodelos.config import load_config
-
 from .commands.setup.setup import setup
 from .commands.records.records import records
 from .commands.stats.stats import stats
@@ -27,11 +24,13 @@ def main(ctx):
     if ctx.invoked_subcommand != "setup":
         if not config.sections():
             click.secho(
-                """La configuración de bmdbutils no ha sido realizada correctamente.
-            Primero ejecute 'bmdbutils setup' para configurar la conexión a las bases de datos
-            al API y al Geoserver de BioModelos.""",
+                "La configuración de bmdbutils no ha sido realizada correctamente.",
                 fg="red",
-                bold=False,
+            )
+            click.secho(
+                "Primero ejecute 'bmdbutils setup' para configurar la conexión a las bases de datos al API y al Geoserver de BioModelos.",
+                fg="yellow",
+                bold=True,
             )
             ctx.exit(0)
 
