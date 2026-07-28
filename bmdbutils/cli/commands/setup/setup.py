@@ -1,9 +1,7 @@
 """
 $ bmdbutils setup
 """
-import configparser
 import os
-import appdirs
 import click
 
 from .setup_geoserver import geoserver

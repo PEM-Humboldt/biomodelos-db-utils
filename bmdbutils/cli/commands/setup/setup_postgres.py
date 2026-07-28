@@ -1,9 +1,7 @@
 """
 $ bmdbutils setup postgres
 """
-import configparser
 import os
-import appdirs
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
@@ -46,7 +44,6 @@ def postgres(url, username, password):
 
     click.secho(
         "La configuración de la base de datos Postgres se ha realizado con éxito.",
-        blink=True,
         bold=True,
         fg="green",
     )

@@ -2,9 +2,7 @@
 $ bmdbutils stats models
 """
 import click
-import configparser
 import os
-import appdirs
 
 from bmdbutils.biomodelos.mongo import Mongo
 

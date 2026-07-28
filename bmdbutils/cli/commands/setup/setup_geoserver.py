@@ -1,9 +1,7 @@
 """
 $ bmdbutils setup geoserver
 """
-import configparser
 import os
-import appdirs
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
@@ -46,7 +44,6 @@ def geoserver(url, username, password):
 
     click.secho(
         "La configuración de GeoServer se ha realizado con éxito.",
-        blink=True,
         bold=True,
         fg="green",
     )

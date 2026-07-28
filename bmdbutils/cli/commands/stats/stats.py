@@ -1,10 +1,7 @@
 """
 $ bmdbutils stats
 """
-import configparser
 import os
-
-import appdirs
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
@@ -28,12 +25,10 @@ def stats(ctx):
             click.secho(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
                 fg="red",
-                blink=True,
             )
             click.secho(
                 "Primero ejecute 'bmdbutils setup mongo'",
                 fg="yellow",
-                blink=True,
                 bold=True,
             )
             ctx.exit(1)
@@ -50,12 +45,10 @@ def stats(ctx):
             click.secho(
                 "La conexión a la base de datos de Postgres no ha sido configurada correctamente.",
                 fg="red",
-                blink=True,
             )
             click.secho(
                 "Primero ejecute 'bmdbutils setup postgres'",
                 fg="yellow",
-                blink=True,
                 bold=True,
             )
             ctx.exit(1)

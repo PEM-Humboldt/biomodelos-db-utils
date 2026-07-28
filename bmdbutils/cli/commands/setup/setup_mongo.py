@@ -1,9 +1,7 @@
 """
 $ bmdbutils setup mongo
 """
-import configparser
 import os
-import appdirs
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
@@ -56,7 +54,6 @@ def mongo(url, username, password, database):
 
     click.secho(
         "La configuración de la base de datos MongoDB se ha realizado con éxito.",
-        blink=True,
         bold=True,
         fg="green",
     )

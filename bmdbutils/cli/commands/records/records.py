@@ -1,9 +1,7 @@
 """
 $ bmdbutils records
 """
-import configparser
 import os
-import appdirs
 import click
 
 from bmdbutils.biomodelos.mongo import Mongo
@@ -24,12 +22,10 @@ def records(ctx):
             click.secho(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
                 fg="red",
-                blink=True,
             )
             click.secho(
                 "Primero ejecute 'bmdbutils setup mongo'",
                 fg="yellow",
-                blink=True,
                 bold=True,
             )
             ctx.exit(0)

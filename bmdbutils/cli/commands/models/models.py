@@ -1,10 +1,7 @@
 """
 $ bmdbutils models 
 """
-import configparser
 import os
-
-import appdirs
 import click
 
 from bmdbutils.biomodelos.geoserver import Geoserver
@@ -27,8 +24,8 @@ def models(ctx):
     if ctx.invoked_subcommand in ["ratings", "editions", "ecovars"]:
         if not "POSTGRESDB" in config.sections():
             click.secho(
-                "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente. "
-                "Primero ejecute 'bmdbutils setup'",
+                "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente.",
+                "Primero ejecute 'bmdbutils setup postgres'",
                 fg="red",
                 bold=False,
             )
@@ -42,18 +39,24 @@ def models(ctx):
     elif ctx.invoked_subcommand == "geoserver-upsert":
         if not "GEOSERVER" in config.sections():
             click.secho(
-                "Geoserver no ha sido configurado o la configuración es errónea. "
-                "Primero ejecute 'bmdbutils geoserver setup'",
+                "Geoserver no ha sido configurado o la configuración es errónea. ",
                 fg="red",
-                bold=False,
+            )
+            click.secho(
+                "Primero ejecute 'bmdbutils setup geoserver'",
+                fg="yellow",
+                bold=True,
             )
             ctx.exit(1)
         elif not "API" in config.sections():
             click.secho(
-                "La url del API de BioModelos no ha sido configurado correctamente. "
-                "Primero ejecute 'bmdbutils setup api'",
+                "La url del API de BioModelos no ha sido configurado correctamente.",
                 fg="red",
-                bold=False,
+            )
+            click.secho(
+                "Primero ejecute 'bmdbutils setup api'",
+                fg="yellow",
+                bold=True,
             )
             ctx.exit(1)
         else:
@@ -67,10 +70,14 @@ def models(ctx):
     elif ctx.invoked_subcommand == "fix-metadata":
         if not "MONGODB" in config.sections():
             click.secho(
-                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente. "
+                "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
                 "Primero ejecute 'bmdbutils setup mongo'",
                 fg="red",
-                bold=False,
+            )
+            click.secho(
+                "Primero ejecute 'bmdbutils setup mongo'",
+                fg="yellow",
+                bold=True,
             )
             ctx.exit(1)
         else:

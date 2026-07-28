@@ -3,9 +3,7 @@ $ bmdbutils records upload
 """
 import pandas as pd
 import click
-import configparser
 import os
-import appdirs
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
