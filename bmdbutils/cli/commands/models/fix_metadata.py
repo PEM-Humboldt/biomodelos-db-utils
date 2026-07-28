@@ -2,9 +2,7 @@
 $ bmdbutils models fix-metadata
 """
 import click
-import configparser
 import os
-import appdirs
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
@@ -24,7 +22,6 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @pass_mongo
 def models_metadata(mongo, csv_file):
-    config = load_config()
     cnx = mongo.mongo_connection()
     click.secho(
         "⌛ Validando el archivo CSV...",
