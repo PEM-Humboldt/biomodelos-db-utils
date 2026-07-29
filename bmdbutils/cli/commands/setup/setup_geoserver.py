@@ -29,9 +29,9 @@ from bmdbutils.biomodelos.config import load_config, save_config
 )
 @click.option(
     "--password",
-    prompt="Contraseña para el ususario de GeoServer",
+    prompt="Contraseña para el usuario de GeoServer",
     hide_input=True,
-    help="Contraseña para el ususario",
+    help="Contraseña para el usuario de GeoServer",
 )
 def geoserver(url, username, password):
     config = load_config()
