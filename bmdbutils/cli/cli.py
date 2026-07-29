@@ -34,7 +34,6 @@ def main(ctx):
             )
             ctx.exit(0)
 
-
 main.add_command(setup)
 main.add_command(models)
 main.add_command(records)

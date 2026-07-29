@@ -25,9 +25,11 @@ def models(ctx):
         if not "POSTGRESDB" in config.sections():
             click.secho(
                 "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente.",
-                "Primero ejecute 'bmdbutils setup postgres'",
                 fg="red",
-                bold=False,
+            )
+            click.secho("Primero ejecute 'bmdbutils setup postgres'",
+                fg="yellow",
+                bold=True,
             )
             ctx.exit(1)
         else:
@@ -39,7 +41,7 @@ def models(ctx):
     elif ctx.invoked_subcommand == "geoserver-upsert":
         if not "GEOSERVER" in config.sections():
             click.secho(
-                "Geoserver no ha sido configurado o la configuración es errónea. ",
+                "La conexión al Geoserver no ha sido configurada correctamente. ",
                 fg="red",
             )
             click.secho(
@@ -50,7 +52,7 @@ def models(ctx):
             ctx.exit(1)
         elif not "API" in config.sections():
             click.secho(
-                "La url del API de BioModelos no ha sido configurado correctamente.",
+                "La conexión a la API de BioModelos no ha sido configurada correctamente.",
                 fg="red",
             )
             click.secho(
@@ -71,7 +73,6 @@ def models(ctx):
         if not "MONGODB" in config.sections():
             click.secho(
                 "La conexión a la base de datos de MongoDB no ha sido configurada correctamente.",
-                "Primero ejecute 'bmdbutils setup mongo'",
                 fg="red",
             )
             click.secho(
