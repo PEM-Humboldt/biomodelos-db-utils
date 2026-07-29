@@ -27,7 +27,8 @@ def models(ctx):
                 "La conexión a la base de datos de PostgreSQL no ha sido configurada correctamente.",
                 fg="red",
             )
-            click.secho("Primero ejecute 'bmdbutils setup postgres'",
+            click.secho(
+                "Primero ejecute 'bmdbutils setup postgres'",
                 fg="yellow",
                 bold=True,
             )
