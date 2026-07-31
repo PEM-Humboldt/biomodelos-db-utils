@@ -63,11 +63,9 @@ class Mongo:
                 month = row.get("month")
                 day = row.get("day")
 
-                # Si no hay ninguno, saltar
                 if pd.isna(year) and pd.isna(month) and pd.isna(day):
                     continue
 
-                # Compara cada campo existente
                 if pd.notna(year) and int(year) > current_year:
                     invalid_rows.append(
                         (idx, f"Año inválido: {year} > {current_year}")
@@ -77,7 +75,7 @@ class Mongo:
                 if pd.notna(month):
                     if (
                         pd.isna(year) or int(year) == current_year
-                    ):  # compara mes solo si aplica
+                    ):  
                         if int(month) > current_month:
                             invalid_rows.append(
                                 (
@@ -114,9 +112,9 @@ class Mongo:
     def validate_csv_data(self, csv_file, command, out_folder):
         config = {
             "records": (
-                "{out_folder}/records.json".format(out_folder=out_folder),
+                "records.json",
                 "bmdbutils/biomodelos/schemas/records.json",
-                "{out_folder}/records_error.txt".format(out_folder=out_folder),
+                "records_error.txt",
                 "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
             ),
             "fix-metadata": (

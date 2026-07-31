@@ -12,12 +12,16 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @click.option(
     "--csv-file",
-    prompt="Ruta del archivo CSV",
-    hide_input=False,
+    type=str,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
+@click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
-def validate(mongo, csv_file):
+def validate(mongo, csv_file, out_folder):
+    """Validar esquema de datos para colección records de MongoDB.
+
+    OUT_FOLDER \t Ruta donde se crearán y guardarán los resultados de la validación.
+    """
     click.secho(
         "⌛ Validando columnas year, month y day del archivo CSV...",
         fg="yellow",
@@ -30,7 +34,8 @@ def validate(mongo, csv_file):
             fg="yellow",
             bold=True,
         )
-        validation = mongo.validate_csv_data(csv_file, "records")
+        command = "records"
+        validation = mongo.validate_csv_data(csv_file, command, out_folder)
         if isinstance(validation, bool) and validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
@@ -44,7 +49,7 @@ def validate(mongo, csv_file):
                 fg="red",
             )
             click.secho(
-                f"Busque el archivo records_error.txt en la ruta ./tmp/ y lealo atentamente y corrija los errores.",
+                f"Busque el archivo records_error.txt, lealo atentamente y corrija los errores.",
                 fg="red",
             )
     else:
