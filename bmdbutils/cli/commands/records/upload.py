@@ -17,12 +17,12 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @click.option(
     "--csv-file",
-    prompt="Ruta del archivo CSV",
-    hide_input=False,
+    type=str,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
+@click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
-def upload(mongo, csv_file):
+def upload(mongo, csv_file, out_folder):
     config = load_config()
     cnx = mongo.mongo_connection()
     click.secho(
@@ -36,8 +36,9 @@ def upload(mongo, csv_file):
             "⌛ Validando el archivo CSV...",
             fg="yellow",
         )
-        validation = mongo.validate_csv_data(csv_file, "records")
-        if isinstance(validation, bool):
+        command = "records"
+        validation = mongo.validate_csv_data(csv_file, command, out_folder)
+        if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
                 fg="white",
@@ -53,7 +54,7 @@ def upload(mongo, csv_file):
                     "⌛ Cargando documentos a la colección records...",
                     fg="yellow",
                 )
-                mongo.upload_mongo(cnx)
+                mongo.upload_mongo_records(cnx, command, out_folder)
                 cnx.close()
                 sys.exit(0)
             else:
@@ -62,26 +63,20 @@ def upload(mongo, csv_file):
                     "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
                     fg="yellow",
                 )
-                return
-
-        elif isinstance(validation, list):
+                sys.exit(1)
+        else:
             click.secho(
                 "⛔ El archivo CSV tiene campos con datos no válidos.",
                 fg="red",
             )
             click.secho(
-                "⚠️  Utilice el comando 'bmdbutils mongo validate' para más detalles.",
+                "⚠️  Utilice el comando 'bmdbutils records validate' para más detalles.",
                 fg="yellow",
             )
-
-        else:
-            click.secho(
-                "⛔ Falló la validación del archivo CSV.",
-                fg="red",
-            )
-            click.secho(f"{validation}", fg="red")
+            sys.exit(1)
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
+        sys.exit(1)

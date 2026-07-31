@@ -64,8 +64,11 @@ class Mongo:
                 day = row.get("day")
 
                 if pd.isna(year) and pd.isna(month) and pd.isna(day):
+                    invalid_rows.append(
+                        (idx, f"El record no tiene year, month o day.")
+                    )
                     continue
-
+                
                 if pd.notna(year) and int(year) > current_year:
                     invalid_rows.append(
                         (idx, f"Año inválido: {year} > {current_year}")
@@ -112,7 +115,7 @@ class Mongo:
     def validate_csv_data(self, csv_file, command, out_folder):
         config = {
             "records": (
-                "records.json",
+                "records_output.json",
                 "bmdbutils/biomodelos/schemas/records.json",
                 "records_error.txt",
                 "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
@@ -203,24 +206,24 @@ class Mongo:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
             sys.exit(1)
 
-    def upload_mongo(self, cnx):
+    def upload_mongo_records(self, cnx, command, out_folder):
+        folder = "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
         inserted_list = []
         db = cnx[self.mongo_db]
         collection = db["records"]
-
-        with open("tmp/records_output.json", "r") as f:
-            data = [json.loads(line) for line in f]
-            f.close()
+        with open(path.join(out_folder,folder,"records_output.json"), "r") as file:
+            data = [json.loads(line) for line in file]
+            file.close()
         try:
-            with open("tmp/records_uploaded.txt", "w") as f:
+            with open(path.join(out_folder,folder,"records_uploaded.txt"), "w") as file:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
-                    f.write(
+                    file.write(
                         f"Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'.\n"
                     )
-            f.close()
+            file.close()
         except PyMongoError as err:
             print(
                 "Algo salió mal al subir los documentos a la colección 'records'."
@@ -234,11 +237,12 @@ class Mongo:
             print(f"⛔ Este fue el error: {err}")
             cnx.close()
             sys.exit(1)
-        f.close()
+        file.close()
         print(
-            f"""✅ Se subieron {len(data)} documentos a la colección 'records'. 
-El archivo records_uploaded.txt tiene los ids que se cargaron a la colección. 
-Busca este archivo en la ruta ./tmp/"""
+            f"✅ Se subieron {len(data)} documentos a la colección 'records'." 
+        )
+        print(
+            f"El archivo records_uploaded.txt tiene los ids que se cargaron a la colección."
         )
         cnx.close()
 
