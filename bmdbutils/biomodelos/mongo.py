@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import sys
+from os import makedirs, path
 from datetime import datetime
 from urllib.parse import quote_plus
 from jsonschema import Draft7Validator, FormatChecker
@@ -109,41 +110,45 @@ class Mongo:
         except Exception as e:
             print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
             return False
-
-    def validate_csv_data(self, csv_file, collection):
+    
+    def validate_csv_data(self, csv_file, command, out_folder):
         config = {
             "records": (
-                "tmp/records_output.json",
+                "{out_folder}/records.json".format(out_folder=out_folder),
                 "bmdbutils/biomodelos/schemas/records.json",
-                "tmp/records_error.txt",
+                "{out_folder}/records_error.txt".format(out_folder=out_folder),
+                "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
             ),
-            "models_metadata": (
-                "tmp/metadata_output.json",
+            "fix-metadata": (
+                "fix-metadata.json",
                 "bmdbutils/biomodelos/schemas/models_metadata.json",
-                "tmp/metadata_error.txt",
+                "fix-metadata_error.txt",
+                "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
             ),
         }
-        jsonFile, schemaFile, outputErrorFile = config[collection]
+        jsonFile, schemaFile, outputErrorFile, folder = config[command]
+        if not path.exists(path.join(out_folder, folder)):
+            makedirs(path.join(out_folder, folder))
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json(jsonFile, orient="records", lines=True)
+            df_file.to_json("{out_folder}/{folder}/{jsonFile}".format(out_folder = out_folder, folder = folder, jsonFile = jsonFile), orient="records", lines=True)
             with open(schemaFile, "r") as f:
                 schema = json.load(f)
                 validator = Draft7Validator(
                     schema, format_checker=FormatChecker()
                 )
                 f.close()
-            with open(jsonFile, "r") as f:
-                data = [json.loads(line) for line in f]
-                f.close()
-            with open(outputErrorFile, "w") as f:
+            with open(path.join(out_folder, folder, jsonFile), "r") as outfile:
+                data = [json.loads(line) for line in outfile]
+                outfile.close()
+            with open(path.join(out_folder, folder, outputErrorFile), "w") as errorfile:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
                     for error in errors:
-                        f.write(
+                        errorfile.write(
                             f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
                         )
-                f.close()
+                errorfile.close()
             if len(errors) == 0:
                 return True
             else:
@@ -256,13 +261,14 @@ Busca este archivo en la ruta ./tmp/"""
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
             sys.exit(1)
 
-    def update_models_metadata(self, models_docs, cnx):
+    def update_models_metadata(self, models_docs, cnx, command, out_folder):
+        folder = "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
         rollback = []
-        with open("tmp/metadata_output.json", "r") as f:
-            for record in f:
+        with open(path.join(out_folder,folder,"fix-metadata.json"), "r") as file:
+            for record in file:
                 doc = json.loads(record)
                 filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}
                 changes = {
@@ -306,7 +312,7 @@ Busca este archivo en la ruta ./tmp/"""
                 print(f"⛔ Este fue el error: {err}")
                 cnx.close()
                 sys.exit(1)
-            f.close()
+            file.close()
         cnx.close()
 
     def models_stats(self, cnx):

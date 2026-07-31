@@ -2,7 +2,6 @@
 $ bmdbutils models fix-metadata
 """
 import click
-import os
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
@@ -16,18 +15,23 @@ pass_mongo = click.make_pass_decorator(Mongo)
 )
 @click.option(
     "--csv-file",
-    prompt="Ruta del archivo CSV",
-    hide_input=False,
+    type=str,
     help="Archivo CSV que contiene los registros de BioModelos",
 )
+@click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
-def models_metadata(mongo, csv_file):
+def fix_metadata(mongo, csv_file, out_folder):
+    """Modificar metadatos de modelos cargados al geoserver.
+
+    OUT_FOLDER \t Ruta donde se crearán y guardarán los resultados de la carga.
+    """
+    command = "fix-metadata"
     cnx = mongo.mongo_connection()
     click.secho(
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation = mongo.validate_csv_data(csv_file, "models_metadata")
+    validation = mongo.validate_csv_data(csv_file, command, out_folder)
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
@@ -54,9 +58,9 @@ def models_metadata(mongo, csv_file):
                     "⌛ Modificando metadatos de documentos en la colección models...",
                     fg="yellow",
                 )
-                mongo.update_models_metadata(models_docs, cnx)
+                mongo.update_models_metadata(models_docs, cnx, command, out_folder)
                 click.secho(
-                    "⚠️ En el archivo ~/biomodelos-db-utils/tmp/output.json se guardaron los documentos cargados.",
+                    "⚠️ En el archivo output.json se guardaron los documentos cargados.",
                     fg="yellow",
                 )
                 cnx.close()
@@ -64,7 +68,7 @@ def models_metadata(mongo, csv_file):
             else:
                 click.secho("⛔ Falló la validación de modelIDs.", fg="red")
                 click.secho(
-                    "⚠️  Deben existir los modelIDs en la colección 'models' antes de modificar los documentos.",
+                    "⚠️ Deben existir los modelIDs en la colección 'models' antes de modificar los documentos.",
                     fg="yellow",
                 )
             cnx.close()
@@ -84,6 +88,6 @@ def models_metadata(mongo, csv_file):
             fg="red",
         )
         click.secho(
-            f"busque el archivo ~/biomodelos-db-utils/tmp/metadata_error.txt y lealo atentamente",
+            f"⚠️ En el archivo fix-metadata_error.txt se encuentran los errores.",
             fg="red",
         )

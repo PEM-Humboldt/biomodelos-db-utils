@@ -12,7 +12,7 @@ from .ecovars import ecovars
 from .editions import editions
 from .ratings import ratings
 from .geoserver_upsert import geoserver_upsert
-from .fix_metadata import models_metadata
+from .fix_metadata import fix_metadata
 
 
 @click.group(
@@ -95,4 +95,4 @@ models.add_command(ratings)
 models.add_command(editions)
 models.add_command(ecovars)
 models.add_command(geoserver_upsert, name="geoserver-upsert")
-models.add_command(models_metadata, name="fix-metadata")
+models.add_command(fix_metadata, name="fix-metadata")
