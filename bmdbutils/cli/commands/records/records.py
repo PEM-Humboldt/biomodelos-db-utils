@@ -1,6 +1,7 @@
 """
 $ bmdbutils records
 """
+
 import os
 import click
 

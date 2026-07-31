@@ -1,6 +1,7 @@
 """
 $ bmdbutils records validate
 """
+
 import click
 from bmdbutils.biomodelos.mongo import Mongo
 

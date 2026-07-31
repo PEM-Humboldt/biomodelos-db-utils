@@ -1,6 +1,7 @@
 """
 $ bmdbutils stats
 """
+
 import os
 import click
 

@@ -1,6 +1,7 @@
 """
 $ bmdbutils setup
 """
+
 import os
 import click
 

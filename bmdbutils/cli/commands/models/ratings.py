@@ -1,6 +1,7 @@
 """
 $ bmdbutils models ratings
 """
+
 from datetime import date, timedelta
 from os import path
 from csv import writer

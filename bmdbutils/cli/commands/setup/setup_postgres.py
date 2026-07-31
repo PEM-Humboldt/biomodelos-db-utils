@@ -1,6 +1,7 @@
 """
 $ bmdbutils setup postgres
 """
+
 import os
 import click
 

@@ -1,6 +1,7 @@
 """
 $ bmdbutils models fix-metadata
 """
+
 import click
 import sys
 

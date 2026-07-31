@@ -1,6 +1,7 @@
 """
 bmdbutils CLI entry point.
 """
+
 import os
 import click
 
