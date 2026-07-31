@@ -68,7 +68,7 @@ class Mongo:
                         (idx, f"El record no tiene year, month o day.")
                     )
                     continue
-                
+
                 if pd.notna(year) and int(year) > current_year:
                     invalid_rows.append(
                         (idx, f"Año inválido: {year} > {current_year}")
@@ -76,9 +76,7 @@ class Mongo:
                     continue
 
                 if pd.notna(month):
-                    if (
-                        pd.isna(year) or int(year) == current_year
-                    ):  
+                    if pd.isna(year) or int(year) == current_year:
                         if int(month) > current_month:
                             invalid_rows.append(
                                 (
@@ -111,20 +109,24 @@ class Mongo:
         except Exception as e:
             print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
             return False
-    
+
     def validate_csv_data(self, csv_file, command, out_folder):
         config = {
             "records": (
                 "records_output.json",
                 "bmdbutils/biomodelos/schemas/records.json",
                 "records_error.txt",
-                "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
+                "{command}_{date_today}".format(
+                    command=command, date_today=datetime.now().date()
+                ),
             ),
             "fix-metadata": (
                 "fix-metadata.json",
                 "bmdbutils/biomodelos/schemas/models_metadata.json",
                 "fix-metadata_error.txt",
-                "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
+                "{command}_{date_today}".format(
+                    command=command, date_today=datetime.now().date()
+                ),
             ),
         }
         jsonFile, schemaFile, outputErrorFile, folder = config[command]
@@ -132,7 +134,13 @@ class Mongo:
             makedirs(path.join(out_folder, folder))
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json("{out_folder}/{folder}/{jsonFile}".format(out_folder = out_folder, folder = folder, jsonFile = jsonFile), orient="records", lines=True)
+            df_file.to_json(
+                "{out_folder}/{folder}/{jsonFile}".format(
+                    out_folder=out_folder, folder=folder, jsonFile=jsonFile
+                ),
+                orient="records",
+                lines=True,
+            )
             with open(schemaFile, "r") as f:
                 schema = json.load(f)
                 validator = Draft7Validator(
@@ -142,7 +150,9 @@ class Mongo:
             with open(path.join(out_folder, folder, jsonFile), "r") as outfile:
                 data = [json.loads(line) for line in outfile]
                 outfile.close()
-            with open(path.join(out_folder, folder, outputErrorFile), "w") as errorfile:
+            with open(
+                path.join(out_folder, folder, outputErrorFile), "w"
+            ) as errorfile:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
                     for error in errors:
@@ -207,15 +217,21 @@ class Mongo:
             sys.exit(1)
 
     def upload_mongo_records(self, cnx, command, out_folder):
-        folder = "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
+        folder = "{command}_{date_today}".format(
+            command=command, date_today=datetime.now().date()
+        )
         inserted_list = []
         db = cnx[self.mongo_db]
         collection = db["records"]
-        with open(path.join(out_folder,folder,"records_output.json"), "r") as file:
+        with open(
+            path.join(out_folder, folder, "records_output.json"), "r"
+        ) as file:
             data = [json.loads(line) for line in file]
             file.close()
         try:
-            with open(path.join(out_folder,folder,"records_uploaded.txt"), "w") as file:
+            with open(
+                path.join(out_folder, folder, "records_uploaded.txt"), "w"
+            ) as file:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
@@ -239,7 +255,7 @@ class Mongo:
             sys.exit(1)
         file.close()
         print(
-            f"✅ Se subieron {len(data)} documentos a la colección 'records'." 
+            f"✅ Se subieron {len(data)} documentos a la colección 'records'."
         )
         print(
             f"El archivo records_uploaded.txt tiene los ids que se cargaron a la colección."
@@ -264,12 +280,16 @@ class Mongo:
             sys.exit(1)
 
     def update_models_metadata(self, models_docs, cnx, command, out_folder):
-        folder = "{command}_{date_today}".format(command = command, date_today = datetime.now().date())
+        folder = "{command}_{date_today}".format(
+            command=command, date_today=datetime.now().date()
+        )
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
         rollback = []
-        with open(path.join(out_folder,folder,"fix-metadata.json"), "r") as file:
+        with open(
+            path.join(out_folder, folder, "fix-metadata.json"), "r"
+        ) as file:
             for record in file:
                 doc = json.loads(record)
                 filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}

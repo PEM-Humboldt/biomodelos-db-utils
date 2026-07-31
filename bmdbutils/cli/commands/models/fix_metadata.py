@@ -58,7 +58,9 @@ def fix_metadata(mongo, csv_file, out_folder):
                     "⌛ Modificando metadatos de documentos en la colección models...",
                     fg="yellow",
                 )
-                mongo.update_models_metadata(models_docs, cnx, command, out_folder)
+                mongo.update_models_metadata(
+                    models_docs, cnx, command, out_folder
+                )
                 click.secho(
                     "⚠️ En el archivo output.json se guardaron los documentos cargados.",
                     fg="yellow",
