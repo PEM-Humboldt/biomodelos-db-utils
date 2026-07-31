@@ -4,14 +4,14 @@ Utilitarios para BioModelos
 
 Accede aquí la documentación de los comandos: [bm-db-utils](https://pem-humboldt.github.io/biomodelos-db-utils/)
 ## Prerrequisitos
-* [Python](https://www.python.org/downloads/) (v. 3.8+)
+* [Python](https://www.python.org/downloads/) (v. 3.10+)
 * Librerías del sistema de GDAL (si instala usando Conda no es necesario)
 
 ## Instalación
 
 ### Usando Conda
 
-Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta.
+Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta. Se recomienda instalar miniconda debido a que es más liviano.
 
 Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
 
@@ -19,7 +19,7 @@ Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
 
 1. Clonar el repositorio
 
-1. Instalar dependencias del ambiente del repositorio:
+1. Instalar dependencias del ambiente del repositorio desde la raíz del proyecto:
 
     ```
     conda env create --file condaenv.yml
@@ -43,7 +43,7 @@ Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
 1. Instalar la herramienta:
 
     ```
-    poetry install
+    pip install -e .
     ```
 
 En ambos sistemas operativos, a partir de este momento tendrá disponible el comando `bmdbutils` desde la terminal de Conda.
@@ -65,10 +65,10 @@ Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta si
 > 2. Active el ambiente:
 > `source bmdbutils/bin/activate`
 
-Si está usando una versión de Python >= 3.9, primero instale setuptools versión 58:
+Si está usando una versión de Python >= 3.10, primero instale setuptools versión 67:
 
 ```
-pip install setuptools==58
+pip install setuptools==67
 ```
 
 Puede instalar `bmdbutils` ejecutando el siguiente comando:
@@ -126,7 +126,7 @@ conda activate bm-db-utils
 e instale el resto de dependencias necesarias:
 
 ```
-poetry install
+pip install
 ```
 ### Revision y formato de estilos para el código
 Para hacer formateo de estilos automático se utiliza el paquete black, el cual se encuentra incuído adentro del ambiente. Al ejecutarlo se tendran en cuenta las configuraciones de estilo definidas en el archivo [pyproject.toml](https://github.com/PEM-Humboldt/biomodelos-db-utils/blob/master/pyproject.toml).
