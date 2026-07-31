@@ -1,6 +1,7 @@
 """
 $ bmdbutils setup api
 """
+
 import os
 import click
 

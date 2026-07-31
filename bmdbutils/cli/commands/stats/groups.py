@@ -1,6 +1,7 @@
 """
 $ bmdbutils stats groups
 """
+
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos

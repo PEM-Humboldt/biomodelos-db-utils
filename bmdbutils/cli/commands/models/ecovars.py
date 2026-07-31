@@ -1,6 +1,7 @@
 """
 $ bmdbutils models ecovars
 """
+
 import click
 
 from datetime import date

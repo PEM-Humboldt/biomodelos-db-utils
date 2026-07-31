@@ -1,6 +1,7 @@
 """
 $ bmdbutils setup geoserver
 """
+
 import os
 import click
 

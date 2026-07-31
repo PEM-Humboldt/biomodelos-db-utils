@@ -1,6 +1,7 @@
 """
 $ bmdbutils stats models
 """
+
 import click
 import os
 

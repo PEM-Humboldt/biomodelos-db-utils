@@ -1,6 +1,7 @@
 """
 $ bmdbutils stats downloads
 """
+
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos

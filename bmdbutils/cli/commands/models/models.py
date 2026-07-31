@@ -1,6 +1,7 @@
 """
-$ bmdbutils models 
+$ bmdbutils models
 """
+
 import os
 import click
 

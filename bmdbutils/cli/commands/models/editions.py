@@ -1,6 +1,7 @@
 """
 $ bmdbutils models editions
 """
+
 import json
 import click
 

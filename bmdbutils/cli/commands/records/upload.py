@@ -1,6 +1,7 @@
 """
-$ bmdbutils records upload 
+$ bmdbutils records upload
 """
+
 import pandas as pd
 import click
 import os

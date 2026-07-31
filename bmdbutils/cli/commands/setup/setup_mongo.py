@@ -1,6 +1,7 @@
 """
 $ bmdbutils setup mongo
 """
+
 import os
 import click
 
