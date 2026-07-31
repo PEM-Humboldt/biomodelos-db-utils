@@ -13,7 +13,7 @@ Accede aquí la documentación de los comandos: [bm-db-utils](https://pem-humbol
 
 Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta. Se recomienda instalar miniconda debido a que es más liviano.
 
-Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
+Estos pasos son comunes tanto para sistemas operativos *Linux* como *Windows*.
 
 1. Instalar conda
 
@@ -30,15 +30,6 @@ Estos pasos son comunes tanto para sistemas operativos Linux como Windows.
     ```
     conda activate bm-db-utils
     ```
-### Para linux
-
-1. Instalar la herramienta:
-
-    ```
-    pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
-    ```
-
-### Para Windows
 
 1. Instalar la herramienta:
 
