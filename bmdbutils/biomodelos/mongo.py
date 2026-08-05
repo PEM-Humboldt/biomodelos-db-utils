@@ -10,7 +10,6 @@ from pymongo.errors import (
     PyMongoError,
     ConnectionFailure,
     OperationFailure,
-    ServerSelectionTimeoutError,
 )
 
 
@@ -44,9 +43,6 @@ class Mongo:
 
         except ConnectionFailure as cfe:
             print(f"⛔ Servidor no disponible: {cfe}")
-            sys.exit(1)
-        except ServerSelectionTimeoutError as e:
-            print("No se pudo conectar al servidor MongoDB:", e)
             sys.exit(1)
 
     def validate_date_fields(self, csv_file):
