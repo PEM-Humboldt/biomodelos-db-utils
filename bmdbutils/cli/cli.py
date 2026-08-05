@@ -1,7 +1,7 @@
 """
 bmdbutils CLI entry point.
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.config import load_config
@@ -11,15 +11,16 @@ from .commands.stats.stats import stats
 from .commands.models.models import models
 
 
-@click.group()
-@click.pass_context
-def main(ctx):
-    """BioModelos DB Utils (bmdbutils) es una herramienta de línea de comandos (CLI) que actúa como
+@click.group(
+    help="""BioModelos DB Utils (bmdbutils) es una herramienta de línea de comandos (CLI) que actúa como
     conjunto de utilitarios para la plataforma BioModelos, facilitando tareas de configuración,
     validación, carga y consulta de información.
-
-    Primero ejecute 'bmdbutils setup' para configurar la conexión a las bases de datos, al API y al Geoserver de BioModelos.
+    
+    Primero ejecute 'bmdbutils setup --help' para configurar la conexión a las bases de datos, al API y al Geoserver de BioModelos.
     """
+)
+@click.pass_context
+def main(ctx):
     config = load_config()
     if ctx.invoked_subcommand != "setup":
         if not config.sections():

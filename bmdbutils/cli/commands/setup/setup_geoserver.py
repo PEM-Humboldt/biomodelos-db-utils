@@ -1,16 +1,16 @@
 """
 $ bmdbutils setup geoserver
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
 
 
 @click.command(
-    help=""" Comando para configurar GeoServer de BioModelos.
-        No es necesario ejecutar este comando si ya se ha configurado el GeoServer.
-        No es necesario agregar el parámetro --password, éste se solicita automáticamente""",
+    help="""Comando para configurar GeoServer de BioModelos.
+        
+        No es necesario agregar el parámetro --password, éste se solicita automáticamente.""",
     short_help="Configura el GeoServer de BioModelos",
 )
 @click.option(
@@ -18,7 +18,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
     type=str,
     default="http://192.168.11.58:8181/geoserver",
     show_default=True,
-    help="URL de GeoServer",
+    help="URL de GeoServer (incluyendo el protocolo http o https y el número del puerto)",
 )
 @click.option(
     "--username",

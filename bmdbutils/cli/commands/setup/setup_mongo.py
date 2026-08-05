@@ -1,7 +1,7 @@
 """
 $ bmdbutils setup mongo
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
@@ -9,8 +9,8 @@ from bmdbutils.biomodelos.config import load_config, save_config
 
 @click.command(
     help="""Comando para configurar la base de datos MongoDB de BioModelos. 
-        No es necesario ejecutar este comando si ya se ha configurado la base de datos MongoDB. 
-        No es necesario agregar el parámetro --mongo-password, éste se solicita automáticamente""",
+        
+        No es necesario agregar el parámetro --mongo-password, éste se solicita automáticamente.""",
     short_help="Configura la base de datos Mongo de BioModelos.",
 )
 @click.option(
@@ -40,7 +40,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
     prompt="Contraseña para usuario de Mongo",
     hide_input=True,
     help="""Contraseña para el usuario para acceder a la base de datos de Mongo,
-    se solicita automaticamente.""",
+    se solicita automáticamente.""",
 )
 def mongo(url, username, password, database):
     config = load_config()

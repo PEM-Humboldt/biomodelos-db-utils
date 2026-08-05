@@ -1,7 +1,7 @@
 """
 $ bmdbutils setup postgres
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.config import load_config, save_config
@@ -9,7 +9,8 @@ from bmdbutils.biomodelos.config import load_config, save_config
 
 @click.command(
     help="""Comando para configurar la base de datos de BioModelos.
-    No es necesario agregar el parámetros --postgres-password, éste se solicita automáticamente.""",
+    
+    No es necesario agregar el parámetro --postgres-password, éste se solicita automáticamente.""",
     short_help="Configura la base de datos Postgres de BioModelos.",
 )
 @click.option(
@@ -24,7 +25,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
     type=str,
     default="biomodelos_pro",
     show_default=True,
-    help="nombre de usuario para acceder a la base de datos de PostgresSQL",
+    help="Nombre de usuario para acceder a la base de datos de PostgresSQL",
 )
 @click.option(
     "--password",

@@ -1,7 +1,7 @@
 """
 $ bmdbutils setup
 """
-import os
+
 import click
 
 from .setup_geoserver import geoserver
@@ -11,9 +11,8 @@ from .setup_api import api
 
 
 @click.group(
-    help=""" Comando para configurar las conexiones de BioModelos.""",
+    help="""Comando para configurar las conexiones a las bases de datos Postgres y Mongo, al API y al Geoserver de BioModelos.""",
     short_help="Configuración de conexiones de BioModelos.",
-    invoke_without_command=True,
 )
 @click.pass_context
 def setup(ctx):
