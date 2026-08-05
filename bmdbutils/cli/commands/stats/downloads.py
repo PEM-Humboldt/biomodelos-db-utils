@@ -11,7 +11,11 @@ pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 @click.command(
     short_help="Obtener estadísticas sobre descargas de modelos de BioModelos.",
-    help="""Obtener las estadísticas sobre descargas de modelos en la plataforma BioModelos."""
+    help="""Obtener las estadísticas sobre descargas de modelos en la plataforma BioModelos.
+    
+    Ejemplo de uso:
+    $ bmdbutils stats downloads
+    """,
 )
 @pass_biomodelos
 def downloads(biomodelos):

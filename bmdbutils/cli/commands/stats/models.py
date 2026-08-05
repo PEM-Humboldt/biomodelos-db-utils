@@ -12,7 +12,11 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 @click.command(
     short_help="Obtener estadísticas sobre modelos en BioModelos.",
-    help="""Obtener las estadísticas sobre modelos en la plataforma BioModelos."""
+    help="""Obtener las estadísticas sobre modelos en la plataforma BioModelos.
+    
+    Ejemplo de uso:
+    $ bmdbutils stats models
+    """,
 )
 @pass_mongo
 def models(mongo):
