@@ -1,6 +1,7 @@
 """
 $ bmdbutils stats users
 """
+
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
@@ -9,11 +10,11 @@ pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 
 @click.command(
-    short_help="Obtener estadísticas de usuarios registrados en la plataforma."
+    short_help="Obtener estadísticas de usuarios registrados en BioModelos.",
+    help="""Obtener las estadísticas sobre usuarios de la plataforma BioModelos."""
 )
 @pass_biomodelos
 def users(biomodelos):
-    """Obtener las estadisticas de usuarios registrados."""
     total_users, expert_users = biomodelos.query_users()
 
     click.secho(

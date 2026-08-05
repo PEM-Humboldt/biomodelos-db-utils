@@ -1,7 +1,7 @@
 """
 $ bmdbutils stats
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
@@ -14,7 +14,7 @@ from .models import models
 
 
 @click.group(
-    help=""" Comando para realizar consultas SQL y NoSQL relacionadas con estadísticas de uso de BioModelos.""",
+    help="""Comando para realizar consultas SQL y NoSQL relacionadas con estadísticas de uso de BioModelos.""",
     short_help="Consultar estadísticas de uso de BioModelos",
 )
 @click.pass_context
