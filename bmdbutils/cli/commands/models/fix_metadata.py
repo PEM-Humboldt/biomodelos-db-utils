@@ -1,30 +1,31 @@
 """
 $ bmdbutils models fix-metadata
 """
+
 import click
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
-from bmdbutils.biomodelos.config import load_config
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Corregir metadatos a diferentes modelos en la base de datos Mongo de BioModelos."
+    short_help="Corregir metadatos a diferentes modelos en la base de datos Mongo de BioModelos.",
+    help="""Modificar metadatos de modelos cargados en la base de datos Mongo de BioModelos.
+
+    CSV_FILE: Archivo CSV que contiene los metadatos a corregir de los modelos de BioModelos.
+
+    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la carga.
+
+    Ejemplo de uso:
+    $ bmdbutils models fix-metadata /path/to/fix_metadata.csv /path/to/output/folder
+    """
 )
-@click.option(
-    "--csv-file",
-    type=str,
-    help="Archivo CSV que contiene los registros de BioModelos",
-)
+@click.argument("csv_file", type=click.File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def fix_metadata(mongo, csv_file, out_folder):
-    """Modificar metadatos de modelos cargados al geoserver.
-
-    OUT_FOLDER \t Ruta donde se crearán y guardarán los resultados de la carga.
-    """
     command = "fix-metadata"
     cnx = mongo.mongo_connection()
     click.secho(

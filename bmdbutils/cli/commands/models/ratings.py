@@ -1,7 +1,8 @@
 """
 $ bmdbutils models ratings
 """
-from datetime import date, timedelta
+
+from datetime import date
 from os import path
 from csv import writer
 
@@ -13,37 +14,39 @@ from ._helpers import clean_date_range, clean_tax_list
 pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 
-@click.command(short_help="Obtener las calificaciones otorgadas a modelos.")
+@click.command(
+    short_help="Obtener las calificaciones otorgadas a modelos.",
+    help="""Obtener las calificacioens otorgadas a modelos correspondientes a las especies indicadas.
+
+    Por defecto traerá todas las calificaciones asignadas en los últimos 30 días.
+
+    OUT_FOLDER: Ruta donde se creará el archivo csv con los resultados de la consulta
+
+    Ejemplo de uso:
+    $ bmdbutils models ratings --tax-ids 1,2 --init-date 2023-01-01 --end-date 2023-01-31 /path/to/output/folder
+    """
+    )
 @click.option(
     "--tax-ids",
     type=str,
-    help="lista de ids de especies separados por coma (,) para filtrar las "
-    "calificaciones",
+    help="Lista de ids de especies separados por coma (,) para filtrar las calificaciones.",
 )
 @click.option(
     "--init-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
-    help="Fecha de inicio para filtrar las calificaciones",
+    help="Fecha de inicio para filtrar las calificaciones.",
 )
 @click.option(
     "--end-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today()),
-    help="Fecha de finalización para filtrar las calificaciones",
+    help="Fecha de finalización para filtrar las calificaciones. Por defecto es la fecha actual.",
 )
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_biomodelos
 def ratings(biomodelos, tax_ids, init_date, end_date, out_folder):
-    """Obtener las calificacioens otorgadas a modelos correspondientes a las
-    especies indicadas.
-
-    Por defecto traerá todas las calificaciones asignadas en los últimos 30 días.
-
-    OUT_FOLDER \t Ruta donde se creará el archivo csv con los resultados de la consulta
-    """
     [init_date, end_date] = clean_date_range(init_date, end_date)
     tax_ids = clean_tax_list(tax_ids)
-
     ratings = biomodelos.query_ratings(tax_ids, init_date, end_date)
     name = "ratings_{init_date}_{end_date}{filtered}.csv".format(
         init_date=init_date,

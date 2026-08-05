@@ -1,7 +1,7 @@
 """
-$ bmdbutils models 
+$ bmdbutils models
 """
-import os
+
 import click
 
 from bmdbutils.biomodelos.geoserver import Geoserver
@@ -17,6 +17,7 @@ from .fix_metadata import fix_metadata
 
 @click.group(
     short_help="Operaciones relacionadas con modelos de BioModelos",
+    help="""Comando para realizar operaciones relacionadas con modelos de BioModelos.""",
 )
 @click.pass_context
 def models(ctx):
@@ -28,7 +29,7 @@ def models(ctx):
                 fg="red",
             )
             click.secho(
-                "Primero ejecute 'bmdbutils setup postgres'",
+                "Primero ejecute 'bmdbutils setup postgres'.",
                 fg="yellow",
                 bold=True,
             )
@@ -46,7 +47,7 @@ def models(ctx):
                 fg="red",
             )
             click.secho(
-                "Primero ejecute 'bmdbutils setup geoserver'",
+                "Primero ejecute 'bmdbutils setup geoserver'.",
                 fg="yellow",
                 bold=True,
             )
@@ -57,7 +58,7 @@ def models(ctx):
                 fg="red",
             )
             click.secho(
-                "Primero ejecute 'bmdbutils setup api'",
+                "Primero ejecute 'bmdbutils setup api'.",
                 fg="yellow",
                 bold=True,
             )
@@ -77,7 +78,7 @@ def models(ctx):
                 fg="red",
             )
             click.secho(
-                "Primero ejecute 'bmdbutils setup mongo'",
+                "Primero ejecute 'bmdbutils setup mongo'.",
                 fg="yellow",
                 bold=True,
             )
