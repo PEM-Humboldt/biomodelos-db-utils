@@ -1,6 +1,7 @@
 """
 $ bmdbutils records validate
 """
+
 import click
 from bmdbutils.biomodelos.mongo import Mongo
 
@@ -8,20 +9,21 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos."
+    short_help="Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.",
+    help="""Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.
+    
+    CSV_FILE: Archivo CSV que contiene los registros de BioModelos.
+    
+    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la validación.
+    
+    Ejemplo de uso:
+    $ bmdbutils records validate /path/to/records.csv /path/to/output/folder 
+    """,
 )
-@click.option(
-    "--csv-file",
-    type=str,
-    help="Archivo CSV que contiene los registros de BioModelos",
-)
+@click.argument("csv_file", type=click.File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def validate(mongo, csv_file, out_folder):
-    """Validar esquema de datos para colección records de MongoDB.
-
-    OUT_FOLDER \t Ruta donde se crearán y guardarán los resultados de la validación.
-    """
     click.secho(
         "⌛ Validando columnas year, month y day del archivo CSV...",
         fg="yellow",

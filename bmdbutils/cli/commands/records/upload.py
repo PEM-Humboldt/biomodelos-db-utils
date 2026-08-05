@@ -1,29 +1,33 @@
 """
-$ bmdbutils records upload 
+$ bmdbutils records upload
 """
-import pandas as pd
+
 import click
-import os
 import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
-from bmdbutils.biomodelos.config import load_config
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Cargar documentos en una colección records en la base de datos Mongo de BioModelos."
+    short_help="Cargar documentos en la colección records en la base de datos Mongo de BioModelos.",
+    help="""Cargar documentos en la colección records de MongoDB. 
+    
+    Antes de ejecutar este comando, asegúrese de que el archivo CSV haya pasado la validación con el comando 'bmdbutils records validate'.
+    
+    CSV_FILE: Archivo CSV que contiene los registros de BioModelos.
+
+    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la validación.
+    
+    Ejemplo de uso:
+    $ bmdbutils records upload /path/to/records.csv /path/to/output/folder
+    """,
 )
-@click.option(
-    "--csv-file",
-    type=str,
-    help="Archivo CSV que contiene los registros de BioModelos",
-)
+@click.argument("csv_file", type=click.File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def upload(mongo, csv_file, out_folder):
-    config = load_config()
     cnx = mongo.mongo_connection()
     click.secho(
         "⌛ Validando columnas year, month y day del archivo CSV...",
