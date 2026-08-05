@@ -20,7 +20,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     $ bmdbutils records validate /path/to/records.csv /path/to/output/folder 
     """,
 )
-@click.argument("csv_file", type=click.File())
+@click.argument("csv_file", type=click.Path(exists=True))
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def validate(mongo, csv_file, out_folder):
@@ -30,28 +30,26 @@ def validate(mongo, csv_file, out_folder):
         bold=True,
     )
     validateDate = mongo.validate_date_fields(csv_file)
-    if isinstance(validateDate, bool) and validateDate is True:
+    if validateDate is True:
         click.secho(
             "⌛ Validando el archivo CSV...",
             fg="yellow",
             bold=True,
         )
         command = "records"
-        validation = mongo.validate_csv_data(csv_file, command, out_folder)
-        if isinstance(validation, bool) and validation is True:
+        validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
+        if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
                 fg="white",
             )
-        elif isinstance(validation, str):
-            click.secho(validation, fg="red")
         else:
             click.secho(
                 "⛔ Falló la validación del archivo CSV.",
                 fg="red",
             )
             click.secho(
-                f"Busque el archivo records_error.txt, lealo atentamente y corrija los errores.",
+                f"Busque el archivo ./{folder}/records_error.txt, lealo atentamente y corrija los errores.",
                 fg="red",
             )
     else:

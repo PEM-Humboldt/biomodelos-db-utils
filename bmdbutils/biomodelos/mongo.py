@@ -1,6 +1,5 @@
 import json
 import pandas as pd
-import sys
 from os import makedirs, path
 from datetime import datetime
 from urllib.parse import quote_plus
@@ -43,7 +42,6 @@ class Mongo:
 
         except ConnectionFailure as cfe:
             print(f"⛔ Servidor no disponible: {cfe}")
-            sys.exit(1)
 
     def validate_date_fields(self, csv_file):
         try:
@@ -101,6 +99,10 @@ class Mongo:
                     "✅ Las columnas tienen fechas válidas o anteriores a hoy."
                 )
                 return True
+        
+        except pd.errors.EmptyDataError:
+            print(f"⛔ El archivo '{csv_file}' está vacío.")
+            return False
 
         except Exception as e:
             print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
@@ -157,21 +159,17 @@ class Mongo:
                         )
                 errorfile.close()
             if len(errors) == 0:
-                return True
+                return True, folder
             else:
-                return False
+                return False, folder
 
         except pd.errors.EmptyDataError:
-            error = f"⛔ El archivo '{csv_file}' está vacío."
-            return error
-
-        except FileNotFoundError:
-            error = f"⛔ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
-            return error
+            print(f"⛔ El archivo '{csv_file}' está vacío.")
+            return False, folder
 
         except Exception as e:
-            error = f"⛔ Error al validar el archivo '{csv_file}': {e}"
-            return error
+            print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
+            return False, folder
 
     def extract_tax_ids(self, csv_file):
         df_file = pd.read_csv(csv_file)
@@ -180,7 +178,6 @@ class Mongo:
             return tax_ids
         else:
             print("⛔ No se encontró la columna 'taxID' en el archivo CSV.")
-            sys.exit(1)
 
     def extract_model_tax_ids(self, csv_file):
         df_file = pd.read_csv(csv_file)
@@ -210,12 +207,8 @@ class Mongo:
 
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)
 
-    def upload_mongo_records(self, cnx, command, out_folder):
-        folder = "{command}_{date_today}".format(
-            command=command, date_today=datetime.now().date()
-        )
+    def upload_mongo_records(self, cnx, command, out_folder, folder):
         inserted_list = []
         db = cnx[self.mongo_db]
         collection = db["records"]
@@ -248,13 +241,13 @@ class Mongo:
                 )
             print(f"⛔ Este fue el error: {err}")
             cnx.close()
-            sys.exit(1)
+
         file.close()
         print(
             f"✅ Se subieron {len(data)} documentos a la colección 'records'."
         )
         print(
-            f"El archivo records_uploaded.txt tiene los ids que se cargaron a la colección."
+            f"El archivo ./{folder}/records_uploaded.txt tiene los ids que se cargaron a la colección."
         )
         cnx.close()
 
@@ -273,12 +266,8 @@ class Mongo:
             return models_validation, models_docs
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)
 
-    def update_models_metadata(self, models_docs, cnx, command, out_folder):
-        folder = "{command}_{date_today}".format(
-            command=command, date_today=datetime.now().date()
-        )
+    def update_models_metadata(self, models_docs, cnx, command, out_folder, folder):
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
@@ -329,7 +318,6 @@ class Mongo:
                 )
                 print(f"⛔ Este fue el error: {err}")
                 cnx.close()
-                sys.exit(1)
             file.close()
         cnx.close()
 
@@ -371,4 +359,3 @@ class Mongo:
 
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)

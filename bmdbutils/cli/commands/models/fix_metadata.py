@@ -3,7 +3,6 @@ $ bmdbutils models fix-metadata
 """
 
 import click
-import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
 
@@ -22,7 +21,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     $ bmdbutils models fix-metadata /path/to/fix_metadata.csv /path/to/output/folder
     """
 )
-@click.argument("csv_file", type=click.File())
+@click.argument("csv_file", type=click.Path(exists=True))
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def fix_metadata(mongo, csv_file, out_folder):
@@ -32,42 +31,41 @@ def fix_metadata(mongo, csv_file, out_folder):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation = mongo.validate_csv_data(csv_file, command, out_folder)
+    validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
             fg="white",
         )
         click.secho(
-            "⌛ Validando taxIDs...",
+            "⌛ Validando los taxID en la colección species...",
             fg="yellow",
         )
         tax_id = mongo.extract_tax_ids(csv_file)
         model_tax_ids = mongo.extract_model_tax_ids(csv_file)
         tax_id_validation = mongo.validate_tax_ids(tax_id, cnx)
 
-        if tax_id_validation:
+        if tax_id_validation is True:
             click.secho(
-                "⌛ Validando modelIDs...",
+                "⌛ Validando los modelID en la colección models...",
                 fg="yellow",
             )
             models_validation, models_docs = mongo.validate_models(
                 model_tax_ids, cnx
             )
-            if models_validation:
+            if models_validation is True:
                 click.secho(
                     "⌛ Modificando metadatos de documentos en la colección models...",
                     fg="yellow",
                 )
                 mongo.update_models_metadata(
-                    models_docs, cnx, command, out_folder
+                    models_docs, cnx, command, out_folder, folder
                 )
                 click.secho(
-                    "⚠️ En el archivo output.json se guardaron los documentos cargados.",
+                    f"⚠️ En el archivo ./{folder}/fix-metadata.json se guardaron los documentos cargados.",
                     fg="yellow",
                 )
                 cnx.close()
-                sys.exit(0)
             else:
                 click.secho("⛔ Falló la validación de modelIDs.", fg="red")
                 click.secho(
@@ -75,22 +73,18 @@ def fix_metadata(mongo, csv_file, out_folder):
                     fg="yellow",
                 )
             cnx.close()
-            sys.exit(0)
         else:
             click.secho("⛔ Falló la validación de taxIDs.", fg="red")
             click.secho(
                 "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
                 fg="yellow",
             )
-
-    elif isinstance(validation, str):
-        click.secho(validation, fg="red")
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
         click.secho(
-            f"⚠️ En el archivo fix-metadata_error.txt se encuentran los errores.",
+            f"⚠️ En el archivo ./{folder}/fix-metadata_error.txt se encuentran los errores.",
             fg="red",
         )

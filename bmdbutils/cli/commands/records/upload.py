@@ -3,7 +3,6 @@ $ bmdbutils records upload
 """
 
 import click
-import sys
 
 from bmdbutils.biomodelos.mongo import Mongo
 
@@ -24,7 +23,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     $ bmdbutils records upload /path/to/records.csv /path/to/output/folder
     """,
 )
-@click.argument("csv_file", type=click.File())
+@click.argument("csv_file", type=click.Path(exists=True))
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def upload(mongo, csv_file, out_folder):
@@ -35,13 +34,13 @@ def upload(mongo, csv_file, out_folder):
         bold=True,
     )
     validateDate = mongo.validate_date_fields(csv_file)
-    if isinstance(validateDate, bool) and validateDate is True:
+    if validateDate is True:
         click.secho(
             "⌛ Validando el archivo CSV...",
             fg="yellow",
         )
         command = "records"
-        validation = mongo.validate_csv_data(csv_file, command, out_folder)
+        validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
         if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
@@ -53,34 +52,34 @@ def upload(mongo, csv_file, out_folder):
             )
             tax_ids = mongo.extract_tax_ids(csv_file)
             tax_id_validation = mongo.validate_tax_ids(tax_ids, cnx)
-            if tax_id_validation:
+            if tax_id_validation is True:
                 click.secho(
                     "⌛ Cargando documentos a la colección records...",
                     fg="yellow",
                 )
-                mongo.upload_mongo_records(cnx, command, out_folder)
+                mongo.upload_mongo_records(cnx, command, out_folder, folder)
                 cnx.close()
-                sys.exit(0)
             else:
                 click.secho("⛔ Falló la validación de taxIDs.", fg="red")
                 click.secho(
                     "⚠️  Debe crear los taxIDs en la colección 'species' antes de subir los documentos a la colección records.",
                     fg="yellow",
                 )
-                sys.exit(1)
         else:
             click.secho(
                 "⛔ El archivo CSV tiene campos con datos no válidos.",
                 fg="red",
             )
             click.secho(
+                f"Busque el archivo ./{folder}/records_error.txt, lealo atentamente y corrija los errores.",
+                fg="red",
+            )
+            click.secho(
                 "⚠️  Utilice el comando 'bmdbutils records validate' para más detalles.",
                 fg="yellow",
             )
-            sys.exit(1)
     else:
         click.secho(
             "⛔ Falló la validación del archivo CSV.",
             fg="red",
         )
-        sys.exit(1)
