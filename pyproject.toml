@@ -12,15 +12,14 @@ authors = [
   { name = "Erika Suarez-Valencia", email = "esuarez@humboldt.org.co" },
   { name = "Jorge Luis Higuita Castro", email = "jhiguita@humboldt.org.co" }
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.12"
 dependencies = [
-    "setuptools=67",
-    "python>=3.10",
+    "setuptools>=67",
     "click>=8.4",
     "pandas>=1.5",
     "pymongo>=4.0",
     "GDAL>=3.13",
-    "geoserver-rest = {git = "https://github.com/PEM-Humboldt/geoserver-rest.git"}",
+    "geoserver-rest @ git+https://github.com/PEM-Humboldt/geoserver-rest.git",
     "appdirs>=1.4",
     "pycurl>=7.45",
     "sqlalchemy>=1.4",
