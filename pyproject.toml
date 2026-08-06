@@ -13,6 +13,20 @@ authors = [
   { name = "Jorge Luis Higuita Castro", email = "jhiguita@humboldt.org.co" }
 ]
 requires-python = ">=3.10"
+dependencies = [
+    setuptools = "67",
+    python = "3.10",
+    click = "^8.4.2",
+    pandas = "^1.5.3",
+    pymongo = "^4.0.2",
+    gdal = "3.13.2",
+    geoserver-rest = {git = "https://github.com/PEM-Humboldt/geoserver-rest.git"},
+    appdirs = "^1.4.4",
+    pycurl = "7.45.3",
+    sqlalchemy = "1.4.54",
+    psycopg2 = "2.9.3",
+    jsonschema = "4.23",    
+]
 
 [project.scripts]
 bmdbutils = "bmdbutils.cli.cli:main"
@@ -24,20 +38,3 @@ include = '\.pyi?$'
 
 [tool.setuptools.packages.find]
 include = ["bmdbutils*"]
-
-[tool.dependencies]
-setuptools = "67"
-python = "3.10"
-click = "^8.4.2"
-pandas = "^1.5.3"
-pymongo = "^4.0.2"
-gdal = "3.13.2"
-geoserver-rest = {git = "https://github.com/PEM-Humboldt/geoserver-rest.git"}
-appdirs = "^1.4.4"
-pycurl = "7.45.3"
-sqlalchemy = "1.4.54"
-psycopg2 = "2.9.3"
-jsonschema = "4.23"
-
-[tool.poetry.dev-dependencies]
-black = "^26.5.1"
