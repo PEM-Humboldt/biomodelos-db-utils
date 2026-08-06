@@ -17,7 +17,7 @@ dependencies = [
     "click>=8.4",
     "pandas>=1.5",
     "pymongo>=4.0",
-    "GDAL==3.8.*",
+    "GDAL==3.8.4",
     "geoserver-rest @ git+https://github.com/PEM-Humboldt/geoserver-rest.git",
     "appdirs>=1.4",
     "pycurl>=7.45",
