@@ -14,18 +14,18 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    setuptools = "67",
-    python = "3.10",
-    click = "^8.4.2",
-    pandas = "^1.5.3",
-    pymongo = "^4.0.2",
-    gdal = "3.13.2",
-    geoserver-rest = {git = "https://github.com/PEM-Humboldt/geoserver-rest.git"},
-    appdirs = "^1.4.4",
-    pycurl = "7.45.3",
-    sqlalchemy = "1.4.54",
-    psycopg2 = "2.9.3",
-    jsonschema = "4.23",    
+    "setuptools=67",
+    "python>=3.10",
+    "click>=8.4",
+    "pandas>=1.5",
+    "pymongo>=4.0",
+    "GDAL>=3.13",
+    "geoserver-rest = {git = "https://github.com/PEM-Humboldt/geoserver-rest.git"}",
+    "appdirs>=1.4",
+    "pycurl>=7.45",
+    "sqlalchemy>=1.4",
+    "psycopg2>=2.9",
+    "jsonschema>=4.23",    
 ]
 
 [project.scripts]
