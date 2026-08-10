@@ -1,8 +1,29 @@
 name: bm-db-utils
+
 channels:
   - conda-forge
   - defaults
+
 dependencies:
-  - python=3.8
-  - poetry
-  - geoserver-rest
+  - python=3.10
+  - setuptools=67
+  - pip
+
+  # Dependencias principales
+  - click=8.4.2
+  - pandas=1.5.3
+  - pymongo=4.0.2
+  - gdal=3.13.2
+  - pycurl=7.45.3
+  - sqlalchemy=1.4.54
+  - psycopg2=2.9.3
+  - jsonschema=4.23.0
+  - appdirs=1.4.4
+
+  # Desarrollo
+  - black=26.5.1
+  - ipython=8.37.0
+  - pytest=9.1.1
+
+  - pip:
+      - git+https://github.com/PEM-Humboldt/geoserver-rest.git
