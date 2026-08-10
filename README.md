@@ -5,19 +5,19 @@ Utilitarios para BioModelos
 Accede aquí la documentación de los comandos: [bm-db-utils](https://pem-humboldt.github.io/biomodelos-db-utils/)
 ## Prerrequisitos
 * [Python](https://www.python.org/downloads/) (v. 3.10+)
-* Librerías del sistema de GDAL (si instala usando Conda no es necesario)
+* [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). Se recomienda instalar miniconda debido a que es más liviano.
+* Librerías del sistema de GDAL (se instala usando Conda)
+ 
 
 ## Instalación
 
-### Usando Conda
-
-Por facilidad en la instalación de dependencias del sistema, se recomienda usar [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) para la instalación de la herramienta. Se recomienda instalar miniconda debido a que es más liviano.
-
-Estos pasos son comunes tanto para sistemas operativos *Linux* como *Windows*.
-
-1. Instalar conda
+Para el SO **Windows**, todo se debe ejecutar adentro de la terminal de Conda.
 
 1. Clonar el repositorio
+
+    ```
+    git clone https://github.com/PEM-Humboldt/biomodelos-db-utils.git
+    ```
 
 1. Instalar dependencias del ambiente del repositorio desde la raíz del proyecto:
 
@@ -37,88 +37,52 @@ Estos pasos son comunes tanto para sistemas operativos *Linux* como *Windows*.
     pip install -e .
     ```
 
-En ambos sistemas operativos, a partir de este momento tendrá disponible el comando `bmdbutils` desde la terminal de Conda.
+A partir de este momento tendrá disponible el comando `bmdbutils`, el cual en el caso del **OS Windows** debe ser ejecutado desde la terminal de Conda.
 
-El comando se desactiva desactivando el ambiente
+Para desactivar el comando es necesario desactivar ambiente:
 
     ```
     conda deactivate
     ```
 
-En futuras ocasiones cuando desee usar la herramienta primero deberá activar el ambiente de conda (`conda activate bm-db-utils`), podrá hacerlo desde cualquier ubicación.
+En futuras ocasiones cuando desee usar la herramienta, primero debe activar el ambiente de conda (`conda activate bm-db-utils`), en **linux** esto se puede hacer desde cualquier terminal, pero en **windows** se debe ejecutar adentro de la terminal de conda o miniconda.
 
-### Usando Virtualenv
-
-Si lo desea, puede crear un ambiente virtual para trabajar con la herramienta sin afectar su ambiente general, para esto:
-
-> 1. Cree el ambiente:
-> `python3 -m venv bmdbutils`
-> 2. Active el ambiente:
-> `source bmdbutils/bin/activate`
-
-Si está usando una versión de Python >= 3.10, primero instale setuptools versión 67:
-
-```
-pip install setuptools==67
-```
-
-Puede instalar `bmdbutils` ejecutando el siguiente comando:
-
-```
-pip install git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git#egg=bmdbutils
-```
-
-Si no tiene `git`, ejecute:
-
-```
-pip install --upgrade https://github.com/PEM-Humboldt/biomodelos-db-utils/tarball/master
-```
-
-Para asegurarse que bmdbutils haya quedado instalado, ejecute:
-
-```
-python -c "import bmdbutils"
-```
-
-Si la instalación fue exitosa, el comando correrá sin ningún problema.
-
-## Ejecución
-
-Ejecute el comando `bmdbutils` para ver los subcomandos disponibles y la ayuda de los mismos.
 ## Cómo contribuir
 
 ### Configuración del entorno de desarrollo
-Para el desarrollo se requiere [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html), que se encarga de crear el ambiente de desarrollo, instalar dependencias base (para no tener que instalar librerías del sistema operativo) e instalar poetry, gestor de empaquetado y manejador de las demás dependencias.
+
+Para configurar este ambiente es necesario tener instalado Conda.
 
 En primer lugar, es necesario clonar este repositorio localmente. Para esto, ejecute:
 
-```
-git clone https://github.com/PEM-Humboldt/biomodelos-db-utils.git
-```
+    ```
+    git clone https://github.com/PEM-Humboldt/biomodelos-db-utils.git
+    ```
 
 Luego, ubíquese dentro del directorio del proyecto:
 
-```
-cd biomodelos-db-utils
-```
+    ```
+    cd biomodelos-db-utils
+    ```
 
 y restaure el ambiente de conda:
 
-```
-conda env create --file condaenv.yml
-```
+    ```
+    conda env create --file dev.yml
+    ```
 
 después, active el ambiente recién restaurado
 
-```
-conda activate bm-db-utils
-```
+    ```
+    conda activate bm-db-utils
+    ```
 
 e instale el resto de dependencias necesarias:
 
-```
-pip install
-```
+    ```
+    pip install -e .
+    ```
+
 ### Revision y formato de estilos para el código
 Para hacer formateo de estilos automático se utiliza el paquete black, el cual se encuentra incuído adentro del ambiente. Al ejecutarlo se tendran en cuenta las configuraciones de estilo definidas en el archivo [pyproject.toml](https://github.com/PEM-Humboldt/biomodelos-db-utils/blob/master/pyproject.toml).
 
