@@ -102,16 +102,8 @@ black <nombre archivo>
 En caso de necesitar agregar nuevas dependencias, ejecute:
 
 ```
-poetry add <dependencia>
-poetry update
+pip install <dependencia>
 ```
-
-Para ejecutar bmdbutils sin tener que instalar como usuario final ejecute
-```
-poetry run bmdbutils
-```
-
-Es recomendable familiarizarse con la documentación de [poetry](https://python-poetry.org/docs/) y de [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
 
 ## Documentación
 
