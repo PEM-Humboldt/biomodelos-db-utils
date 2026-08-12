@@ -2,11 +2,9 @@
 $ bmbdutils models geoserver-upsert
 """
 
+import os
+import pandas as pd
 import click
-
-from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils.biomodelos.geoserver import Geoserver
-
 
 @click.command(
     short_help="Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos.",

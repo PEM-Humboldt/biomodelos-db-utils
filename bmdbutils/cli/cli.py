@@ -29,7 +29,7 @@ def main(ctx):
                 fg="red",
             )
             click.secho(
-                "Primero ejecute 'bmdbutils setup' para configurar la conexión a las bases de datos al API y al Geoserver de BioModelos.",
+                "Primero ejecute 'bmdbutils setup' para configurar la conexión a las bases de datos, al API y al Geoserver de BioModelos.",
                 fg="yellow",
                 bold=True,
             )
