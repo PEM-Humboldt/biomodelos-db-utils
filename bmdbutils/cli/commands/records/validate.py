@@ -37,7 +37,7 @@ def validate(mongo, csv_file, out_folder):
             bold=True,
         )
         command = "records"
-        validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
+        validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
         if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
@@ -49,7 +49,7 @@ def validate(mongo, csv_file, out_folder):
                 fg="red",
             )
             click.secho(
-                f"Busque el archivo ./{folder}/records_error.txt, lealo atentamente y corrija los errores.",
+                f"Busque el archivo {outFolder}/records_error.txt, lealo atentamente y corrija los errores.",
                 fg="red",
             )
     else:

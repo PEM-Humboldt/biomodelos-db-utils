@@ -121,8 +121,7 @@ class Mongo:
                 "fix-metadata_error.txt",
             ),
         }
-        folder = "{command}_{date_today}".format(command=command, date_today=datetime.now().date())
-        outFolder = "{out_folder}/{folder}".format(out_folder=out_folder, folder=folder)
+        outFolder = "{out_folder}/{command}_{date_today}".format(out_folder=out_folder, command=command, date_today=datetime.now().date())
         jsonFile, schemaFile, outputErrorFile = config[command]
         if not path.exists(path.join(outFolder)):
             makedirs(path.join(outFolder))
@@ -152,17 +151,17 @@ class Mongo:
                             f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
                         )
             if len(errors) == 0:
-                return True, folder
+                return True, outFolder
             else:
-                return False, folder
+                return False, outFolder
 
         except pd.errors.EmptyDataError:
             print(f"⛔ El archivo '{csv_file}' está vacío.")
-            return False, folder
+            return False, outFolder
 
         except Exception as e:
             print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
-            return False, folder
+            return False, outFolder
 
     def extract_tax_ids(self, csv_file):
         df_file = pd.read_csv(csv_file)
@@ -201,18 +200,18 @@ class Mongo:
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
 
-    def upload_mongo_records(self, cnx, command, out_folder, folder):
+    def upload_mongo_records(self, cnx, command, outFolder):
         inserted_list = []
         db = cnx[self.mongo_db]
         collection = db["records"]
         with open(
-            path.join(out_folder, folder, "records_output.json"), "r"
+            path.join(outFolder, "records_output.json"), "r"
         ) as file:
             data = [json.loads(line) for line in file]
             file.close()
         try:
             with open(
-                path.join(out_folder, folder, "records_uploaded.txt"), "w"
+                path.join(outFolder, "records_uploaded.txt"), "w"
             ) as file:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
@@ -240,7 +239,7 @@ class Mongo:
             f"✅ Se subieron {len(data)} documentos a la colección 'records'."
         )
         print(
-            f"El archivo ./{folder}/records_uploaded.txt tiene los ids que se cargaron a la colección."
+            f"El archivo {outFolder}/records_uploaded.txt tiene los ids que se cargaron a la colección."
         )
         cnx.close()
 
@@ -260,13 +259,13 @@ class Mongo:
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
 
-    def update_models_metadata(self, models_docs, cnx, command, out_folder, folder):
+    def update_models_metadata(self, models_docs, cnx, command, outFolder):
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
         rollback = []
         with open(
-            path.join(out_folder, folder, "fix-metadata.json"), "r"
+            path.join(outFolder, "fix-metadata.json"), "r"
         ) as file:
             for record in file:
                 doc = json.loads(record)

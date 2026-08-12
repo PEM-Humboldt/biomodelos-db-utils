@@ -31,7 +31,7 @@ def fix_metadata(mongo, csv_file, out_folder):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
+    validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",
@@ -59,10 +59,10 @@ def fix_metadata(mongo, csv_file, out_folder):
                     fg="yellow",
                 )
                 mongo.update_models_metadata(
-                    models_docs, cnx, command, out_folder, folder
+                    models_docs, cnx, command, outFolder
                 )
                 click.secho(
-                    f"⚠️ En el archivo ./{folder}/fix-metadata.json se guardaron los documentos cargados.",
+                    f"⚠️ En el archivo {outFolder}/fix-metadata.json se guardaron los documentos cargados.",
                     fg="yellow",
                 )
                 cnx.close()
@@ -85,6 +85,6 @@ def fix_metadata(mongo, csv_file, out_folder):
             fg="red",
         )
         click.secho(
-            f"⚠️ En el archivo ./{folder}/fix-metadata_error.txt se encuentran los errores.",
+            f"⚠️ En el archivo {outFolder}/fix-metadata_error.txt se encuentran los errores.",
             fg="red",
         )

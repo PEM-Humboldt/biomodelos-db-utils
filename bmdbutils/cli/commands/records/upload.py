@@ -40,7 +40,7 @@ def upload(mongo, csv_file, out_folder):
             fg="yellow",
         )
         command = "records"
-        validation, folder = mongo.validate_csv_data(csv_file, command, out_folder)
+        validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
         if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
@@ -57,7 +57,7 @@ def upload(mongo, csv_file, out_folder):
                     "⌛ Cargando documentos a la colección records...",
                     fg="yellow",
                 )
-                mongo.upload_mongo_records(cnx, command, out_folder, folder)
+                mongo.upload_mongo_records(cnx, command, outFolder)
                 cnx.close()
             else:
                 click.secho("⛔ Falló la validación de taxIDs.", fg="red")
@@ -71,7 +71,7 @@ def upload(mongo, csv_file, out_folder):
                 fg="red",
             )
             click.secho(
-                f"Busque el archivo ./{folder}/records_error.txt, lealo atentamente y corrija los errores.",
+                f"Busque el archivo {outFolder}/records_error.txt, lealo atentamente y corrija los errores.",
                 fg="red",
             )
             click.secho(
