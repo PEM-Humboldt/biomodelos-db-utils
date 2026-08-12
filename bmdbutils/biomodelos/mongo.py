@@ -114,27 +114,23 @@ class Mongo:
                 "records_output.json",
                 "bmdbutils/biomodelos/schemas/records.json",
                 "records_error.txt",
-                "{command}_{date_today}".format(
-                    command=command, date_today=datetime.now().date()
-                ),
             ),
             "fix-metadata": (
                 "fix-metadata.json",
                 "bmdbutils/biomodelos/schemas/models_metadata.json",
                 "fix-metadata_error.txt",
-                "{command}_{date_today}".format(
-                    command=command, date_today=datetime.now().date()
-                ),
             ),
         }
-        jsonFile, schemaFile, outputErrorFile, folder = config[command]
-        if not path.exists(path.join(out_folder, folder)):
-            makedirs(path.join(out_folder, folder))
+        folder = "{command}_{date_today}".format(command=command, date_today=datetime.now().date())
+        outFolder = "{out_folder}/{folder}".format(out_folder=out_folder, folder=folder)
+        jsonFile, schemaFile, outputErrorFile = config[command]
+        if not path.exists(path.join(outFolder)):
+            makedirs(path.join(outFolder))
         try:
             df_file = pd.read_csv(csv_file)
             df_file.to_json(
-                "{out_folder}/{folder}/{jsonFile}".format(
-                    out_folder=out_folder, folder=folder, jsonFile=jsonFile
+                "{outFolder}/{jsonFile}".format(
+                    outFolder=outFolder, jsonFile=jsonFile
                 ),
                 orient="records",
                 lines=True,
@@ -144,12 +140,10 @@ class Mongo:
                 validator = Draft7Validator(
                     schema, format_checker=FormatChecker()
                 )
-                f.close()
-            with open(path.join(out_folder, folder, jsonFile), "r") as outfile:
+            with open(path.join(outFolder, jsonFile), "r") as outfile:
                 data = [json.loads(line) for line in outfile]
-                outfile.close()
             with open(
-                path.join(out_folder, folder, outputErrorFile), "w"
+                path.join(outFolder, outputErrorFile), "w"
             ) as errorfile:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
@@ -157,7 +151,6 @@ class Mongo:
                         errorfile.write(
                             f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
                         )
-                errorfile.close()
             if len(errors) == 0:
                 return True, folder
             else:
