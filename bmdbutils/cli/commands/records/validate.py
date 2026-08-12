@@ -9,8 +9,8 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
 
 @click.command(
-    short_help="Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.",
-    help="""Valida un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.
+    short_help="Validar un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.",
+    help="""Validar un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.
     
     CSV_FILE: Archivo CSV que contiene los registros de BioModelos.
     

@@ -2,9 +2,7 @@
 $ bmbdutils models geoserver-upsert
 """
 
-import os
 import click
-import pandas as pd
 
 from bmdbutils.biomodelos.biomodelos import Biomodelos
 from bmdbutils.biomodelos.geoserver import Geoserver
