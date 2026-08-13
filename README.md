@@ -1,6 +1,6 @@
 # Biomodelos DB utils
 
-Utilitarios para BioModelos, version v.0.0.1
+Utilitarios para BioModelos, version v.1.0.0
 
 Accede aquí la documentación de los comandos: [bm-db-utils](https://pem-humboldt.github.io/biomodelos-db-utils/)
 ## Prerrequisitos

@@ -21,4 +21,4 @@ dependencies:
 
   - pip:
       - git+https://github.com/PEM-Humboldt/geoserver-rest.git
-      - git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git@0.0.1
+      - git+https://github.com/PEM-Humboldt/biomodelos-db-utils.git@1.0.0
