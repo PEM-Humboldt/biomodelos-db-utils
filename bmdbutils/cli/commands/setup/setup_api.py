@@ -8,7 +8,11 @@ from bmdbutils.biomodelos.config import load_config, save_config
 
 
 @click.command(
-    help="""Comando para configurar el API de BioModelos.""",
+    help="""Comando para configurar el API de BioModelos.
+    
+    Ejemplo de uso:
+    $ bmdbutils setup api --url http://localhost:3333  
+    """,
     short_help="Configura la API de BioModelos.",
 )
 @click.option(

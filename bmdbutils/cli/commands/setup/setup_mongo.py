@@ -9,8 +9,12 @@ from bmdbutils.biomodelos.config import load_config, save_config
 
 @click.command(
     help="""Comando para configurar la base de datos MongoDB de BioModelos. 
-        
-        No es necesario agregar el parámetro --mongo-password, éste se solicita automáticamente.""",
+    
+    Ejemplo de uso:
+    $ bmdbutils setup mongo --url localhost:27017 --database database --username username
+    
+    No es necesario agregar el parámetro --password, éste se solicita automáticamente.
+    """,
     short_help="Configura la base de datos Mongo de BioModelos.",
 )
 @click.option(

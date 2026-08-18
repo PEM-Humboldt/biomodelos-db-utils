@@ -15,7 +15,7 @@ import click
     MODELS_FOLDER: Ruta a la carpeta que contiene los archivos especificados en el campo model_file del archivo MODEL_INFO
     
     Ejemplo de uso:
-    $ bmdbutils models geoserver-upsert --models-info /path/to/models_info.csv --models-folder /path/to/models_folder
+    $ bmdbutils models geoserver-upsert /path/to/models_info.csv /path/to/models_folder
     """
 )
 @click.argument("models_info", type=click.File())
