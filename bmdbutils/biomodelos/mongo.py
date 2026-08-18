@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-import sys
+from os import makedirs, path
 from datetime import datetime
 from urllib.parse import quote_plus
 from jsonschema import Draft7Validator, FormatChecker
@@ -9,7 +9,6 @@ from pymongo.errors import (
     PyMongoError,
     ConnectionFailure,
     OperationFailure,
-    ServerSelectionTimeoutError,
 )
 
 
@@ -43,10 +42,6 @@ class Mongo:
 
         except ConnectionFailure as cfe:
             print(f"⛔ Servidor no disponible: {cfe}")
-            sys.exit(1)
-        except ServerSelectionTimeoutError as e:
-            print("No se pudo conectar al servidor MongoDB:", e)
-            sys.exit(1)
 
     def validate_date_fields(self, csv_file):
         try:
@@ -58,29 +53,41 @@ class Mongo:
             invalid_rows = []
 
             for idx, row in df.iterrows():
-                year = row.get('year')
-                month = row.get('month')
-                day = row.get('day')
+                year = row.get("year")
+                month = row.get("month")
+                day = row.get("day")
 
-                # Si no hay ninguno, saltar
                 if pd.isna(year) and pd.isna(month) and pd.isna(day):
+                    invalid_rows.append(
+                        (idx, f"El record no tiene year, month o day.")
+                    )
                     continue
 
-                # Compara cada campo existente
                 if pd.notna(year) and int(year) > current_year:
-                    invalid_rows.append((idx, f"Año inválido: {year} > {current_year}"))
+                    invalid_rows.append(
+                        (idx, f"Año inválido: {year} > {current_year}")
+                    )
                     continue
 
                 if pd.notna(month):
-                    if pd.isna(year) or int(year) == current_year:  # compara mes solo si aplica
+                    if pd.isna(year) or int(year) == current_year:
                         if int(month) > current_month:
-                            invalid_rows.append((idx, f"Mes inválido: {month} > {current_month}"))
+                            invalid_rows.append(
+                                (
+                                    idx,
+                                    f"Mes inválido: {month} > {current_month}",
+                                )
+                            )
                             continue
 
                 if pd.notna(day):
-                    if (pd.isna(year) or int(year) == current_year) and (pd.isna(month) or int(month) == current_month):
+                    if (pd.isna(year) or int(year) == current_year) and (
+                        pd.isna(month) or int(month) == current_month
+                    ):
                         if int(day) > current_day:
-                            invalid_rows.append((idx, f"Día inválido: {day} > {current_day}"))
+                            invalid_rows.append(
+                                (idx, f"Día inválido: {day} > {current_day}")
+                            )
 
             if invalid_rows:
                 print("❌ Fechas inválidas encontradas:")
@@ -88,63 +95,73 @@ class Mongo:
                     print(f"  - Fila {idx + 1}: {msg}")
                 return False
             else:
-                print("✅ Las columnas tienen fechas válidas o anteriores a hoy.")
+                print(
+                    "✅ Las columnas tienen fechas válidas o anteriores a hoy."
+                )
                 return True
+        
+        except pd.errors.EmptyDataError:
+            print(f"⛔ El archivo '{csv_file}' está vacío.")
+            return False
 
         except Exception as e:
             print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
             return False
 
-    def validate_csv_data(self, csv_file, collection):
+    def validate_csv_data(self, csv_file, command, out_folder):
         config = {
             "records": (
-                "tmp/records_output.json",
+                "records_output.json",
                 "bmdbutils/biomodelos/schemas/records.json",
-                "tmp/records_error.txt",
+                "records_error.txt",
             ),
-            "models_metadata": (
-                "tmp/metadata_output.json",
+            "fix-metadata": (
+                "fix-metadata.json",
                 "bmdbutils/biomodelos/schemas/models_metadata.json",
-                "tmp/metadata_error.txt",
+                "fix-metadata_error.txt",
             ),
         }
-        jsonFile, schemaFile, outputErrorFile = config[collection]
+        outFolder = "{out_folder}/{command}_{date_today}".format(out_folder=out_folder, command=command, date_today=datetime.now().date())
+        jsonFile, schemaFile, outputErrorFile = config[command]
+        if not path.exists(path.join(outFolder)):
+            makedirs(path.join(outFolder))
         try:
             df_file = pd.read_csv(csv_file)
-            df_file.to_json(jsonFile, orient="records", lines=True)
+            df_file.to_json(
+                "{outFolder}/{jsonFile}".format(
+                    outFolder=outFolder, jsonFile=jsonFile
+                ),
+                orient="records",
+                lines=True,
+            )
             with open(schemaFile, "r") as f:
                 schema = json.load(f)
                 validator = Draft7Validator(
                     schema, format_checker=FormatChecker()
                 )
-                f.close()
-            with open(jsonFile, "r") as f:
-                data = [json.loads(line) for line in f]
-                f.close()
-            with open(outputErrorFile, "w") as f:
+            with open(path.join(outFolder, jsonFile), "r") as outfile:
+                data = [json.loads(line) for line in outfile]
+            with open(
+                path.join(outFolder, outputErrorFile), "w"
+            ) as errorfile:
                 for idx, record in enumerate(data):
                     errors = list(validator.iter_errors(record))
                     for error in errors:
-                        f.write(
+                        errorfile.write(
                             f"record: {idx}, field: {'/'.join(map(str, error.path))}, message: {error.message}\n"
                         )
-                f.close()
             if len(errors) == 0:
-                return True
+                return True, outFolder
             else:
-                return False
+                return False, outFolder
 
         except pd.errors.EmptyDataError:
-            error = f"⛔ El archivo '{csv_file}' está vacío."
-            return error
-
-        except FileNotFoundError:
-            error = f"⛔ El archivo '{csv_file}' no fue encontrado. Verifica la ruta."
-            return error
+            print(f"⛔ El archivo '{csv_file}' está vacío.")
+            return False, outFolder
 
         except Exception as e:
-            error = f"⛔ Error al validar el archivo '{csv_file}': {e}"
-            return error
+            print(f"⛔ Error al validar el archivo '{csv_file}': {e}")
+            return False, outFolder
 
     def extract_tax_ids(self, csv_file):
         df_file = pd.read_csv(csv_file)
@@ -153,7 +170,6 @@ class Mongo:
             return tax_ids
         else:
             print("⛔ No se encontró la columna 'taxID' en el archivo CSV.")
-            sys.exit(1)
 
     def extract_model_tax_ids(self, csv_file):
         df_file = pd.read_csv(csv_file)
@@ -183,26 +199,28 @@ class Mongo:
 
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)
 
-    def upload_mongo(self, cnx):
+    def upload_mongo_records(self, cnx, command, outFolder):
         inserted_list = []
         db = cnx[self.mongo_db]
         collection = db["records"]
-
-        with open("tmp/records_output.json", "r") as f:
-            data = [json.loads(line) for line in f]
-            f.close()
+        with open(
+            path.join(outFolder, "records_output.json"), "r"
+        ) as file:
+            data = [json.loads(line) for line in file]
+            file.close()
         try:
-            with open("tmp/records_uploaded.txt", "w") as f:
+            with open(
+                path.join(outFolder, "records_uploaded.txt"), "w"
+            ) as file:
                 for record in data:
                     record["createdDate"] = pd.Timestamp.now().isoformat()
                     inserted_record = collection.insert_one(record)
                     inserted_list.append(inserted_record.inserted_id)
-                    f.write(
+                    file.write(
                         f"Documento con _id: {inserted_record.inserted_id} cargado correctamente a la colección 'records'.\n"
                     )
-            f.close()
+            file.close()
         except PyMongoError as err:
             print(
                 "Algo salió mal al subir los documentos a la colección 'records'."
@@ -215,12 +233,13 @@ class Mongo:
                 )
             print(f"⛔ Este fue el error: {err}")
             cnx.close()
-            sys.exit(1)
-        f.close()
+
+        file.close()
         print(
-            f"""✅ Se subieron {len(data)} documentos a la colección 'records'. 
-El archivo records_uploaded.txt tiene los ids que se cargaron a la colección. 
-Busca este archivo en la ruta ./tmp/"""
+            f"✅ Se subieron {len(data)} documentos a la colección 'records'."
+        )
+        print(
+            f"El archivo {outFolder}/records_uploaded.txt tiene los ids que se cargaron a la colección."
         )
         cnx.close()
 
@@ -239,15 +258,16 @@ Busca este archivo en la ruta ./tmp/"""
             return models_validation, models_docs
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)
 
-    def update_models_metadata(self, models_docs, cnx):
+    def update_models_metadata(self, models_docs, cnx, command, outFolder):
         db = cnx[self.mongo_db]
         collection = db["models"]
         operations = []
         rollback = []
-        with open("tmp/metadata_output.json", "r") as f:
-            for record in f:
+        with open(
+            path.join(outFolder, "fix-metadata.json"), "r"
+        ) as file:
+            for record in file:
                 doc = json.loads(record)
                 filter = {"modelID": doc["modelID"], "taxID": doc["taxID"]}
                 changes = {
@@ -290,8 +310,7 @@ Busca este archivo en la ruta ./tmp/"""
                 )
                 print(f"⛔ Este fue el error: {err}")
                 cnx.close()
-                sys.exit(1)
-            f.close()
+            file.close()
         cnx.close()
 
     def models_stats(self, cnx):
@@ -332,4 +351,3 @@ Busca este archivo en la ruta ./tmp/"""
 
         except OperationFailure as opfa:
             print(f"⛔ Error de operación en la base de datos MongoDB: {opfa}")
-            sys.exit(1)

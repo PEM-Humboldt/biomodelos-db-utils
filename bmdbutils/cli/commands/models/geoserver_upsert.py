@@ -1,36 +1,30 @@
 """
-$ bmbdutils geoserver upsert
+$ bmbdutils models geoserver-upsert
 """
+
 import os
-
-import click
 import pandas as pd
-
-from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils.biomodelos.geoserver import Geoserver
-
-pass_biomodelos = click.make_pass_decorator(Biomodelos)
-pass_geoserver = click.make_pass_decorator(Geoserver)
-
+import click
 
 @click.command(
-    short_help="Crear o actualizar los archivos de modelos en el GeoServer para "
-    "modelos existentes en BioModelos"
+    short_help="Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos.",
+    help="""Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos
+
+    MODELS_INFO: archivo csv que mapea los campos tax_id, model_id y model_file para cada modelo a cargar
+
+    MODELS_FOLDER: Ruta a la carpeta que contiene los archivos especificados en el campo model_file del archivo MODEL_INFO
+    
+    Ejemplo de uso:
+    $ bmdbutils models geoserver-upsert /path/to/models_info.csv /path/to/models_folder
+    """
 )
 @click.argument("models_info", type=click.File())
 @click.argument("models_folder", type=click.Path(exists=True, file_okay=False))
-@pass_geoserver
-@pass_biomodelos
-def upsert(biomodelos, geoserver, models_info, models_folder):
-    """Crear o actualizar los archivos de modelos en el GeoServer para modelos
-    existentes en BioModelos
+@click.pass_obj
+def geoserver_upsert(obj, models_info, models_folder):
+    biomodelos = obj["biomodelos"]
+    geoserver = obj["geoserver"]
 
-    MODELS_INFO \t archivo csv que mapea los campos tax_id, model_id y
-    model_file para cada modelo a cargar
-
-    MODELS_FOLDER \t Ruta a la carpeta que contiene los archivos especificados
-    en el campo model_file del archivo MODEL_INFO
-    """
     df = pd.read_csv(models_info)
     for row in df.itertuples():
         click.secho(f"Uploading {row.model_file} to Geoserver", fg="green")

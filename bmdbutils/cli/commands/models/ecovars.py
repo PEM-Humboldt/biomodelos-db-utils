@@ -1,43 +1,47 @@
 """
-$ bmdbutils ecovars
+$ bmdbutils models ecovars
 """
-from datetime import date
-from os import path, makedirs
-from csv import writer
 
 import click
 
+from datetime import date
+from os import path, makedirs
+from csv import writer
 from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils._helpers import clean_date_range, clean_tax_list
+from ._helpers import clean_date_range, clean_tax_list
 
 pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 
-@click.command(short_help="Obtener la lista de variables ecológicas.")
+@click.command(
+    short_help="Obtener la lista de variables ecológicas.",
+    help="""Obtener la lista de variables ecológicas relacionadas con los modelos correspondientes a las especies indicadas.
+
+    OUT_FOLDER: Ruta donde se creará el archivo csv con los resultados de la consulta.
+
+    Ejemplo de uso:
+    $ bmdbutils models ecovars --tax-ids 1,2 --init-date 2023-01-01 --end-date 2023-01-31 /path/to/output/folder
+    """
+    )
 @click.option(
     "--tax-ids",
     type=str,
-    help="lista de ids de especies separados por coma (,) para filtrar las "
-    "variables ecológicas",
+    help="Lista de ids de especies separados por coma (,) para filtrar las variables ecológicas.",
 )
 @click.option(
     "--init-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
-    help="Fecha de inicio para filtrar las variables ecológicas",
+    help="Fecha de inicio para filtrar las variables ecológicas.",
 )
 @click.option(
     "--end-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today()),
-    help="Fecha de finalización para filtrar las variables ecológicas",
+    help="Fecha de finalización para filtrar las variables ecológicas. Por defecto es la fecha actual.",
 )
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_biomodelos
 def ecovars(biomodelos, tax_ids, init_date, end_date, out_folder):
-    """Obtener las variables ecológicas de los modelos correspondientes a las especies indicadas.
-
-    OUT_FOLDER \t Ruta donde se creará el archivo csv con los resultados de la consulta
-    """
     [init_date, end_date] = clean_date_range(init_date, end_date)
     tax_ids = clean_tax_list(tax_ids)
 

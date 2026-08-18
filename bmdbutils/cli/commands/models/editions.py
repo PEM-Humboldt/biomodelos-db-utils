@@ -1,46 +1,50 @@
 """
-$ bmdbutils editions
+$ bmdbutils models editions
 """
-from datetime import date, timedelta
-from os import path, makedirs
-import json
 
+import json
 import click
 
+from datetime import date
+from os import path, makedirs
 from bmdbutils.biomodelos.biomodelos import Biomodelos
-from bmdbutils._helpers import clean_date_range, clean_tax_list, clean_str
+from ._helpers import clean_date_range, clean_tax_list, clean_str
 
 pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 
-@click.command(short_help="Obtener las ediciones hechas a modelos.")
+@click.command(
+    short_help="Obtener las ediciones hechas a modelos.",
+    help="""Obtener las ediciones hechas a modelos correspondientes a las especies indicadas.
+
+    Por defecto traerá todas las ediciones hechas en los últimos 30 días.
+
+    OUT_FOLDER: Ruta donde se crearán guardarán los resultados de la consulta (un archivo
+    geojson por edición)
+
+    Ejemplo de uso:
+    $ bmdbutils models editions --tax-ids 123,456 --init-date 2023-01-01 --end-date 2023-01-31 /path/to/output/folder
+    """,
+)
 @click.option(
     "--tax-ids",
     type=str,
-    help="lista de ids de especies separados por coma (,) para filtrar las "
-    "ediciones",
+    help="lista de ids de especies separados por coma (,) para filtrar las ediciones.",
 )
 @click.option(
     "--init-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
-    help="Fecha de inicio para filtrar las ediciones",
+    help="Fecha de inicio para filtrar las ediciones.",
 )
 @click.option(
     "--end-date",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today()),
-    help="Fecha de finalización para filtrar las ediciones",
+    help="Fecha de finalización para filtrar las ediciones. Por defecto es la fecha actual.",
 )
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_biomodelos
 def editions(biomodelos, tax_ids, init_date, end_date, out_folder):
-    """Obtener las ediciones hechas a modelos correspondientes a las especies indicadas.
-
-    Por defecto traerá todas las ediciones hechas en los últimos 30 días.
-
-    OUT_FOLDER \t Ruta donde se crearán guardarán los resultados de la consulta (un archivo
-    geojson por edición)
-    """
     [init_date, end_date] = clean_date_range(init_date, end_date)
     tax_ids = clean_tax_list(tax_ids)
 
