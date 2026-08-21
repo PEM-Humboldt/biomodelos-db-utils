@@ -1,4 +1,4 @@
-site_name: Biomodelos-db-utils
+site_name: BioModelos-db-utils
 plugins:
   - search
   - macros:
