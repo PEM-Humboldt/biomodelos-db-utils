@@ -1,7 +1,7 @@
 # {{command().title}}
 {{ command().description }}
 {% if command().examples %}
-#### Examples
+#### Ejemplos
 {% for example in command().examples %}
 **{{example.title}}**
 ```sh
