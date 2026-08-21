@@ -1,0 +1,34 @@
+title: setup mongo
+description: Subcomando para configurar la conexión a la base de datos MongoDB para BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
+
+examples:
+  - title: Configurar base de datos MongoDB.
+    cmd: "bmdbutils setup mongo --url localhost:27017 --username username --password password"
+    
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+    
+  - title: "Consideraciones" 
+    description: |
+        - Este subcomando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
+        - El parámetro `--password` es obligatorio y el sistema lo solicita automáticamente. 
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
+        - Sobrescribe la configuración existente si ya ha sido definida previamente.
+        - No valida la disponibilidad de la base de datos en el momento de la ejecución.
+        
+
+  - title: "Valores por defecto"
+    description: |
+        - `--url`: URL de pruebas.
+        - `--database`: Base de datos de ambiente de pruebas al puerto 27016.
+        - `--username`: Usuario base de datos ambiente de pruebas.
+        
+  - title: "Validaciones"
+    description: |
+        - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
+        - Todos los parámetros son obligatorios si no existe una configuración previa.
+  

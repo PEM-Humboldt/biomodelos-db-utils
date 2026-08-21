@@ -1,29 +1,34 @@
 title: Setup
-description: Configuración de API, base de datos PostgreSQL y Mongo para Biomodelos. Esta configuración es obligatoria para la ejecución de otros comandos.
-examples:
-  - title: Configurar API y base de datos localmente.
-    cmd: "bmdbutils setup --api-url localhost:4000 --postgres-url localhost:5430 --postgres-username username --postgres-password password"
+description: Comando general para configurar la conexión de API, base de datos PostgreSQL, MongoDB y Geoserver para Biomodelos. Este comando posee una serie de subcomandos para ejecutar las configuraciones necesarioas.
 
+examples:
+  - title: Configurar API.
+    cmd: "bmdbutils setup api --url http://localhost:4000"
+  - title: Configurar Geoserver.
+    cmd: "bmdbutils setup geoserver --url http://localhost:8080/geoserver --username username"
+  - title: Configurar base de datos MongoDB.
+    cmd: "bmdbutils setup mongo --url localhost:27017 --username username --password password"
+  - title: Configurar base de datos PostgresSQL.
+    cmd: "bmdbutils postgres --url localhost:5432 --username username --password password"
+  
 notes: 
   - title: "Parámetros"
     auto_help: true
     
   - title: "Consideraciones" 
     description: |
-        - Este comando no es necesario si ya se ha realizado la configuración previamente.
+        - Este comando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
+        - El parámetro --password adentro de los subcomandos postgres, mongo y geoserver es obligatorio y el sistema lo solicita automáticamente. 
 
   - title: "Comportamiento del comando"
     description: |
         - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad del API ni de la base de datos en el momento de la ejecución.
-
-  - title: "Valores por defecto"
+        
+  - title: "Subcomandos"
     description: |
-        - `--api-url`: URL de producción.
-        - `--postgres-url`: URL de producción.
-
-  - title: "Validaciones"
-    description: |
-        - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
-        - Todos los parámetros son obligatorios si no existe una configuración previa.
+        - [setup api](setup api.md).
+        - [setup geoserver](setup geoserver.md).
+        - [setup mongo](setup mongo.md).
+        - [setup postgres](setup postgres.md).
