@@ -1,0 +1,23 @@
+title: stats models
+description: Comando para realizar consultas sobre modelos disponibles en BioModelos.
+examples:
+  - title: Estadísticas sobre modelos.
+    cmd: "bmdbutils stats models"
+
+notes: 
+
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuación a las base de datos a traves del comando [setup](setup.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El comando retorna resultados históricos.
+        
+  - title: "Comportamiento del comando"
+    description: |
+        - El comando consulta estadísticas sobre modelos disponibles en BioModelos.
+        - No modifica ni elimina información.
+        - Los resultados se muestran directamente en consola.

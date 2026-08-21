@@ -1,19 +1,23 @@
 title: Stats
 description: Comando para realizar consultas SQL y NoSQL relacionadas con estadísticas de uso de BioModelos.
 examples:
-  - title: Listar descargas
+  
+  - title: Cantidad de modelos descargados
     cmd: "bmdbutils stats downloads"
-  - title: Listar grupos
+  
+  - title: Cantidad de grupos en la plataforma
     cmd: "bmdbutils stats groups"
-  - title: Listar modelos
+  
+  - title: Cantidad de modelos disponibles
     cmd: "bmdbutils stats models"
-  - title: Listar usuarios
+  
+  - title: Cantidad de usuarios registrados
     cmd: "bmdbutils stats users"
 
 notes: 
 
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuación a la base de datos de [PostgreSQL](setup.md) y [Mongo](mongo.md).
+    description: Es necesario haber realizado la configuación a las bases de datos usando el comando [setup](setup.md).
   - title: "Parámetros"
     auto_help: true
 
@@ -26,3 +30,10 @@ notes:
         - El comando consulta estadísticas de uso de la plataforma BioModelos.
         - No modifica ni elimina información.
         - Los resultados se muestran directamente en consola.
+
+  - title: "Subcomandos"
+    description: |
+        - [stats downloads](stats downloads.md).
+        - [stats groups](stats groups.md).
+        - [stats models](stats models.md).
+        - [stats users](stats users.md).
