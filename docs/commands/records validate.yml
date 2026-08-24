@@ -1,0 +1,23 @@
+title: records validate
+description: Subcomando que permite validar si los datos de un archivo CSV contienen el esquema necesario para cargarlos a la colección Records de la base de datos MongoDB de BioModelos.
+
+examples:
+  - title: Validar esquema de datos de un archivo CSV a la colección Records.
+    cmd: "bmdbutils records validate /path/to/records.csv /path/to/output/folder"
+
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - Para los argumentos `CSV_FILE` y `OUT_FOLDER` se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde desea los resultados de la validación.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando no modifica información en la base de datos.
+        - El subcomando no elimina registros existentes.
+
+  - title: "Validaciones"
+    description: |
+        - El archivo CSV debe existir y ser accesible desde el sistema.
