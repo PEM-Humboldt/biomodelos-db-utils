@@ -1,5 +1,5 @@
 title: stats groups
-description: Comando para realizar consultas sobre grupos de expertos en BioModelos.
+description: Subcomando para realizar consultas sobre grupos de expertos en BioModelos.
 examples:
   - title: Listar cantidad de grupos
     cmd: "bmdbutils stats groups"
@@ -14,10 +14,10 @@ notes:
 
   - title: "Consideraciones" 
     description: |
-        - El comando retorna resultados históricos.
+        - El subcomando retorna resultados históricos.
 
-  - title: "Comportamiento del comando"
+  - title: "Comportamiento del subcomando"
     description: |
-        - El comando consulta la cantidad de grupos de expertos en la plataforma BioModelos.
+        - El subcomando consulta la cantidad de grupos de expertos en la plataforma BioModelos.
         - No modifica ni elimina información.
         - Los resultados se muestran directamente en consola.

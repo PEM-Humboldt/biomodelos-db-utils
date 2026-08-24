@@ -1,5 +1,5 @@
 title: stats downloads
-description: Comando para realizar consultas sobre descargas de modelos de BioModelos.
+description: Subcomando para realizar consultas sobre descargas de modelos de BioModelos.
 examples:
   - title: Listar descargas
     cmd: "bmdbutils stats downloads"
@@ -14,10 +14,10 @@ notes:
 
   - title: "Consideraciones" 
     description: |
-        - El comando retorna resultados históricos.
+        - El subcomando retorna resultados históricos.
 
-  - title: "Comportamiento del comando"
+  - title: "Comportamiento del subcomando"
     description: |
-        - El comando consulta estadísticas de descargas de modelos de la plataforma BioModelos.
+        - El subcomando consulta estadísticas de descargas de modelos de la plataforma BioModelos.
         - No modifica ni elimina información.
         - Los resultados se muestran directamente en consola.
