@@ -23,9 +23,9 @@ notes:
 
   - title: "Valores por defecto"
     description: |
-        - `--url`: URL de pruebas.
-        - `--database`: Base de datos de ambiente de pruebas al puerto 27016.
-        - `--username`: Usuario base de datos ambiente de pruebas.
+        - `--url`: localhost:27017.
+        - `--database`: produccion.
+        - `--username`: biomodelos.
         
   - title: "Validaciones"
     description: |

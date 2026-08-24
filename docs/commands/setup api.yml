@@ -22,10 +22,10 @@ notes:
         
   - title: "Valores por defecto"
     description: |
-        - `--url`: URL de producción.
+        - `--url`: http://localhost:4000.
         
   - title: "Validaciones"
     description: |
-        - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
+        - La URL debe contener el protocolo (http, https, etc), de lo contrario puede interpretar erróneamente el puerto.
         - Todos los parámetros son obligatorios si no existe una configuración previa.
   

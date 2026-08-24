@@ -22,8 +22,9 @@ notes:
         
   - title: "Valores por defecto"
     description: |
-        - `--url`: URL de pruebas.
-        - `--username`: Usuario base de datos ambiente de pruebas.
+        - `--url`: localhost:5432.
+        - `--username`: biomodelos.
+        - `--password`: solicitado automáticamente.
 
   - title: "Validaciones"
     description: |
