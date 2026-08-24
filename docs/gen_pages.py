@@ -25,8 +25,8 @@ command_groups = {
     ],
     "Records": [
         "records.yml",
-        "records upload.yml",
         "records validate.yml",
+        "records upload.yml",
     ],
     "Models": [
         "models.yml",
