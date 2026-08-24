@@ -19,14 +19,14 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--url",
     type=str,
-    default="192.168.11.106:5430",
+    default="localhost:5432",
     show_default=True,
     help="URL de la base de datos de PostgresSQL (incluyendo el número del puerto)",
 )
 @click.option(
     "--username",
     type=str,
-    default="biomodelos_pro",
+    default="biomodelos",
     show_default=True,
     help="Nombre de usuario para acceder a la base de datos de PostgresSQL",
 )

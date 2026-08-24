@@ -20,7 +20,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--url",
     type=str,
-    default="192.168.11.105:27016",
+    default="localhost:27017",
     show_default=True,
     help="URL de la base de datos Mongo (incluyendo el número del puerto)",
 )
