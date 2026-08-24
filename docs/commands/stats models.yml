@@ -1,5 +1,6 @@
 title: stats models
 description: Comando para realizar consultas sobre modelos disponibles en BioModelos.
+
 examples:
   - title: Estadísticas sobre modelos.
     cmd: "bmdbutils stats models"
@@ -15,7 +16,7 @@ notes:
   - title: "Consideraciones" 
     description: |
         - El comando retorna resultados históricos.
-        
+
   - title: "Comportamiento del comando"
     description: |
         - El comando consulta estadísticas sobre modelos disponibles en BioModelos.

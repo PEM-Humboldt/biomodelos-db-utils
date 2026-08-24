@@ -8,13 +8,14 @@ notes:
 
   - title: "Prerequisitos"
     description: Es necesario haber realizado la configuración a las base de datos a traves del comando [setup](setup.md).
+
   - title: "Parámetros"
     auto_help: true
 
   - title: "Consideraciones" 
     description: |
         - El comando retorna resultados históricos.
-        
+
   - title: "Comportamiento del comando"
     description: |
         - El comando consulta la cantidad de grupos de expertos en la plataforma BioModelos.

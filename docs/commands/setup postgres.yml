@@ -4,22 +4,22 @@ description: Subcomando para configurar la conexión a la base de datos PostgreS
 examples:
   - title: Configurar base de datos PostgresSQL.
     cmd: "bmdbutils postgres --url localhost:5432 --username username --password password"
-  
+
 notes: 
   - title: "Parámetros"
     auto_help: true
-    
+
   - title: "Consideraciones" 
     description: |
         - Este subcomando no es necesario si ya se ha realizado la configuración previamente.
         - El parámetro `--password` es obligatorio y el sistema lo solicita automáticamente. 
 
-  - title: "Comportamiento del comando"
+  - title: "Comportamiento del subcomando"
     description: |
         - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad de la base de datos en el momento de la ejecución.
-        
+
   - title: "Valores por defecto"
     description: |
         - `--url`: localhost:5432.

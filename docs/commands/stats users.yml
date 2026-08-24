@@ -1,6 +1,8 @@
 title: stats users
 description: Comando para realizar consultas sobre usuarios registrados en BioModelos.
+
 examples:
+
   - title: Estadísticas sobre usuarios
     cmd: "bmdbutils stats users"
 
@@ -15,7 +17,7 @@ notes:
   - title: "Consideraciones" 
     description: |
         - El comando retorna resultados históricos.
-        
+
   - title: "Comportamiento del comando"
     description: |
         - El comando consulta estadísticas sobre usuarios registrados en BioModelos.

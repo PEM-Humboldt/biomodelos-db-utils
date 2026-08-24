@@ -10,11 +10,11 @@ examples:
     cmd: "bmdbutils setup mongo --url localhost:27017 --username username --password password"
   - title: Configurar base de datos PostgresSQL.
     cmd: "bmdbutils postgres --url localhost:5432 --username username --password password"
-  
+
 notes: 
   - title: "Parámetros"
     auto_help: true
-    
+
   - title: "Consideraciones" 
     description: |
         - Este comando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
@@ -25,7 +25,7 @@ notes:
         - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad del API ni de la base de datos en el momento de la ejecución.
-        
+
   - title: "Subcomandos"
     description: |
         - [setup api](setup api.md).

@@ -4,11 +4,11 @@ description: Subcomando para configurar la conexión a la base de datos MongoDB 
 examples:
   - title: Configurar base de datos MongoDB.
     cmd: "bmdbutils setup mongo --url localhost:27017 --username username --password password"
-    
+
 notes: 
   - title: "Parámetros"
     auto_help: true
-    
+
   - title: "Consideraciones" 
     description: |
         - Este subcomando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
@@ -19,16 +19,14 @@ notes:
         - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad de la base de datos en el momento de la ejecución.
-        
 
   - title: "Valores por defecto"
     description: |
         - `--url`: localhost:27017.
         - `--database`: produccion.
         - `--username`: biomodelos.
-        
+
   - title: "Validaciones"
     description: |
         - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
         - Todos los parámetros son obligatorios si no existe una configuración previa.
-  

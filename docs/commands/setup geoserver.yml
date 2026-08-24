@@ -8,7 +8,7 @@ examples:
 notes: 
   - title: "Parámetros"
     auto_help: true
-    
+
   - title: "Consideraciones" 
     description: |
         - Este subcomando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
@@ -19,7 +19,7 @@ notes:
         - Guarda la configuración de conexión del Geoserver para ser utilizada por otros comandos de bmdbutils.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad del Geoserver en el momento de la ejecución.
-        
+
   - title: "Valores por defecto"
     description: |
         - `--url`: http://localhost:8080/geoserver.
