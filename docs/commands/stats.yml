@@ -17,7 +17,7 @@ examples:
 notes: 
 
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuracióna las bases de datos usando el comando [setup](setup.md).
+    description: Es necesario haber realizado la configuración a las bases de datos usando el comando [setup](setup.md).
   - title: "Parámetros"
     auto_help: true
 
