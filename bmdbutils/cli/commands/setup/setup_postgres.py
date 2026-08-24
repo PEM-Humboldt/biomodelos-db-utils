@@ -10,6 +10,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.command(
     help="""Comando para configurar la base de datos de BioModelos.
     
+    Ejemplo de uso:
     $ bmdbutils setup postgres --url localhost:5432 --username username
     
     No es necesario agregar el parámetro --password, éste se solicita automáticamente.
