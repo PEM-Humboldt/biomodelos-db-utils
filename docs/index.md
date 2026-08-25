@@ -1,6 +1,6 @@
 # BioModelos DB Utils (bmdbutils)
 
-**BioModelos DB Utils** es una herramienta de línea de comandos (CLI) que actúa como conjunto de utilitarios para la plataforma **BioModelos**, facilitando tareas de configuración, validación, carga y consulta de información.
+**BioModelos DB Utils** es una herramienta de línea de comandos (CLI) que actúa como conjunto de utilitarios para la plataforma **[BioModelos](https://biomodelos.humboldt.org.co/)**, facilitando tareas de configuración, validación, carga y consulta de información.
 
 ## Requisitos previos
 
