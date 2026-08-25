@@ -36,4 +36,4 @@ notes:
   - title: "Validaciones"
     description: |
         - Las fechas deben ser proporcionadas en formato YYYY-MM-DD.
-        - El parámetro `--tax-ids` debe ir precedido por al menos un identificador de especie. 
+        - El parámetro `--tax-ids` debe ir sucedido por al menos un identificador de especie. 
