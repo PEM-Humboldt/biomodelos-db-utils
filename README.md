@@ -118,6 +118,8 @@ pip install <dependencia>
 
 ## Documentación
 
+### Configuración
+
 La documentación para la línea de comandos fue realizada con [MkDocs](https://www.mkdocs.org/). Los siguientes comandos deben ser ejecutados dentro del ambiente previamente configurado.
 
 ```sh
@@ -129,8 +131,31 @@ conda deactivate
 conda activate bm-db-utils
 # 3. Desplegar página en ambiente local (Ingresar a: http://127.0.0.1:8000/)
 mkdocs serve
+```
+La documentación se construye a partir del archivo [mkdocs](/mkdocs.yml), donde el script [gen_pages.py](docs/gen_pages.py) genera las paginas de navegación usando la plantilla [commands.md](/docs/commands.md) y los archivos yml contenidos en la ruta `./docs/commands/`. Una vez se crea cada command.md, este se agrega al summary.md del script y posteriormente mkdocs lo renderiza.
 
-# Despliegue a Github Pages de producción
+Esta es la estructura de la documentación:
+```sh
+biomodelos-db-utils/
+├── mkdocs.yml
+└── docs/
+    ├── index.md
+    ├── commands.md
+    ├── gen_pages.py
+    ├── main.py
+    └── commands/
+        ├── ...
+        ├── models_ratings.yml
+        ├── records_validate.yml
+        ├── setup_postgres.yml
+        └── stats_users.yml
+```
+
+Si a futuro se desea agregar mas comandos, para actualizar la documentación basta con agregar un nuevo grupo de comandos al script [gen_pages.py](docs/gen_pages.py) y agregar los nuevos comandos a la carpeta `./docs/commands/` en formato yml.
+
+### Despliegue a Github Pages de producción
+
+```sh
 # 1. Generar documentación
 mkdocs build
 # 2. Desplegar página en github pages
