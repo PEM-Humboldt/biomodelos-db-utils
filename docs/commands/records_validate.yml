@@ -4,7 +4,10 @@ command: records validate
 
 description: Subcomando que permite validar si los datos de un archivo CSV contienen el esquema necesario para cargarlos a la colección Records de la base de datos MongoDB de BioModelos.
 
-notes: 
+notes:
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [Mongo](setup_mongo.md).
+
   - title: "Parámetros"
     auto_help: true
 

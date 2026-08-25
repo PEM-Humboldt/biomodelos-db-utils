@@ -2,11 +2,14 @@ title: Upload
 
 command: records upload
 
-description: |  
-    - Subcomando que permite cargar datos de un archivo CSV que contienen el esquema validado para la colección Records de la base de datos MongoDB de BioModelos. 
-    - Antes de ejecutar este subcomando, debe ejecutar el subcomando [Validate](records_validate.md) para validar que el archivo CSV tiene el esquema de datos correcto.
+description: Subcomando que permite cargar datos de un archivo CSV que contienen el esquema validado para la colección Records de la base de datos MongoDB de BioModelos.
 
 notes: 
+  - title: "Prerequisitos"
+    description: |
+        - Es necesario haber realizado la configuración inicial de [Mongo](setup_mongo.md).
+        - Antes de ejecutar este subcomando, debe ejecutar el subcomando [Validate](records_validate.md) para validar que el archivo CSV tiene el esquema de datos correcto.
+
   - title: "Parámetros"
     auto_help: true
 
