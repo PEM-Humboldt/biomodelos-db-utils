@@ -1,13 +1,12 @@
-title: stats groups
-description: Subcomando para realizar consultas sobre grupos de expertos en BioModelos.
-examples:
-  - title: Listar cantidad de grupos
-    cmd: "bmdbutils stats groups"
+title: Groups
 
-notes: 
+command: stats groups
 
+description: Subcomando para realizar consultas sobre los grupos de expertos en BioModelos.
+
+notes:
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuración a las base de datos a traves del comando [setup](setup.md).
+    description: Es necesario haber realizado la configuración inicial de [Postgres](setup_postgres.md).
 
   - title: "Parámetros"
     auto_help: true

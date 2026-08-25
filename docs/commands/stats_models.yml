@@ -1,14 +1,12 @@
-title: stats models
+title: Models
+
+command: stats models
+
 description: Subcomando para realizar consultas sobre modelos disponibles en BioModelos.
 
-examples:
-  - title: Estadísticas sobre modelos.
-    cmd: "bmdbutils stats models"
-
-notes: 
-
+notes:
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuración a las base de datos a traves del comando [setup](setup.md).
+    description: Es necesario haber realizado la configuración inicial de [Mongo](setup_mongo.md).
 
   - title: "Parámetros"
     auto_help: true

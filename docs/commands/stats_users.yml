@@ -1,15 +1,12 @@
-title: stats users
+title: Users
+
+command: stats users
+
 description: Subcomando para realizar consultas sobre usuarios registrados en BioModelos.
 
-examples:
-
-  - title: Estadísticas sobre usuarios
-    cmd: "bmdbutils stats users"
-
 notes: 
-
   - title: "Prerequisitos"
-    description: Es necesario haber realizado la configuración a las base de datos a traves del comando [setup](setup.md).
+    description: Es necesario haber realizado la configuración inicial de [Postgres](setup_postgres.md).
 
   - title: "Parámetros"
     auto_help: true

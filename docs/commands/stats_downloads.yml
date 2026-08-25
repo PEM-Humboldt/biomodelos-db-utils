@@ -1,0 +1,22 @@
+title: Downloads
+
+command: stats downloads
+
+description: Subcomando para consultar las descargas de modelos desde BioModelos.
+
+notes:
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [Postgres](setup_postgres.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El subcomando retorna resultados históricos.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando consulta la cantidad de descargas de modelos de la plataforma BioModelos.
+        - No modifica ni elimina información.
+        - Los resultados se muestran directamente en consola.
