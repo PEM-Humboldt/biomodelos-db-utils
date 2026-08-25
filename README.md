@@ -155,6 +155,8 @@ Si a futuro se desea agregar mas comandos, para actualizar la documentación bas
 
 ### Despliegue a Github Pages de producción
 
+Una vez integrados los cambios a la rama master, se deben ejecutar los siguientes comandos para actualizar la documentación oficial.
+
 ```sh
 # 1. Generar documentación
 mkdocs build
