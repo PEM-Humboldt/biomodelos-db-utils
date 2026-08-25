@@ -10,31 +10,27 @@ summary_lines = ["- [Inicio](index.md)\n"]
 
 command_groups = {
     "Setup": [
-        "setup.yml",
-        "setup api.yml",
-        "setup geoserver.yml",
-        "setup mongo.yml",
-        "setup postgres.yml",
+        "setup_api.yml",
+        "setup_geoserver.yml",
+        "setup_mongo.yml",
+        "setup_postgres.yml",
     ],
     "Stats": [
-        "stats.yml",
-        "stats downloads.yml",
-        "stats groups.yml",
-        "stats models.yml",
-        "stats users.yml",
+        "stats_downloads.yml",
+        "stats_groups.yml",
+        "stats_models.yml",
+        "stats_users.yml",
     ],
     "Records": [
-        "records.yml",
-        "records validate.yml",
-        "records upload.yml",
+        "records_validate.yml",
+        "records_upload.yml",
     ],
     "Models": [
-        "models.yml",
-        "models ecovars.yml",
-        "models editions.yml",
-        "models fix_metadata.yml",
-        "models geoserver_upsert.yml",
-        "models ratings.yml",
+        "models_ecovars.yml",
+        "models_editions.yml",
+        "models_ratings.yml",
+        "models_fix_metadata.yml",
+        "models_geoserver_upsert.yml",
     ],
 }
 
@@ -60,13 +56,14 @@ def gen_files():
 
             yml_path = os.path.join(commands_dir, fname)
 
-            with open(yml_path, "r", encoding="utf-8") as yml_file:
-                yml_data = yaml.safe_load(yml_file)
-
-            if yml_data and "title" in yml_data:
-                title = yml_data["title"].replace("Comando ", "")
-                display_name = title.replace("-", " ")
-
+            if os.path.exists(yml_path):
+                with open(yml_path, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                display_name = data.get(
+                    "title",
+                    display_name
+                )
+            
             with mkdocs_gen_files.open(md_file, "w") as f:
                 f.write(f"---\ntitle: {display_name}\n---\n\n")
                 f.write(template_content)
@@ -74,7 +71,7 @@ def gen_files():
             summary_lines.append(
                 f"    - [{display_name}]({md_file})\n"
             )
-
+    
     with mkdocs_gen_files.open("summary.md", "w") as f:
         f.writelines(summary_lines)
 
