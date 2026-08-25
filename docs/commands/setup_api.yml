@@ -1,9 +1,8 @@
-title: setup api
-description: Subcomando para configurar la conexion a la API de BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
+title: API
 
-examples:
-  - title: Configurar API.
-    cmd: "bmdbutils setup api --url http://localhost:4000"
+command: setup api
+
+description: Subcomando para configurar la conexión a la API de BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
 
 notes: 
   - title: "Parámetros"
@@ -11,12 +10,11 @@ notes:
 
   - title: "Consideraciones" 
     description: |
-        - Este subcomando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
-        - Debe incuir el protocolo de conexión. 
+        - Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.
 
   - title: "Comportamiento del subcomando"
     description: |
-        - Guarda la configuración de conexión para ser utilizada por otros comandos de bmdbutils.
+        - Guarda la configuración para la conexión a la API para ser utilizada por otros comandos de `bmdbutils`.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad del API en el momento de la ejecución.
 

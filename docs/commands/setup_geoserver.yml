@@ -1,9 +1,8 @@
-title: setup geoserver
-description: Configura la conexión al Geoserver de BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
+title: Geoserver
 
-examples:
-  - title: Configurar Geoserver.
-    cmd: "bmdbutils setup geoserver --url http://localhost:8080/geoserver --username username"
+command: setup geoserver
+
+description: Subcomando para configurar la conexión al Geoserver de BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
 
 notes: 
   - title: "Parámetros"
@@ -11,12 +10,12 @@ notes:
 
   - title: "Consideraciones" 
     description: |
-        - Este subcomando no es necesario ejecutarlo si ya se ha realizado la configuración previamente.
+        - Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.
         - El parámetro `--password` es obligatorio y el sistema lo solicita automáticamente. 
 
   - title: "Comportamiento del subcomando"
     description: |
-        - Guarda la configuración de conexión del Geoserver para ser utilizada por otros comandos de bmdbutils.
+        - Guarda la configuración de la conexión del Geoserver para ser utilizada por otros comandos de `bmdbutils`.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad del Geoserver en el momento de la ejecución.
 
