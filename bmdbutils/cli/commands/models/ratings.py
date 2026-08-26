@@ -16,7 +16,7 @@ pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
 @click.command(
     short_help="Obtener las calificaciones otorgadas a modelos.",
-    help="""Obtener las calificacioens otorgadas a modelos correspondientes a las especies indicadas.
+    help="""Obtener las calificaciones otorgadas a modelos correspondientes a las especies indicadas.
 
     Por defecto traerá todas las calificaciones asignadas en los últimos 30 días.
 

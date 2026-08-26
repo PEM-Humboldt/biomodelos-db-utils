@@ -13,19 +13,18 @@ notes:
 
   - title: "Consideraciones" 
     description: |
-        - El subcomando valida que el taxID exista en la colección especies.las especies y los modelos si existan antes de hacer la corrección de los metadatos.
-        - Para los argumentos `CSV_FILE` y `OUT_FOLDER` se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde se escribe el log con posibles errores de la validación.
+        - Para los argumentos `CSV_FILE` y `OUT_FOLDER` se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde desea los resultados del subcomando.
 
   - title: "Comportamiento del subcomando"
     description: |
-        - El subcomando puede modificar metadatos existentes en la base de datos.
+        - El subcomando modifica metadatos de documentos existentes en la colección Models de la base de datos.
         - En caso de encontrar errores en la estructura del archivo, los indica a través de un log almacenado en la carpeta `OUT_FOLDER`.
-        - El subcomando no comandos elimina registros existentes.
+        - El subcomando no elimina registros existentes.
 
   - title: "Validaciones"
     description: |
         - Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.
-        - Los modelID de los modelos deben existir en la colección Models de la base de datos MongoDB de BioModelos.
+        - Debe existir algun documento en la colección Models de la base de datos MongoDB de BioModelos que coincida con el taxID y modelID del archivo CSV.
         - Los metadatos que se van a cargar deben cumplir con el esquema de validación de la colección Models.
         - `CSV_FILE`: El archivo CSV debe existir y ser accesible desde el sistema.
         - `OUT_FOLDER`: La ruta debe ser accesible desde el sistema. 
