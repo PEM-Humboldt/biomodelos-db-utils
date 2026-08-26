@@ -18,7 +18,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--url",
     type=str,
-    default="http://loclahost:4000",
+    default="http://localhost:4000",
     show_default=True,
     help="URL del API de BioModelos (incluyendo el protocolo http o https y el número del puerto)",
 )
