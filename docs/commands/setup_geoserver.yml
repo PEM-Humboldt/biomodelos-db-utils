@@ -11,7 +11,7 @@ notes:
   - title: "Consideraciones" 
     description: |
         - Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.
-        - El parámetro `--password` es obligatorio y el sistema lo solicita automáticamente. 
+        - El parámetro `--password` es obligatorio, sin embargo no es necesario agregarlo al subcomando ya que el sistema lo solicita automáticamente. 
 
   - title: "Comportamiento del subcomando"
     description: |
@@ -23,7 +23,6 @@ notes:
     description: |
         - `--url`: http://localhost:8080/geoserver.
         - `--username`: admin.
-        - `--password`: solicitado automáticamente.
 
   - title: "Validaciones"
     description: |

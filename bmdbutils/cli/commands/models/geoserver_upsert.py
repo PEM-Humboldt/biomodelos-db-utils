@@ -12,7 +12,7 @@ import click
 
     MODELS_INFO: archivo csv que mapea los campos tax_id, model_id y model_file para cada modelo a cargar
 
-    MODELS_FOLDER: Ruta a la carpeta que contiene los archivos especificados en el campo model_file del archivo MODEL_INFO
+    MODELS_FOLDER: ruta a la carpeta que contiene los archivos especificados en el campo model_file del archivo MODEL_INFO
     
     Ejemplo de uso:
     $ bmdbutils models geoserver-upsert /path/to/models_info.csv /path/to/models_folder

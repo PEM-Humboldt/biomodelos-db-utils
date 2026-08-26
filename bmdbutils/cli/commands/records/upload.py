@@ -15,9 +15,9 @@ pass_mongo = click.make_pass_decorator(Mongo)
     
     Antes de ejecutar este comando, asegúrese de que el archivo CSV haya pasado la validación con el comando 'bmdbutils records validate'.
     
-    CSV_FILE: Archivo CSV que contiene los registros de BioModelos.
+    CSV_FILE: archivo CSV que contiene los registros de BioModelos.
 
-    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la validación.
+    OUT_FOLDER: ruta donde se guardarán los resultados de la validación.
     
     Ejemplo de uso:
     $ bmdbutils records upload /path/to/records.csv /path/to/output/folder
