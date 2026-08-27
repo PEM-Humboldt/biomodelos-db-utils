@@ -19,7 +19,7 @@ pass_biomodelos = click.make_pass_decorator(Biomodelos)
 
     Por defecto traerá todas las ediciones hechas en los últimos 30 días.
 
-    OUT_FOLDER: Ruta donde se crearán guardarán los resultados de la consulta (un archivo
+    OUT_FOLDER: ruta donde se guardarán los resultados de la consulta (un archivo
     geojson por edición)
 
     Ejemplo de uso:

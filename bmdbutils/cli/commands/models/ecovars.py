@@ -17,7 +17,7 @@ pass_biomodelos = click.make_pass_decorator(Biomodelos)
     short_help="Obtener la lista de variables ecológicas.",
     help="""Obtener la lista de variables ecológicas relacionadas con los modelos correspondientes a las especies indicadas.
 
-    OUT_FOLDER: Ruta donde se creará el archivo csv con los resultados de la consulta.
+    OUT_FOLDER: ruta donde se guardará el archivo csv con los resultados de la consulta.
 
     Ejemplo de uso:
     $ bmdbutils models ecovars --tax-ids 1,2 --init-date 2023-01-01 --end-date 2023-01-31 /path/to/output/folder

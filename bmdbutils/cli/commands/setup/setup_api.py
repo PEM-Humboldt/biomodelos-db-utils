@@ -11,14 +11,14 @@ from bmdbutils.biomodelos.config import load_config, save_config
     help="""Comando para configurar el API de BioModelos.
     
     Ejemplo de uso:
-    $ bmdbutils setup api --url http://localhost:3333  
+    $ bmdbutils setup api --url http://localhost:4000  
     """,
     short_help="Configura la API de BioModelos.",
 )
 @click.option(
     "--url",
     type=str,
-    default="http://192.168.11.105:4000",
+    default="http://localhost:4000",
     show_default=True,
     help="URL del API de BioModelos (incluyendo el protocolo http o https y el número del puerto)",
 )

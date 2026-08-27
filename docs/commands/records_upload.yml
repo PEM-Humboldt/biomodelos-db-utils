@@ -1,0 +1,30 @@
+title: Upload
+
+command: records upload
+
+description: Subcomando que permite cargar datos de un archivo CSV que contienen el esquema validado para la colección Records de la base de datos MongoDB de BioModelos.
+
+notes: 
+  - title: "Prerequisitos"
+    description: |
+        - Es necesario haber realizado la configuración inicial de [Mongo](setup_mongo.md).
+        - Antes de ejecutar este subcomando, debe ejecutar el subcomando [Validate](records_validate.md) para validar que el archivo CSV tiene el esquema de datos correcto.
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - Para los argumentos `CSV_FILE` y `OUT_FOLDER` se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde desea los resultados de la validación.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando valida si el archivo CSV tiene el esquema necesario, pero no reporta errores para corregirlos.
+        - El subcomando inserta documentos en la colección `records`.
+        - Si ocurre un error durante la carga realiza un `rollback`.
+        - El subcomando no elimina registros existentes.
+
+  - title: "Validaciones"
+    description: |
+        - `CSV_FILE`: El archivo CSV debe existir y ser accesible desde el sistema.
+        - `OUT_FOLDER`: La ruta debe ser accesible desde el sistema. 

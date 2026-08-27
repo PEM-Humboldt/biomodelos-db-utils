@@ -13,9 +13,9 @@ pass_mongo = click.make_pass_decorator(Mongo)
     short_help="Corregir metadatos a diferentes modelos en la base de datos Mongo de BioModelos.",
     help="""Modificar metadatos de modelos cargados en la base de datos Mongo de BioModelos.
 
-    CSV_FILE: Archivo CSV que contiene los metadatos a corregir de los modelos de BioModelos.
+    CSV_FILE: archivo CSV que contiene los metadatos a corregir de los modelos de BioModelos.
 
-    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la carga.
+    OUT_FOLDER: ruta donde se guardarán los resultados de la carga.
 
     Ejemplo de uso:
     $ bmdbutils models fix-metadata /path/to/fix_metadata.csv /path/to/output/folder

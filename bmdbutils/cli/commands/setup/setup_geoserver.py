@@ -20,7 +20,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--url",
     type=str,
-    default="http://192.168.11.58:8181/geoserver",
+    default="http://localhost:8080/geoserver",
     show_default=True,
     help="URL de GeoServer (incluyendo el protocolo http o https y el número del puerto)",
 )

@@ -12,9 +12,9 @@ pass_mongo = click.make_pass_decorator(Mongo)
     short_help="Validar un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.",
     help="""Validar un archivo CSV de registros en la colección records en la base de datos Mongo de BioModelos.
     
-    CSV_FILE: Archivo CSV que contiene los registros de BioModelos.
+    CSV_FILE: archivo CSV que contiene los registros de BioModelos.
     
-    OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la validación.
+    OUT_FOLDER: ruta donde se guardarán los resultados de la validación.
     
     Ejemplo de uso:
     $ bmdbutils records validate /path/to/records.csv /path/to/output/folder 

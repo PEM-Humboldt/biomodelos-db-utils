@@ -1,0 +1,30 @@
+title: Postgres
+
+command: setup postgres
+
+description: Subcomando para configurar la conexión a la base de datos PostgreSQL para BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.
+
+notes: 
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.
+        - El parámetro `--password` es obligatorio, sin embargo no es necesario agregarlo al subcomando ya que el sistema lo solicita automáticamente. 
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - Guarda la configuración de la conexión a la base de datos PostgreSQL para ser utilizada por otros comandos de `bmdbutils`.
+        - Sobrescribe la configuración existente si ya ha sido definida previamente.
+        - No valida la disponibilidad de la base de datos en el momento de la ejecución.
+
+  - title: "Valores por defecto"
+    description: |
+        - `--url`: localhost:5432.
+        - `--username`: biomodelos.
+
+  - title: "Validaciones"
+    description: |
+        - Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.
+        - Todos los parámetros son obligatorios si no existe una configuración previa.
