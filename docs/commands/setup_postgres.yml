@@ -15,7 +15,7 @@ notes:
 
   - title: "Comportamiento del subcomando"
     description: |
-        - Guarda la configuración de la conexión a la base de datos PostgresSQL para ser utilizada por otros comandos de `bmdbutils`.
+        - Guarda la configuración de la conexión a la base de datos PostgreSQL para ser utilizada por otros comandos de `bmdbutils`.
         - Sobrescribe la configuración existente si ya ha sido definida previamente.
         - No valida la disponibilidad de la base de datos en el momento de la ejecución.
 

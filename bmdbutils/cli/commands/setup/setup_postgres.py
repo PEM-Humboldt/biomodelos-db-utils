@@ -22,21 +22,21 @@ from bmdbutils.biomodelos.config import load_config, save_config
     type=str,
     default="localhost:5432",
     show_default=True,
-    help="URL de la base de datos de PostgresSQL (incluyendo el número del puerto)",
+    help="URL de la base de datos de PostgreSQL (incluyendo el número del puerto)",
 )
 @click.option(
     "--username",
     type=str,
     default="biomodelos",
     show_default=True,
-    help="Nombre de usuario para acceder a la base de datos de PostgresSQL",
+    help="Nombre de usuario para acceder a la base de datos de PostgreSQL",
 )
 @click.option(
     "--password",
     type=str,
-    prompt="Contraseña para usuario de base de datos de PostgresSQL",
+    prompt="Contraseña para usuario de base de datos de PostgreSQL",
     hide_input=True,
-    help="Contraseña del usuario para acceder a la base de datos de PostgresSQL",
+    help="Contraseña del usuario para acceder a la base de datos de PostgreSQL",
 )
 def postgres(url, username, password):
     config = load_config()
