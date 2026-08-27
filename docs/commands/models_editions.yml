@@ -23,7 +23,7 @@ notes:
 
   - title: "Estructura del resultado"
     description: |
-        - El resultado pueden ser uno (o varios) archivo GeoJSON con la información del modelo de cada especie consultada. 
+        - El resultado puede ser uno (o varios) archivo GeoJSON con la información del modelo de cada especie consultada. 
         - Cada archivo corresponde a una edición realizada sobre el modelo.
         - La consola retorna dos posibles mensajes:
             - "Has features": El archivo GeoJSON contiene uno o más features.
