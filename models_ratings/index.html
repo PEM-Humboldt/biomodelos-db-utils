@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Ratings - Biomodelos-db-utils</title>
+    <title>Ratings - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="..">Biomodelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -75,37 +75,106 @@
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comandos <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="../setup/">Setup</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ecovars/">Ecovars</a>
+    <a href="../setup_geoserver/">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="../editions/">Editions</a>
+    <a href="../setup_mongo/">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="../geoserver/">Geoserver</a>
+    <a href="../setup_postgres/">Postgres</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../stats_downloads/">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="../mongo/">Mongo</a>
+    <a href="../stats_groups/">Groups</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../stats_models/">Models</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../stats_users/">Users</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../records_validate/">Validate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../records_upload/">Upload</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Models <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../models_ecovars/">Ecovars</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_editions/">Editions</a>
 </li>
 
                         
@@ -117,7 +186,13 @@
                         
                             
 <li >
-    <a href="../stats/">Stats</a>
+    <a href="../models_fix_metadata/">Fix Metadata</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -134,12 +209,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../mongo/">
+                        <a rel="prev" href="../models_editions/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../stats/">
+                        <a rel="next" href="../models_fix_metadata/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -154,15 +229,13 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#ratings">Ratings</a></li>
-            <li class="second-level"><a href="#examples">Examples</a></li>
-                
             <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
                 
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
             <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
                 
-            <li class="second-level"><a href="#comportamiento-del-comando">Comportamiento del comando</a></li>
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
                 
             <li class="second-level"><a href="#estructura-del-resultado">Estructura del resultado</a></li>
                 
@@ -175,57 +248,51 @@
         <div class="col-md-9" role="main">
 
 <h1 id="ratings">Ratings</h1>
-<p>Obtener las calificaciones otorgadas a modelos correspondientes a las especies indicadas.</p>
-<h4 id="examples">Examples</h4>
-<p><strong>Listar las calificaciones de especies con ID 7002 y 7011.</strong></p>
-<pre><code class="language-sh">bmdbutils ratings --tax-ids 7002,7011 .
-</code></pre>
-<p><strong>Listar las calificaciones de especies con ID 7002 y 7011, y en un rango de fechas establecido.</strong></p>
-<pre><code class="language-sh">bmdbutils ratings --tax-ids 7002,7011 --init-date 2017-01-01 --end-date 2025-12-01 .
-</code></pre>
+<p>Subcomando para obtener las calificaciones otorgadas a modelos correspondientes a las especies indicadas.</p>
 <h4 id="prerequisitos">Prerequisitos</h4>
-<p>Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles <a href="../setup/">aquí</a></p>
+<p>Es necesario haber realizado la configuración inicial de <a href="../setup_postgres/">Postgres</a>.</p>
 <h4 id="parametros">Parámetros</h4>
-<pre><code class="language-text">Usage: bmdbutils ratings [OPTIONS] OUT_FOLDER
+<pre><code class="language-text">Usage: bmdbutils models ratings [OPTIONS] OUT_FOLDER
 
-  Obtener las calificacioens otorgadas a modelos correspondientes a las
+  Obtener las calificaciones otorgadas a modelos correspondientes a las
   especies indicadas.
 
   Por defecto traerá todas las calificaciones asignadas en los últimos 30
   días.
 
-  OUT_FOLDER   Ruta donde se creará el archivo csv con los resultados de la
-  consulta
+  OUT_FOLDER: ruta donde se guardará el archivo csv con los resultados de la
+  consulta.
+
+  Ejemplo de uso: $ bmdbutils models ratings --tax-ids 1,2 --init-date
+  2023-01-01 --end-date 2023-01-31 /path/to/output/folder
 
 Options:
-  --tax-ids TEXT          lista de ids de especies separados por coma (,) para
-                          filtrar las calificaciones
-  --init-date [%Y-%m-%d]  Fecha de inicio para filtrar las calificaciones
+  --tax-ids TEXT          Lista de ids de especies separados por coma (,) para
+                          filtrar las calificaciones.
+  --init-date [%Y-%m-%d]  Fecha de inicio para filtrar las calificaciones.
   --end-date [%Y-%m-%d]   Fecha de finalización para filtrar las
-                          calificaciones
+                          calificaciones. Por defecto es la fecha actual.
   --help                  Show this message and exit.
 
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
-<li>El comando debe incluir la ruta donde se creará el archivo CSV con los resultados de la consulta [OUT_FOLDER].</li>
-<li>Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante será sobreescrito.</li>
+<li>Para el argumento <code>OUT_FOLDER</code> se debe proporcionar la ruta absoluta de la carpeta donde desea los resultados del subcomando.</li>
+<li>Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante se sobreescribe.</li>
 </ul>
-<h4 id="comportamiento-del-comando">Comportamiento del comando</h4>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
 <ul>
-<li>El comando consulta las calificaciones asociadas a las especies indicadas.</li>
-<li>No modifica ni elimina información en la base de datos.</li>
+<li>El subcomando consulta las calificaciones a los modelos asociados a las especies indicadas.</li>
+<li>El subcomando no modifica ni elimina información en la base de datos.</li>
 </ul>
 <h4 id="estructura-del-resultado">Estructura del resultado</h4>
-<p>El resultado es un archivo CSV que contiene los siguientes campos:</p>
-<ul>
-<li>user_id: Identificador del usuario que creó o añadió el registro.</li>
-<li>name: Nombre del usuario que creó o añadió el registro.</li>
-<li>model_id: Identificador del modelo del GeoServer.</li>
-<li>species_id: Identificador de la especie.</li>
-<li>accepted_name: Nombre aceptado de la especie.</li>
-<li>score: Calificación.</li>
-</ul>
+<p>El resultado es un archivo CSV que contiene los siguientes campos:
+    - user_id: Identificador del usuario que creó o añadió el registro.
+    - name: Nombre del usuario que creó o añadió el registro.
+    - model_id: Identificador del modelo del GeoServer.
+    - species_id: Identificador de la especie.
+    - accepted_name: Nombre aceptado de la especie.
+    - score: Calificación.</p>
 <h4 id="valores-por-defecto">Valores por defecto</h4>
 <ul>
 <li>Si no se especifican <code>--init-date</code> y <code>--end-date</code>, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.</li>
@@ -233,7 +300,7 @@ Options:
 <h4 id="validaciones">Validaciones</h4>
 <ul>
 <li>Las fechas deben ser proporcionadas en formato YYYY-MM-DD.</li>
-<li>El parámetro <code>--tax-ids</code> debe ir precedido por al menos un identificador de especie. </li>
+<li>El parámetro <code>--tax-ids</code> debe ir sucedido por al menos un identificador de especie. </li>
 </ul></div>
         
         

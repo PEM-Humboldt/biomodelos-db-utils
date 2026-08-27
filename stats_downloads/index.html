@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Geoserver - Biomodelos-db-utils</title>
+    <title>Downloads - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="..">Biomodelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -75,49 +75,124 @@
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comandos <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="../setup/">Setup</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ecovars/">Ecovars</a>
+    <a href="../setup_geoserver/">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="../editions/">Editions</a>
+    <a href="../setup_mongo/">Mongo</a>
 </li>
 
+                        
+                            
+<li >
+    <a href="../setup_postgres/">Postgres</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li class="active">
-    <a href="./">Geoserver</a>
+    <a href="./">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="../mongo/">Mongo</a>
+    <a href="../stats_groups/">Groups</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ratings/">Ratings</a>
+    <a href="../stats_models/">Models</a>
 </li>
 
                         
                             
 <li >
-    <a href="../stats/">Stats</a>
+    <a href="../stats_users/">Users</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../records_validate/">Validate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../records_upload/">Upload</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Models <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../models_ecovars/">Ecovars</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_editions/">Editions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_ratings/">Ratings</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_fix_metadata/">Fix Metadata</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -134,12 +209,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../editions/">
+                        <a rel="prev" href="../setup_postgres/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../mongo/">
+                        <a rel="next" href="../stats_groups/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -153,88 +228,44 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#geoserver">Geoserver</a></li>
-            <li class="second-level"><a href="#examples">Examples</a></li>
+        <li class="first-level active"><a href="#downloads">Downloads</a></li>
+            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
                 
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
             <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
                 
-            <li class="second-level"><a href="#comportamiento-del-comando">Comportamiento del comando</a></li>
-                
-            <li class="second-level"><a href="#valores-por-defecto">Valores por defecto</a></li>
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="geoserver">Geoserver</h1>
-<p>Configuración de GeoServer para Biomodelos y carga de modelos.</p>
-<h4 id="examples">Examples</h4>
-<p><strong>Configurar conexión a GeoServer</strong></p>
-<pre><code class="language-sh">bmdbutils geoserver setup --url http://localhost:8080/geoserver --username username --password password
-</code></pre>
-<p><strong>Cargar un nuevo modelo a Geoserver.</strong></p>
-<pre><code class="language-sh">bmdbutils geoserver upsert model_file.csv .
-</code></pre>
+<h1 id="downloads">Downloads</h1>
+<p>Subcomando para consultar las descargas de modelos desde BioModelos.</p>
+<h4 id="prerequisitos">Prerequisitos</h4>
+<p>Es necesario haber realizado la configuración inicial de <a href="../setup_postgres/">Postgres</a>.</p>
 <h4 id="parametros">Parámetros</h4>
-<pre><code class="language-text">Usage: bmdbutils geoserver [OPTIONS] COMMAND [ARGS]...
+<pre><code class="language-text">Usage: bmdbutils stats downloads [OPTIONS]
+
+  Obtener las estadísticas sobre descargas de modelos en la plataforma
+  BioModelos.
+
+  Ejemplo de uso: $ bmdbutils stats downloads
 
 Options:
   --help  Show this message and exit.
 
-Commands:
-  setup   Configurar GeoServer
-  upsert  Crear o actualizar los archivos de modelos en el GeoServer para
-          modelos existentes en BioModelos
-
-Usage: bmdbutils geoserver setup [OPTIONS]
-
-  Comando para configurar GeoServer de BioModelos. No es necesario ejecutar
-  este comando si ya se ha configurado el GeoServer. No es necesario agregar
-  el parámetro --password, éste se solicita automáticamente
-
-Options:
-  --url TEXT       URL de GeoServer  
-  --username TEXT  nombre de usuario para acceder a GeoServer  
-  --password TEXT  contraseña para el ususario
-  --help           Show this message and exit.
-
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
-<li><code>setup</code><ul>
-<li>⚠️ Debe ejecutarse antes de ejecutar cualquier otro comando.</li>
-<li>No es necesario si ya se ha realizado la configuración previamente. Sus valores por defecto apuntan al servidor de producción.</li>
-<li>La URL del localhost debe ser escrita con el prefijo http.</li>
+<li>El subcomando retorna resultados históricos.</li>
 </ul>
-</li>
-<li><code>upsert</code><ul>
-<li>Se debe contar con un CSV con el id de la especie (tax_id), el id del modelo de Geoserver (model_id) y el nombre del archivo .tif a cargar (model_file)</li>
-<li>El archivo TIF debe estar en la carpeta especificada en el segundo argumento.</li>
-<li>No es necesario agregar el parámetro --password, éste se solicita automáticamente</li>
-</ul>
-</li>
-</ul>
-<h4 id="comportamiento-del-comando">Comportamiento del comando</h4>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
 <ul>
-<li><code>upsert</code><ul>
-<li>El comando carga el modelo al GeoServer previamente configurado mediante <code>setup</code>. En caso de no configurarlo, se asume el GeoServer de producción por defecto.</li>
-<li>El comando valida la existencia del archivo(s) TIF especificado en el archivo CSV.</li>
-<li>El comando busca el archivo(s) TIF especificado en el directorio especificado en el segundo argumento del comando.</li>
-<li>El comando carga el modelo al Geoserver previamente especificado con el comando <code>setup</code>. </li>
-<li>El comando evita duplicados. Si el modelo ya existe, retorna error. </li>
-</ul>
-</li>
-</ul>
-<h4 id="valores-por-defecto">Valores por defecto</h4>
-<ul>
-<li><code>setup</code>
-  ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:<ul>
-<li><code>--api-url</code>: URL de producción</li>
-<li><code>--username</code>: Usuario de GeoServer de producción</li>
-</ul>
-</li>
+<li>El subcomando consulta la cantidad de descargas de modelos de la plataforma BioModelos.</li>
+<li>No modifica ni elimina información.</li>
+<li>Los resultados se muestran directamente en consola.</li>
 </ul></div>
         
         

@@ -1,0 +1,39 @@
+title: Editions
+
+command: models editions
+
+description: Subcomando para obtener las ediciones hechas a los modelos correspondientes a las especies indicadas. 
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [Postgres](setup_postgres.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - Para el argumento `OUT_FOLDER` se debe proporcionar la ruta absoluta de la carpeta donde desea los resultados del subcomando.
+        - Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante se sobrescribe.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando consulta las ediciones realizadas a los modelos de las especies indicadas.
+        - El subcomando no modifica ni elimina información en la base de datos.
+
+  - title: "Estructura del resultado"
+    description: |
+        - El resultado puede ser uno (o varios) archivo GeoJSON con la información del modelo de cada especie consultada. 
+        - Cada archivo corresponde a una edición realizada sobre el modelo.
+        - La consola retorna dos posibles mensajes:
+            - "Has features": El archivo GeoJSON contiene uno o más features.
+            - "Has no features": El archivo GeoJSON no contiene features asociados.
+
+  - title: "Valores por defecto"
+    description: |
+        - Si no se especifican `--init-date` y `--end-date`, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.
+
+  - title: "Validaciones"
+    description: |
+        - Las fechas deben ser proporcionadas en formato YYYY-MM-DD.
+        - El parámetro `--tax-ids` debe ir sucedido por al menos un identificador de especie. 

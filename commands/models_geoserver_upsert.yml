@@ -1,0 +1,32 @@
+title: Geoserver Upsert
+
+command: models geoserver-upsert
+
+description: Subcomando para validar y cargar modelos `.tif` al GeoServer de BioModelos. 
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [API](setup_api.md) y [Geoserver](setup_geoserver.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - `MODELS_INFO`: Ruta al archivo CSV que tiene los taxID de las especies (tax_id), los modelID de los modelos de Geoserver (model_id) y el nombre del archivo .tif a cargar (model_file).
+        - `MODELS_FOLDER`: Ruta de la carpeta que contiene los archivos TIF que se desean cargar al Geoserver.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - Valida la existencia del archivo(s) TIF especificado en el archivo CSV.
+        - Busca el archivo(s) TIF especificado en el directorio especificado en el segundo argumento del comando.
+        - Crea el almacen de datos correspondiente en el Geoserver y carga el modelo.
+        - Agrega el campo `gslayer` al documento en la colección Models de la base de datos MongoDB que tenga el modelID correspondiente.   
+        - El subcomando evita duplicados. Si el modelo ya existe, retorna error. 
+
+  - title: "Validaciones"
+    description: |
+        - Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.
+        - Los modelID de los modelos deben existir en la colección Models de la base de datos MongoDB de BioModelos.
+        - `MODELS_INFO`: El archivo CSV debe existir y ser accesible desde el sistema.
+        - `MODELS_FOLDER`: La ruta debe ser accesible desde el sistema. 

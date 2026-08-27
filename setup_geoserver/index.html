@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Editions - Biomodelos-db-utils</title>
+    <title>Geoserver - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="..">Biomodelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -76,48 +76,123 @@
                 
                 
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comandos <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="../setup/">Setup</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../ecovars/">Ecovars</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li class="active">
-    <a href="./">Editions</a>
+    <a href="./">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="../geoserver/">Geoserver</a>
+    <a href="../setup_mongo/">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="../mongo/">Mongo</a>
+    <a href="../setup_postgres/">Postgres</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../stats_downloads/">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ratings/">Ratings</a>
+    <a href="../stats_groups/">Groups</a>
 </li>
 
                         
                             
 <li >
-    <a href="../stats/">Stats</a>
+    <a href="../stats_models/">Models</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../stats_users/">Users</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../records_validate/">Validate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../records_upload/">Upload</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Models <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../models_ecovars/">Ecovars</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_editions/">Editions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_ratings/">Ratings</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_fix_metadata/">Fix Metadata</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -134,12 +209,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../ecovars/">
+                        <a rel="prev" href="../setup_api/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../geoserver/">
+                        <a rel="next" href="../setup_mongo/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -153,18 +228,12 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#editions">Editions</a></li>
-            <li class="second-level"><a href="#examples">Examples</a></li>
-                
-            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
-                
+        <li class="first-level active"><a href="#geoserver">Geoserver</a></li>
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
             <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
                 
-            <li class="second-level"><a href="#comportamiento-del-comando">Comportamiento del comando</a></li>
-                
-            <li class="second-level"><a href="#estructura-del-resultado">Estructura del resultado</a></li>
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
                 
             <li class="second-level"><a href="#valores-por-defecto">Valores por defecto</a></li>
                 
@@ -174,65 +243,47 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="editions">Editions</h1>
-<p>Obtener las ediciones hechas a modelos correspondientes a las especies indicadas.</p>
-<h4 id="examples">Examples</h4>
-<p><strong>Listar ediciones realizadas sobre la especie de ID 8 y 9.</strong></p>
-<pre><code class="language-sh">bmdbutils editions --tax-ids 7035,1204 ./dir_path/
-</code></pre>
-<p><em>Por defecto trae los registros del último mes.</em></p>
-<p><strong>Listar registros en un rango de fechas.</strong></p>
-<pre><code class="language-sh">bmdbutils editions --tax-ids 7035,1204 --init-date 2017-01-01 --end-date 2025-12-01 .
-</code></pre>
-<h4 id="prerequisitos">Prerequisitos</h4>
-<p>Es necesario haber realizado la configuación a la base de datos de PostgreSQL. Encuentre más detalles <a href="../setup/">aquí</a></p>
+<h1 id="geoserver">Geoserver</h1>
+<p>Subcomando para configurar la conexión al Geoserver de BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.</p>
 <h4 id="parametros">Parámetros</h4>
-<pre><code class="language-text">Usage: bmdbutils editions [OPTIONS] OUT_FOLDER
+<pre><code class="language-text">Usage: bmdbutils setup geoserver [OPTIONS]
 
-  Obtener las ediciones hechas a modelos correspondientes a las especies
-  indicadas.
+  Comando para configurar GeoServer de BioModelos.
 
-  Por defecto traerá todas las ediciones hechas en los últimos 30 días.
+  Ejemplo de uso: $ bmdbutils setup geoserver --url
+  http://localhost:8080/geoserver --username username
 
-  OUT_FOLDER   Ruta donde se crearán guardarán los resultados de la consulta
-  (un archivo geojson por edición)
+  No es necesario agregar el parámetro --password, éste se solicita
+  automáticamente.
 
 Options:
-  --tax-ids TEXT          lista de ids de especies separados por coma (,) para
-                          filtrar las ediciones
-  --init-date [%Y-%m-%d]  Fecha de inicio para filtrar las ediciones
-  --end-date [%Y-%m-%d]   Fecha de finalización para filtrar las ediciones
-  --help                  Show this message and exit.
+  --url TEXT       URL de GeoServer (incluyendo el protocolo http o https y el
+                   número del puerto)  
+  --username TEXT  Nombre de usuario para acceder a GeoServer  
+  --password TEXT  Contraseña para el usuario de GeoServer
+  --help           Show this message and exit.
 
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
-<li>El comando debe incluir la ruta donde se creará el archivo CSV con los resultados de la consulta [OUT_FOLDER].</li>
-<li>Si se realizan múltiples consultas sobre el mismo rango de fechas, el CSV resultante será sobreescrito.</li>
+<li>Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.</li>
+<li>El parámetro <code>--password</code> es obligatorio, sin embargo no es necesario agregarlo al subcomando ya que el sistema lo solicita automáticamente. </li>
 </ul>
-<h4 id="comportamiento-del-comando">Comportamiento del comando</h4>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
 <ul>
-<li>El comando consulta las ediciones realizadas a los modelos de las especies indicadas.</li>
-<li>No modifica ni elimina información en la base de datos.</li>
-</ul>
-<h4 id="estructura-del-resultado">Estructura del resultado</h4>
-<ul>
-<li>El resultado es uno (o varios) archivo GeoJSON con la información del modelo de cada especie consultada. </li>
-<li>Cada archivo corresponde a una edición realizada sobre el modelo.</li>
-<li>La consola retorna dos posibles mensajes:<ul>
-<li>"Has features": El archivo GeoJSON contiene uno o más features.</li>
-<li>"Has no features": El archivo GeoJSON no contiene features asociados.</li>
-</ul>
-</li>
+<li>Guarda la configuración de la conexión del Geoserver para ser utilizada por otros comandos de <code>bmdbutils</code>.</li>
+<li>Sobrescribe la configuración existente si ya ha sido definida previamente.</li>
+<li>No valida la disponibilidad del Geoserver en el momento de la ejecución.</li>
 </ul>
 <h4 id="valores-por-defecto">Valores por defecto</h4>
 <ul>
-<li>Si no se especifican <code>--init-date</code> y <code>--end-date</code>, el comando retorna los registros correspondientes al último mes a partir de la fecha de consulta.</li>
+<li><code>--url</code>: http://localhost:8080/geoserver.</li>
+<li><code>--username</code>: admin.</li>
 </ul>
 <h4 id="validaciones">Validaciones</h4>
 <ul>
-<li>Las fechas deben ser proporcionadas en formato YYYY-MM-DD.</li>
-<li>El parámetro <code>--tax-ids</code> debe ir precedido por al menos un identificador de especie. </li>
+<li>La URL debe contener el protocolo (http, https, etc), de lo contrario puede interpretar erróneamente el puerto.</li>
+<li>Todos los parámetros son obligatorios si no existe una configuración previa.</li>
 </ul></div>
         
         

@@ -8,10 +8,10 @@
     
     
     
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>BioModelos-db-utils</title>
+    <title>Mongo - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="/css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="/css/base.min.css" rel="stylesheet">
-    <link href="/css/cinder.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
 
     
         
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="/.">BioModelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -70,36 +70,36 @@
                 
                 
                     <li >
-                        <a href="/.">Inicio</a>
+                        <a href="..">Inicio</a>
                     </li>
                 
                 
                 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="/setup_api/">API</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="/setup_geoserver/">Geoserver</a>
+    <a href="../setup_geoserver/">Geoserver</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="/setup_mongo/">Mongo</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="/setup_postgres/">Postgres</a>
+    <a href="../setup_postgres/">Postgres</a>
 </li>
 
                         
@@ -114,25 +114,25 @@
                         
                             
 <li >
-    <a href="/stats_downloads/">Downloads</a>
+    <a href="../stats_downloads/">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_groups/">Groups</a>
+    <a href="../stats_groups/">Groups</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_models/">Models</a>
+    <a href="../stats_models/">Models</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_users/">Users</a>
+    <a href="../stats_users/">Users</a>
 </li>
 
                         
@@ -147,13 +147,13 @@
                         
                             
 <li >
-    <a href="/records_validate/">Validate</a>
+    <a href="../records_validate/">Validate</a>
 </li>
 
                         
                             
 <li >
-    <a href="/records_upload/">Upload</a>
+    <a href="../records_upload/">Upload</a>
 </li>
 
                         
@@ -168,31 +168,31 @@
                         
                             
 <li >
-    <a href="/models_ecovars/">Ecovars</a>
+    <a href="../models_ecovars/">Ecovars</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_editions/">Editions</a>
+    <a href="../models_editions/">Editions</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_ratings/">Ratings</a>
+    <a href="../models_ratings/">Ratings</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_fix_metadata/">Fix Metadata</a>
+    <a href="../models_fix_metadata/">Fix Metadata</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_geoserver_upsert/">Geoserver Upsert</a>
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -208,6 +208,16 @@
                             <i class="fas fa-search"></i> Search
                         </a>
                     </li>
+                    <li >
+                        <a rel="prev" href="../setup_geoserver/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../setup_postgres/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
@@ -215,16 +225,71 @@
 
     <div class="container">
         
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#mongo">Mongo</a></li>
+            <li class="second-level"><a href="#parametros">Parámetros</a></li>
+                
+            <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
+                
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
+                
+            <li class="second-level"><a href="#valores-por-defecto">Valores por defecto</a></li>
+                
+            <li class="second-level"><a href="#validaciones">Validaciones</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
 
-    <div class="row-fluid">
-      <div id="main-content" class="span12">
-        <h1 id="404-page-not-found" style="text-align: center">404</h1>
-        <p style="text-align: center"><strong>Page not found</strong></p>
-        <p style="text-align: center"><a href="/">Home</a></p>
-      </div>
-    </div>
+<h1 id="mongo">Mongo</h1>
+<p>Subcomando para configurar la conexión a la base de datos MongoDB para BioModelos. Esta configuración es obligatoria para la ejecución de otros comandos.</p>
+<h4 id="parametros">Parámetros</h4>
+<pre><code class="language-text">Usage: bmdbutils setup mongo [OPTIONS]
 
+  Comando para configurar la base de datos MongoDB de BioModelos.
 
+  Ejemplo de uso: $ bmdbutils setup mongo --url localhost:27017 --database
+  database --username username
+
+  No es necesario agregar el parámetro --password, éste se solicita
+  automáticamente.
+
+Options:
+  --url TEXT       URL de la base de datos Mongo (incluyendo el número del
+                   puerto)  
+  --database TEXT  Base de datos de Mongo  
+  --username TEXT  Usuario para acceder a la base de datos de Mongo  
+  --password TEXT  Contraseña para el usuario para acceder a la base de datos
+                   de Mongo, se solicita automáticamente.
+  --help           Show this message and exit.
+
+</code></pre>
+<h4 id="consideraciones">Consideraciones</h4>
+<ul>
+<li>Una vez realizada la configuración inicial de este subcomando, no es necesario ejecutarlo de nuevo.</li>
+<li>El parámetro <code>--password</code> es obligatorio, sin embargo no es necesario agregarlo al subcomando ya que el sistema lo solicita automáticamente.</li>
+</ul>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
+<ul>
+<li>Guarda la configuración de la conexión a la base de datos MongoDB para ser utilizada por otros comandos de <code>bmdbutils</code>.</li>
+<li>Sobrescribe la configuración existente si ya ha sido definida previamente.</li>
+<li>No valida la disponibilidad de la base de datos en el momento de la ejecución.</li>
+</ul>
+<h4 id="valores-por-defecto">Valores por defecto</h4>
+<ul>
+<li><code>--url</code>: localhost:27017.</li>
+<li><code>--database</code>: produccion.</li>
+<li><code>--username</code>: biomodelos.</li>
+</ul>
+<h4 id="validaciones">Validaciones</h4>
+<ul>
+<li>Las URL deben ser escritas sin el prefijo http, de lo contrario puede interpretar erróneamente el puerto.</li>
+<li>Todos los parámetros son obligatorios si no existe una configuración previa.</li>
+</ul></div>
+        
+        
     </div>
 
     
@@ -242,7 +307,7 @@
       </footer>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
 
     
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
@@ -250,10 +315,10 @@
     <script>hljs.initHighlightingOnLoad();</script>
     
 
-    <script>var base_url = "/"</script>
+    <script>var base_url = ".."</script>
     
-    <script src="/js/base.js"></script>
-    <script src="/search/main.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

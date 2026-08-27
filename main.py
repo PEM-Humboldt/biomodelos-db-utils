@@ -15,34 +15,32 @@ def define_env(env):
         cleaned = re.sub(r"\[default:.*?\]", "", result.stdout, flags=re.DOTALL)
         return cleaned
     
-    def get_setup(cmd):
-        result = subprocess.run(
-            cmd + ["setup", "--help"],
-            capture_output=True,
-            text=True
-        )
-        cleaned = re.sub(r"\[default:.*?\]", "", result.stdout, flags=re.DOTALL)
-        return cleaned
-    
     @env.macro
     def command():
         """
         Returns the YAML corresponding to the current page name.
         """
-        page_name = env.page.title.lower()
-
+        #page_name = env.page.title.lower()
+        page_name = os.path.splitext(
+          os.path.basename(env.page.file.src_path)
+          )[0].lower()
         yml_file = os.path.join(base_path, f"{page_name}.yml")
 
         if os.path.exists(yml_file):
+            
             with open(yml_file, "r", encoding="utf-8") as f:
-                data = yaml.safe_load(f)
-            for note in data.get("notes", []):
-                if note.get("auto_help"):
-                    cmd = ["bmdbutils"] + page_name.split()
-                    help_text = get_help(cmd)
-                    if note.get("setup_help"):
-                        help_text += "\n" + get_setup(cmd)
+                data = yaml.safe_load(f) or {}
 
+            command_name = data.get("command", page_name)
+            
+            for note in data.get("notes", []):
+                
+                if note.get("auto_help"):
+                    
+                    cmd = ["bmdbutils"] + command_name.split()
+                    
+                    help_text = get_help(cmd)
+                    
                     note["description"] = f"```text\n{help_text}\n```"
             return data
         else:

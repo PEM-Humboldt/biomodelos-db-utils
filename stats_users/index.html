@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Mongo - Biomodelos-db-utils</title>
+    <title>Users - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="..">Biomodelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -75,49 +75,124 @@
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comandos <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="../setup/">Setup</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ecovars/">Ecovars</a>
+    <a href="../setup_geoserver/">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="../editions/">Editions</a>
+    <a href="../setup_mongo/">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="../geoserver/">Geoserver</a>
+    <a href="../setup_postgres/">Postgres</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../stats_downloads/">Downloads</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../stats_groups/">Groups</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../stats_models/">Models</a>
 </li>
 
                         
                             
 <li class="active">
-    <a href="./">Mongo</a>
+    <a href="./">Users</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../records_validate/">Validate</a>
 </li>
 
                         
                             
 <li >
-    <a href="../ratings/">Ratings</a>
+    <a href="../records_upload/">Upload</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Models <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../models_ecovars/">Ecovars</a>
 </li>
 
                         
                             
 <li >
-    <a href="../stats/">Stats</a>
+    <a href="../models_editions/">Editions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_ratings/">Ratings</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_fix_metadata/">Fix Metadata</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -134,12 +209,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../geoserver/">
+                        <a rel="prev" href="../stats_models/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../ratings/">
+                        <a rel="next" href="../records_validate/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -153,109 +228,43 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#mongo">Mongo</a></li>
-            <li class="second-level"><a href="#examples">Examples</a></li>
+        <li class="first-level active"><a href="#users">Users</a></li>
+            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
                 
             <li class="second-level"><a href="#parametros">Parámetros</a></li>
                 
             <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
                 
-            <li class="second-level"><a href="#comportamiento-del-comando">Comportamiento del comando</a></li>
-                
-            <li class="second-level"><a href="#validaciones">Validaciones</a></li>
-                
-            <li class="second-level"><a href="#valores-por-defecto">Valores por defecto</a></li>
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="mongo">Mongo</h1>
-<p>Permite configurar MongoDB y gestionar registros de Biomodelos mediante validación y carga de archivos CSV.</p>
-<h4 id="examples">Examples</h4>
-<p><strong>Configurar base de datos de Mongo</strong></p>
-<pre><code class="language-sh">bmdbutils mongo setup --mongo-url http://localhost:27017 --mongo-db database --mongo-username username --mongo-password password
-</code></pre>
-<p><strong>Validar un archivo CSV antes de su carga.</strong></p>
-<pre><code class="language-sh">bmdbutils mongo validate
-</code></pre>
-<p><em>Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: <code>/home/user/directory/model.csv</code></em></p>
-<p><strong>Cargar un documento a una colección records.</strong></p>
-<pre><code class="language-sh">bmdbutils mongo upload
-</code></pre>
-<p><em>Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: <code>/home/user/directory/model.csv</code></em></p>
-<p><strong>Validar, corregir y cargar un archivo en un único comando.</strong></p>
-<pre><code class="language-sh">bmdbutils mongo models-metadata
-</code></pre>
-<p><em>Una vez el comando sea ejecutado se le pedirá la ruta del archivo CSV. Se espera una ruta absoluta: <code>/home/user/directory/model.csv</code></em></p>
+<h1 id="users">Users</h1>
+<p>Subcomando para realizar consultas sobre usuarios registrados en BioModelos.</p>
+<h4 id="prerequisitos">Prerequisitos</h4>
+<p>Es necesario haber realizado la configuración inicial de <a href="../setup_postgres/">Postgres</a>.</p>
 <h4 id="parametros">Parámetros</h4>
-<pre><code class="language-text">Usage: bmdbutils mongo [OPTIONS] COMMAND [ARGS]...
+<pre><code class="language-text">Usage: bmdbutils stats users [OPTIONS]
 
-  Comando relacionado con la base de datos MongoDB de BioModelos.
+  Obtener las estadísticas sobre usuarios de la plataforma BioModelos.
+
+  Ejemplo de uso: $ bmdbutils stats users
 
 Options:
   --help  Show this message and exit.
 
-Commands:
-  models-metadata  Corregir metadatos a diferentes modelos en la base de datos
-                   Mongo de BioModelos.
-  setup            Configura la base de datos Mongo de BioModelos.
-  upload           Cargar documentos en una colección records en la base de
-                   datos Mongo de BioModelos.
-  validate         Valida un archivo CSV de registros en la colección records
-                   en la base de datos Mongo de BioModelos.
-
-Usage: bmdbutils mongo setup [OPTIONS]
-
-  Comando para configurar la base de datos MongoDB de BioModelos.  No es
-  necesario ejecutar este comando si ya se ha configurado la base de datos
-  MongoDB.  No es necesario agregar el parámetro --mongo-password, éste se
-  solicita automáticamente
-
-Options:
-  --mongo-url TEXT       URL de la base de datos Mongo (incluyendo el número
-                         del puerto)  
-  --mongo-db TEXT        Base de datos de Mongo  
-  --mongo-username TEXT  Usuario para acceder a la base de datos de Mongo
-
-  --mongo-password TEXT  Contraseña para el usuario para acceder a la base de
-                         datos de Mongo, se solicita automaticamente.
-  --help                 Show this message and exit.
-
 </code></pre>
 <h4 id="consideraciones">Consideraciones</h4>
 <ul>
-<li>⚠️ El comando <code>setup</code> debe ejecutarse antes de ejecutar cualquier otro comando. En caso de que la configuración ya exista, este no será necesario. Sus valores por defecto apuntan al servidor de producción.</li>
-<li>Se recomienda ejecutar primero el comando <code>validate</code> y posteriormente <code>upload</code>.</li>
-<li>El comando <code>models-metadata</code> es una alternativa al flujo <code>validate</code> + <code>upload</code>.</li>
-<li>Para los comandos de validación y carga, se debe proporcionar la ruta absoluta del archivo CSV.</li>
+<li>El subcomando retorna resultados históricos.</li>
 </ul>
-<h4 id="comportamiento-del-comando">Comportamiento del comando</h4>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
 <ul>
-<li>El comando <code>validate</code> no modifica información en la base de datos.</li>
-<li>El comando <code>upload</code> inserta documentos en la colección <code>records</code>.</li>
-<li>El comando <code>models-metadata</code>:<ul>
-<li>Puede modificar metadatos existentes en la base de datos.</li>
-<li>En caso de encontrar errores en la estructura del archivo, los indica a través de un log almacenado en la carpeta /tmp/ del repositorio.</li>
-</ul>
-</li>
-<li>Ninguno de los comandos elimina registros existentes.</li>
-</ul>
-<h4 id="validaciones">Validaciones</h4>
-<ul>
-<li>El archivo CSV debe existir y ser accesible desde el sistema.</li>
-<li>El archivo debe cumplir con la estructura esperada por Biomodelos. </li>
-<li>Si la validación falla, los comandos de carga no se ejecutan.</li>
-</ul>
-<h4 id="valores-por-defecto">Valores por defecto</h4>
-<ul>
-<li><code>setup</code>
-  ⚠️ Los valores corresponden al entorno de producción y deben usarse con precaución:<ul>
-<li><code>--mongo-url</code>: URL de producción</li>
-<li><code>--mongo-db</code>: Base de datos de producción</li>
-<li><code>--mongo-username</code>: Usuario de producción</li>
-</ul>
-</li>
+<li>El subcomando consulta estadísticas sobre usuarios registrados en BioModelos.</li>
+<li>No modifica ni elimina información.</li>
+<li>Los resultados se muestran directamente en consola.</li>
 </ul></div>
         
         

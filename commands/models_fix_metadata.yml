@@ -1,0 +1,30 @@
+title: Fix Metadata
+
+command: models fix-metadata
+
+description: Subcomando para reemplazar metadatos de modelos en la colección Models de BioModelos.
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [Mongo](setup_mongo.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - Para los argumentos `CSV_FILE` y `OUT_FOLDER` se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde desea los resultados del subcomando.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando modifica metadatos de documentos existentes en la colección Models de la base de datos.
+        - En caso de encontrar errores en la estructura del archivo, los indica a través de un log almacenado en la carpeta `OUT_FOLDER`.
+        - El subcomando no elimina registros existentes.
+
+  - title: "Validaciones"
+    description: |
+        - Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.
+        - Debe existir algun documento en la colección Models de la base de datos MongoDB de BioModelos que coincida con el taxID y modelID del archivo CSV.
+        - Los metadatos que se van a cargar deben cumplir con el esquema de validación de la colección Models.
+        - `CSV_FILE`: El archivo CSV debe existir y ser accesible desde el sistema.
+        - `OUT_FOLDER`: La ruta debe ser accesible desde el sistema. 

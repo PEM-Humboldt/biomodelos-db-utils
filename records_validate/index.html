@@ -8,10 +8,10 @@
     
     
     
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>BioModelos-db-utils</title>
+    <title>Validate - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="/css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="/css/base.min.css" rel="stylesheet">
-    <link href="/css/cinder.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
 
     
         
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href="/.">BioModelos-db-utils</a>
+              <a class="navbar-brand" href="..">BioModelos-db-utils</a>
             
         </div>
 
@@ -70,7 +70,7 @@
                 
                 
                     <li >
-                        <a href="/.">Inicio</a>
+                        <a href="..">Inicio</a>
                     </li>
                 
                 
@@ -81,25 +81,25 @@
                         
                             
 <li >
-    <a href="/setup_api/">API</a>
+    <a href="../setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="/setup_geoserver/">Geoserver</a>
+    <a href="../setup_geoserver/">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="/setup_mongo/">Mongo</a>
+    <a href="../setup_mongo/">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="/setup_postgres/">Postgres</a>
+    <a href="../setup_postgres/">Postgres</a>
 </li>
 
                         
@@ -114,25 +114,25 @@
                         
                             
 <li >
-    <a href="/stats_downloads/">Downloads</a>
+    <a href="../stats_downloads/">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_groups/">Groups</a>
+    <a href="../stats_groups/">Groups</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_models/">Models</a>
+    <a href="../stats_models/">Models</a>
 </li>
 
                         
                             
 <li >
-    <a href="/stats_users/">Users</a>
+    <a href="../stats_users/">Users</a>
 </li>
 
                         
@@ -141,19 +141,19 @@
                 
                 
                 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
-<li >
-    <a href="/records_validate/">Validate</a>
+<li class="active">
+    <a href="./">Validate</a>
 </li>
 
                         
                             
 <li >
-    <a href="/records_upload/">Upload</a>
+    <a href="../records_upload/">Upload</a>
 </li>
 
                         
@@ -168,31 +168,31 @@
                         
                             
 <li >
-    <a href="/models_ecovars/">Ecovars</a>
+    <a href="../models_ecovars/">Ecovars</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_editions/">Editions</a>
+    <a href="../models_editions/">Editions</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_ratings/">Ratings</a>
+    <a href="../models_ratings/">Ratings</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_fix_metadata/">Fix Metadata</a>
+    <a href="../models_fix_metadata/">Fix Metadata</a>
 </li>
 
                         
                             
 <li >
-    <a href="/models_geoserver_upsert/">Geoserver Upsert</a>
+    <a href="../models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -208,6 +208,16 @@
                             <i class="fas fa-search"></i> Search
                         </a>
                     </li>
+                    <li >
+                        <a rel="prev" href="../stats_users/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../records_upload/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
@@ -215,16 +225,61 @@
 
     <div class="container">
         
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#validate">Validate</a></li>
+            <li class="second-level"><a href="#prerequisitos">Prerequisitos</a></li>
+                
+            <li class="second-level"><a href="#parametros">Parámetros</a></li>
+                
+            <li class="second-level"><a href="#consideraciones">Consideraciones</a></li>
+                
+            <li class="second-level"><a href="#comportamiento-del-subcomando">Comportamiento del subcomando</a></li>
+                
+            <li class="second-level"><a href="#validaciones">Validaciones</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
 
-    <div class="row-fluid">
-      <div id="main-content" class="span12">
-        <h1 id="404-page-not-found" style="text-align: center">404</h1>
-        <p style="text-align: center"><strong>Page not found</strong></p>
-        <p style="text-align: center"><a href="/">Home</a></p>
-      </div>
-    </div>
+<h1 id="validate">Validate</h1>
+<p>Subcomando que permite validar si los datos de un archivo CSV contienen el esquema necesario para cargarlos a la colección Records de la base de datos MongoDB de BioModelos.</p>
+<h4 id="prerequisitos">Prerequisitos</h4>
+<p>Es necesario haber realizado la configuración inicial de <a href="../setup_mongo/">Mongo</a>.</p>
+<h4 id="parametros">Parámetros</h4>
+<pre><code class="language-text">Usage: bmdbutils records validate [OPTIONS] CSV_FILE OUT_FOLDER
 
+  Validar un archivo CSV de registros en la colección records en la base de
+  datos Mongo de BioModelos.
 
+  CSV_FILE: archivo CSV que contiene los registros de BioModelos.
+
+  OUT_FOLDER: ruta donde se guardarán los resultados de la validación.
+
+  Ejemplo de uso: $ bmdbutils records validate /path/to/records.csv
+  /path/to/output/folder
+
+Options:
+  --help  Show this message and exit.
+
+</code></pre>
+<h4 id="consideraciones">Consideraciones</h4>
+<ul>
+<li>Para los argumentos <code>CSV_FILE</code> y <code>OUT_FOLDER</code> se debe proporcionar la ruta absoluta del archivo CSV y la carpeta donde desea los resultados de la validación.</li>
+</ul>
+<h4 id="comportamiento-del-subcomando">Comportamiento del subcomando</h4>
+<ul>
+<li>El subcomando no modifica información en la base de datos.</li>
+<li>El subcomando no elimina registros existentes.</li>
+</ul>
+<h4 id="validaciones">Validaciones</h4>
+<ul>
+<li><code>CSV_FILE</code>: El archivo CSV debe existir y ser accesible desde el sistema.</li>
+<li><code>OUT_FOLDER</code>: La ruta debe ser accesible desde el sistema.</li>
+</ul></div>
+        
+        
     </div>
 
     
@@ -242,7 +297,7 @@
       </footer>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
 
     
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
@@ -250,10 +305,10 @@
     <script>hljs.initHighlightingOnLoad();</script>
     
 
-    <script>var base_url = "/"</script>
+    <script>var base_url = ".."</script>
     
-    <script src="/js/base.js"></script>
-    <script src="/search/main.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="img/favicon.ico">
 
     
-    <title>Inicio - Biomodelos-db-utils</title>
+    <title>Inicio - BioModelos-db-utils</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href=".">Biomodelos-db-utils</a>
+              <a class="navbar-brand" href=".">BioModelos-db-utils</a>
             
         </div>
 
@@ -76,48 +76,123 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comandos <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="setup/">Setup</a>
+    <a href="setup_api/">API</a>
 </li>
 
                         
                             
 <li >
-    <a href="ecovars/">Ecovars</a>
+    <a href="setup_geoserver/">Geoserver</a>
 </li>
 
                         
                             
 <li >
-    <a href="editions/">Editions</a>
+    <a href="setup_mongo/">Mongo</a>
 </li>
 
                         
                             
 <li >
-    <a href="geoserver/">Geoserver</a>
+    <a href="setup_postgres/">Postgres</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="stats_downloads/">Downloads</a>
 </li>
 
                         
                             
 <li >
-    <a href="mongo/">Mongo</a>
+    <a href="stats_groups/">Groups</a>
 </li>
 
                         
                             
 <li >
-    <a href="ratings/">Ratings</a>
+    <a href="stats_models/">Models</a>
 </li>
 
                         
                             
 <li >
-    <a href="stats/">Stats</a>
+    <a href="stats_users/">Users</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="records_validate/">Validate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="records_upload/">Upload</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Models <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="models_ecovars/">Ecovars</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="models_editions/">Editions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="models_ratings/">Ratings</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="models_fix_metadata/">Fix Metadata</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="models_geoserver_upsert/">Geoserver Upsert</a>
 </li>
 
                         
@@ -139,7 +214,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="setup/">
+                        <a rel="next" href="setup_api/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -153,20 +228,87 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#biomodelos-db-utils">Biomodelos DB Utils</a></li>
-            <li class="second-level"><a href="#caracteristicas-principales">Características principales</a></li>
-                
+        <li class="first-level active"><a href="#biomodelos-db-utils-bmdbutils">BioModelos DB Utils (bmdbutils)</a></li>
             <li class="second-level"><a href="#requisitos-previos">Requisitos previos</a></li>
                 
             <li class="second-level"><a href="#instalacion-y-ejecucion">Instalación y ejecución</a></li>
+                
+            <li class="second-level"><a href="#comandos">Comandos</a></li>
+                
+            <li class="second-level"><a href="#caracteristicas-principales-de-la-herramienta">Características principales de la herramienta</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="biomodelos-db-utils">Biomodelos DB Utils</h1>
-<p><strong>Biomodelos DB Utils</strong> es una herramienta de línea de comandos (CLI) que actúa como conjunto de utilitarios para la plataforma <strong>BioModelos</strong>, facilitando tareas de configuración, validación, carga y consulta de información.</p>
-<h2 id="caracteristicas-principales">Características principales</h2>
+<h1 id="biomodelos-db-utils-bmdbutils">BioModelos DB Utils (bmdbutils)</h1>
+<p><strong>BioModelos DB Utils</strong> es una herramienta de línea de comandos (CLI) que actúa como conjunto de utilitarios para la plataforma <strong><a href="https://biomodelos.humboldt.org.co/">BioModelos</a></strong>, facilitando tareas de configuración, validación, carga y consulta de información.</p>
+<h2 id="requisitos-previos">Requisitos previos</h2>
+<ul>
+<li>Acceso a los servicios de BioModelos (API, bases de datos y GeoServer), ya sea en entorno local o de producción.</li>
+<li>Credenciales válidas para los servicios que se desean configurar o consultar.</li>
+</ul>
+<h2 id="instalacion-y-ejecucion">Instalación y ejecución</h2>
+<ul>
+<li>
+<p>Para instalar la herramienta, se recomienda seguir los pasos descritos en el <a href="https://github.com/PEM-Humboldt/biomodelos-db-utils/#instalaci%C3%B3n">repositorio oficial del proyecto</a>.</p>
+</li>
+<li>
+<p>La ejecución de la herramienta se realiza a partir del comando <code>bmdbutils</code>, y como paso inicial es necesario configurar las conexiones a la base de datos de <a href="setup_postgres/">Postgres</a>, <a href="setup_mongo/">MongoDB</a>, la <a href="setup_api/">API</a> y el <a href="setup_geoserver/">GeoServer</a>. Esta configuración inicial es obligatoria, y una vez realizada es almacenada hasta que se quiera reconfigurarla.</p>
+</li>
+</ul>
+<h2 id="comandos">Comandos</h2>
+<p>Una vez instalada la herramienta, el comando principal es <code>bmdbutils</code>, y a partir de este hay 4 comandos principales: <code>Setup</code>, <code>Stats</code>, <code>Records</code> y <code>Models</code>, los cuales por si solos no ejecutan nada, para esto cada comando tiene un set de subcomandos de acuerdo a cada funcionalidad.</p>
+<ul>
+<li>
+<p><code>Setup</code>: Comando general para configurar la conexión a la API, al Geoserver y a las bases de datos PostgreSQL y MongoDB para Biomodelos. Este comando posee una serie de subcomandos para ejecutar las configuraciones necesarias.</p>
+<ul>
+<li>Subcomandos:<ul>
+<li><a href="setup_api/">API</a>.</li>
+<li><a href="setup_geoserver/">Geoserver</a>.</li>
+<li><a href="setup_mongo/">Mongo</a>.</li>
+<li><a href="setup_postgres/">Postgres</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Stats</code>: Comando para realizar consultas relacionadas con estadísticas de uso de BioModelos.</p>
+<ul>
+<li>Subcomandos:<ul>
+<li><a href="stats_downloads/">Downloads</a>.</li>
+<li><a href="stats_groups/">Groups</a>.</li>
+<li><a href="stats_models/">Models</a>.</li>
+<li><a href="stats_users/">Users</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Records</code>: Comando para validar y cargar registros de un archivo CSV a la colección Records de la base de datos MongoDB de BioModelos.</p>
+<ul>
+<li>Subcomandos:<ul>
+<li><a href="records_validate/">Validate</a>.</li>
+<li><a href="records_upload/">Upload</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Models</code>: Comando que permite consultar información sobre ecovariables, ediciones y rating de modelos, además de permitir la carga de metadatos a modelos sobre modelos existentes en la plataforma y cargar modelos al Geoserver.</p>
+<ul>
+<li>Subcomandos:<ul>
+<li><a href="models_ecovars/">Ecovars</a>.</li>
+<li><a href="models_editions/">Editions</a>.</li>
+<li><a href="models_ratings/">Ratings</a>.</li>
+<li><a href="models_fix_metadata/">Fix_metadata</a>.</li>
+<li><a href="models_geoserver_upsert/">Geoserver_upsert</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="caracteristicas-principales-de-la-herramienta">Características principales de la herramienta</h2>
 <ul>
 <li>Configuración de servicios utilizados por BioModelos, incluyendo:</li>
 <li>API</li>
@@ -178,15 +320,7 @@
 <li>Consulta de variables ecológicas, ediciones y calificaciones asociadas a especies.</li>
 <li>Obtención de estadísticas históricas de uso de la plataforma (usuarios, modelos, descargas y grupos).</li>
 <li>Validación de archivos CSV y modelos antes de su carga.</li>
-</ul>
-<h2 id="requisitos-previos">Requisitos previos</h2>
-<ul>
-<li>Acceso a los servicios de BioModelos (API, bases de datos y GeoServer), ya sea en entorno local o de producción.</li>
-<li>Credenciales válidas para los servicios que se desean configurar o consultar.</li>
-</ul>
-<h2 id="instalacion-y-ejecucion">Instalación y ejecución</h2>
-<p>👉 Para instalar y ejecutar la herramienta, se recomienda seguir los pasos descritos en el <a href="https://github.com/PEM-Humboldt/biomodelos-db-utils">repositorio oficial del proyecto</a></p>
-<p>Para iniciar el uso de db-utils, es necesario realizar la configuración de la base de datos de <a href="setup/">Postgres</a>, <a href="mongo/">Mongo</a> y <a href="geoserver/">GeoServer</a>. Esta configuración es obligatoria si se trabaja desde un ambiente local o de pruebas, puesto que las configuraciones por defecto apuntan a producción. </p></div>
+</ul></div>
         
         
     </div>
@@ -291,5 +425,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-03-02 15:30:28.262975+00:00
+Build Date UTC : 2026-08-27 18:55:35.758345+00:00
 -->

@@ -1,0 +1,22 @@
+title: Users
+
+command: stats users
+
+description: Subcomando para realizar consultas sobre usuarios registrados en BioModelos.
+
+notes: 
+  - title: "Prerequisitos"
+    description: Es necesario haber realizado la configuración inicial de [Postgres](setup_postgres.md).
+
+  - title: "Parámetros"
+    auto_help: true
+
+  - title: "Consideraciones" 
+    description: |
+        - El subcomando retorna resultados históricos.
+
+  - title: "Comportamiento del subcomando"
+    description: |
+        - El subcomando consulta estadísticas sobre usuarios registrados en BioModelos.
+        - No modifica ni elimina información.
+        - Los resultados se muestran directamente en consola.
