@@ -23,6 +23,7 @@ notes:
     description: |
         - `--url`: localhost:5432.
         - `--username`: biomodelos.
+        - `--database`: biomodelos_pro.
 
   - title: "Validaciones"
     description: |
