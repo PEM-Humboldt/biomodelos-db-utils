@@ -41,7 +41,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--database",
     type=str,
-    default="biomodelos_pro",
+    default="biomodelos_db",
     show_default=True,
     help="Base de datos de PostgreSQL a la que se conectará",
 )
