@@ -22,7 +22,7 @@ notes:
   - title: "Valores por defecto"
     description: |
         - `--url`: localhost:27017.
-        - `--database`: produccion.
+        - `--database`: biomodelos_db.
         - `--username`: biomodelos.
 
   - title: "Validaciones"

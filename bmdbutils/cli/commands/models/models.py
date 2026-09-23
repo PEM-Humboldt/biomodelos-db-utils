@@ -39,6 +39,7 @@ def models(ctx):
                 pg_url=config["POSTGRESDB"]["url"],
                 pg_user=config["POSTGRESDB"]["username"],
                 pg_pass=config["POSTGRESDB"]["password"],
+                pg_db=config["POSTGRESDB"]["database"],
             )
     elif ctx.invoked_subcommand == "geoserver-upsert":
         if not "GEOSERVER" in config.sections():
