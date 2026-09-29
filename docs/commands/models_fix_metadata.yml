@@ -26,5 +26,5 @@ notes:
         - Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.
         - Debe existir algun documento en la colección Models de la base de datos MongoDB de BioModelos que coincida con el taxID y modelID del archivo CSV.
         - Los metadatos que se van a cargar deben cumplir con el esquema de validación de la colección Models.
-        - `CSV_FILE`: El archivo CSV debe existir y ser accesible desde el sistema.
+        - `CSV_FILE`: El archivo CSV debe existir y ser accesible desde el sistema. Además, debe estar codificado en UTF-8 para que las tildes y demás caracteres especiales se carguen correctamente; si no lo está, el comando se detiene antes de ejecutarse.
         - `OUT_FOLDER`: La ruta debe ser accesible desde el sistema. 
