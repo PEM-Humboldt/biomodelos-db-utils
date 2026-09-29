@@ -5,6 +5,7 @@ $ bmdbutils models fix-metadata
 import click
 
 from bmdbutils.biomodelos.mongo import Mongo
+from bmdbutils.cli.params import Utf8File
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
@@ -21,7 +22,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     $ bmdbutils models fix-metadata /path/to/fix_metadata.csv /path/to/output/folder
     """
 )
-@click.argument("csv_file", type=click.Path(exists=True))
+@click.argument("csv_file", type=Utf8File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def fix_metadata(mongo, csv_file, out_folder):
