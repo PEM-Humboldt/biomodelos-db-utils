@@ -12,9 +12,10 @@ class Biomodelos:
         pg_url=None,
         pg_user=None,
         pg_pass=None,
+        pg_db=None,
     ):
         self.api_url = api_url
-        if pg_url and pg_user and pg_pass:
+        if pg_url and pg_user and pg_pass and pg_db:
             [self.pg_addr, self.pg_port] = pg_url.rsplit(":", 1)
             if not self.pg_port:
                 self.pg_port = 5430
@@ -22,7 +23,7 @@ class Biomodelos:
                 self.pg_port = int(self.pg_port)
             self.pg_user = pg_user
             self.pg_pass = pg_pass
-            self.pg_db = "biomodelos_pro"
+            self.pg_db = pg_db 
 
     def update_model_layer(self, model_id, layer):
         r = requests.put(

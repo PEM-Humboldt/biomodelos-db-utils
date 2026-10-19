@@ -18,7 +18,7 @@ class Mongo:
         mongo_url,
         mongo_user,
         mongo_pass,
-        mongo_db="produccion",
+        mongo_db,
     ):
         if mongo_url and mongo_user and mongo_pass:
             [self.mongo_addr, self.mongo_port] = mongo_url.rsplit(":", 1)

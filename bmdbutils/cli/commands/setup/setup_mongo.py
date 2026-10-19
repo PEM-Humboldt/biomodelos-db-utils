@@ -27,7 +27,7 @@ from bmdbutils.biomodelos.config import load_config, save_config
 @click.option(
     "--database",
     type=str,
-    default="produccion",
+    default="biomodelos_db",
     show_default=True,
     help="Base de datos de Mongo",
 )

@@ -38,12 +38,20 @@ from bmdbutils.biomodelos.config import load_config, save_config
     hide_input=True,
     help="Contraseña del usuario para acceder a la base de datos de PostgreSQL",
 )
-def postgres(url, username, password):
+@click.option(
+    "--database",
+    type=str,
+    default="biomodelos_db",
+    show_default=True,
+    help="Base de datos de PostgreSQL a la que se conectará",
+)
+def postgres(url, username, password, database):
     config = load_config()
     config["POSTGRESDB"] = {
         "url": url,
         "username": username,
         "password": password,
+        "database": database,
     }
     save_config(config)
 
