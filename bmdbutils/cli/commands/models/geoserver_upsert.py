@@ -6,7 +6,7 @@ import os
 import pandas as pd
 import click
 
-from bmdbutils.cli.params import Utf8File
+from bmdbutils.biomodelos.positional_args import Utf8File
 
 @click.command(
     short_help="Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos.",

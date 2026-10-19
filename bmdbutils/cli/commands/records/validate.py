@@ -4,7 +4,7 @@ $ bmdbutils records validate
 
 import click
 from bmdbutils.biomodelos.mongo import Mongo
-from bmdbutils.cli.params import Utf8File
+from bmdbutils.biomodelos.positional_args import Utf8File
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
