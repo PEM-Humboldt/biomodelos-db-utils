@@ -21,8 +21,6 @@ class Utf8File(click.Path):
         error = self.find_utf8_error(file_path)
         if error:
             self.fail(
-                f"El archivo '{click.format_filename(file_path)}' no está "
-                f"codificado en UTF-8 ({error}). "
-                "Guárdelo como 'CSV UTF-8' y vuelva a intentar"
+                "The CSV_FILE must have UTF-8 encoding."
             )
         return file_path
