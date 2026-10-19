@@ -20,7 +20,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
 
     Ejemplo de uso:
     $ bmdbutils models fix-metadata /path/to/fix_metadata.csv /path/to/output/folder
-    """
+    """,
 )
 @click.argument("csv_file", type=Utf8File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
@@ -32,7 +32,9 @@ def fix_metadata(mongo, csv_file, out_folder):
         "⌛ Validando el archivo CSV...",
         fg="yellow",
     )
-    validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
+    validation, outFolder = mongo.validate_csv_data(
+        csv_file, command, out_folder
+    )
     if validation is True:
         click.secho(
             "✅ El archivo CSV posee el esquema necesario.",

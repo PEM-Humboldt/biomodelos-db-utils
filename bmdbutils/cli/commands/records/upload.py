@@ -41,7 +41,9 @@ def upload(mongo, csv_file, out_folder):
             fg="yellow",
         )
         command = "records"
-        validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
+        validation, outFolder = mongo.validate_csv_data(
+            csv_file, command, out_folder
+        )
         if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
