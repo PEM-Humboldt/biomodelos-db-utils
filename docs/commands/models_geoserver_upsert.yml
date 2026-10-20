@@ -28,5 +28,5 @@ notes:
     description: |
         - Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.
         - Los modelID de los modelos deben existir en la colección Models de la base de datos MongoDB de BioModelos.
-        - `MODELS_INFO`: El archivo CSV debe existir y ser accesible desde el sistema.
+        - `MODELS_INFO`: El archivo CSV debe existir y ser accesible desde el sistema. Además, debe estar codificado en UTF-8 para que las tildes y demás caracteres especiales se carguen correctamente; si no lo está, el comando se detiene antes de ejecutarse.
         - `MODELS_FOLDER`: La ruta debe ser accesible desde el sistema. 

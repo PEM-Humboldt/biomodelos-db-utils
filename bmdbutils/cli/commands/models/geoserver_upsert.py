@@ -6,6 +6,9 @@ import os
 import pandas as pd
 import click
 
+from bmdbutils.biomodelos.positional_args import Utf8File
+
+
 @click.command(
     short_help="Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos.",
     help="""Crear o actualizar los archivos de modelos en el GeoServer para modelos existentes en BioModelos
@@ -16,9 +19,9 @@ import click
     
     Ejemplo de uso:
     $ bmdbutils models geoserver-upsert /path/to/models_info.csv /path/to/models_folder
-    """
+    """,
 )
-@click.argument("models_info", type=click.File())
+@click.argument("models_info", type=Utf8File())
 @click.argument("models_folder", type=click.Path(exists=True, file_okay=False))
 @click.pass_obj
 def geoserver_upsert(obj, models_info, models_folder):

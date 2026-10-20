@@ -4,6 +4,7 @@ $ bmdbutils records validate
 
 import click
 from bmdbutils.biomodelos.mongo import Mongo
+from bmdbutils.biomodelos.positional_args import Utf8File
 
 pass_mongo = click.make_pass_decorator(Mongo)
 
@@ -20,7 +21,7 @@ pass_mongo = click.make_pass_decorator(Mongo)
     $ bmdbutils records validate /path/to/records.csv /path/to/output/folder 
     """,
 )
-@click.argument("csv_file", type=click.Path(exists=True))
+@click.argument("csv_file", type=Utf8File())
 @click.argument("out_folder", type=click.Path(exists=True, file_okay=False))
 @pass_mongo
 def validate(mongo, csv_file, out_folder):
@@ -37,7 +38,9 @@ def validate(mongo, csv_file, out_folder):
             bold=True,
         )
         command = "records"
-        validation, outFolder = mongo.validate_csv_data(csv_file, command, out_folder)
+        validation, outFolder = mongo.validate_csv_data(
+            csv_file, command, out_folder
+        )
         if validation is True:
             click.secho(
                 "✅ El archivo CSV posee el esquema necesario.",
