@@ -253,10 +253,10 @@
   Modificar metadatos de modelos cargados en la base de datos Mongo de
   BioModelos.
 
-  CSV_FILE: archivo CSV que contiene los metadatos a corregir de los modelos
+  CSV_FILE: Archivo CSV que contiene los metadatos a corregir de los modelos
   de BioModelos.
 
-  OUT_FOLDER: ruta donde se guardarán los resultados de la carga.
+  OUT_FOLDER: Ruta donde se crearán y guardarán los resultados de la carga.
 
   Ejemplo de uso: $ bmdbutils models fix-metadata /path/to/fix_metadata.csv
   /path/to/output/folder
@@ -280,7 +280,7 @@ Options:
 <li>Los taxID de las especies deben existir en la colección Species de la base de datos MongoDB de BioModelos.</li>
 <li>Debe existir algun documento en la colección Models de la base de datos MongoDB de BioModelos que coincida con el taxID y modelID del archivo CSV.</li>
 <li>Los metadatos que se van a cargar deben cumplir con el esquema de validación de la colección Models.</li>
-<li><code>CSV_FILE</code>: El archivo CSV debe existir y ser accesible desde el sistema.</li>
+<li><code>CSV_FILE</code>: El archivo CSV debe existir y ser accesible desde el sistema. Además, debe estar codificado en UTF-8 para que las tildes y demás caracteres especiales se carguen correctamente; si no lo está, el comando se detiene antes de ejecutarse.</li>
 <li><code>OUT_FOLDER</code>: La ruta debe ser accesible desde el sistema. </li>
 </ul></div>
         
