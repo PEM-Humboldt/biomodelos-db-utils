@@ -126,7 +126,7 @@ class Mongo:
         if not path.exists(path.join(outFolder)):
             makedirs(path.join(outFolder))
         try:
-            df_file = pd.read_csv(csv_file)
+            df_file = pd.read_csv(csv_file, dtype={"thresholdType": str})
             df_file.to_json(
                 "{outFolder}/{jsonFile}".format(
                     outFolder=outFolder, jsonFile=jsonFile
