@@ -126,7 +126,7 @@
        "statForestAll14": { "type": ["number", "null"], "default" : null  },
        "statForestAll16": { "type": ["number", "null"], "default" : null  },
        "taxID": { "type": "number"},
-       "thresholdType": { "type": "string", "enum" : ["0","10","20","30","Continuous"] },
+       "thresholdType": { "type": ["string", "number"], "enum" : [0,10,20,30,"Continuous"] },
        "thresholdValue": { "type": ["number", "null"]},
        "thumb": { "type": ["string", "null"]},
        "userID_bm": { "type": ["number", "null"]},
